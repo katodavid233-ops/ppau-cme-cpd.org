@@ -175,62 +175,56 @@ __o += `
 </section>
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -509,62 +503,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -892,62 +880,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -1203,62 +1185,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -1496,62 +1472,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -1814,62 +1784,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -2122,62 +2086,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -2498,62 +2456,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -2788,62 +2740,56 @@ __o += `" placeholder="re_...">
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -3122,62 +3068,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -3434,62 +3374,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -3711,62 +3645,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -4007,62 +3935,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -4295,62 +4217,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -4838,62 +4754,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -5234,62 +5144,56 @@ __o += `';
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -5574,62 +5478,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -5910,62 +5808,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -6218,62 +6110,56 @@ __o += `/quiz" class="btn btn-success w-100 py-2"><i class="bi bi-pencil-square"
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -6577,62 +6463,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -6916,62 +6796,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -7266,62 +7140,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -7556,62 +7424,56 @@ __o += `
 
 <footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
@@ -7670,62 +7532,56 @@ templates['partials/footer'] = (function(__data) {
   var __o = "";
 __o += `<footer class="site-footer mt-5">
   <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
         <div class="d-flex align-items-center mb-2">
-          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
-          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
-          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
         </div>
-        <p class="text-white-50 small mb-3">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
-        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
-        <ul class="list-unstyled small text-white-50 mb-0">
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
           <li>Self Assessment</li>
           <li>Events / PPAU Sessions</li>
           <li>Other Ways and Activities</li>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-telephone"></i> Phone</h6>
-        <p class="text-white-50 small mb-1">+256 740 657759</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-envelope"></i> General Enquiries</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">We reply within 24 hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person-badge"></i> Secretary</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Secretariat and membership correspondence</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-person"></i> President</h6>
-        <p class="text-white-50 small mb-1"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Office of the President</p>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-white fw-semibold"><i class="bi bi-geo-alt"></i> Office</h6>
-        <p class="text-white-50 small mb-1">Nakawa, Kampala, Uganda</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">Visit us during office hours</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-clock"></i> Office Hours</h6>
-        <p class="text-white-50 small mb-1">Mon to Fri: 9:00 AM to 5:00 PM</p>
-        <p class="text-white-50 small mb-3" style="font-size:0.75rem;">East Africa Time (EAT)</p>
-
-        <h6 class="text-white fw-semibold"><i class="bi bi-share"></i> Social Media</h6>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X (Twitter) @ppau_official</a></li>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
           <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
         </ul>
-
-        <hr class="border-secondary my-3">
-        <h6 class="text-white fw-semibold">Quick Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
-          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
-          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
-          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
-          <li><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
           <li><a class="link-light" href="/login">Administrator Login</a></li>
         </ul>
       </div>
