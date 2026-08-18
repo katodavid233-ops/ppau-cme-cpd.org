@@ -3936,11 +3936,10 @@ templates['index'] = (function(__data) {
   var credit_points = __data.credit_points;
   var providers = __data.providers;
   var bi = __data.bi;
-  var hospital = __data.hospital;
-  var shield = __data.shield;
+  var patch = __data.patch;
   var check = __data.check;
-  var capsule = __data.capsule;
-  var globe = __data.globe;
+  var hospital = __data.hospital;
+  var people = __data.people;
   var p = __data.p;
   var name = __data.name;
   var website = __data.website;
@@ -4329,19 +4328,19 @@ __o += `
   <div class="container">
     <div class="text-center mb-5">
       <h2 class="fw-bold">Recognised CPD Providers</h2>
-      <p class="text-secondary">Accredited organizations whose activities count towards your CPD points.</p>
+      <p class="text-secondary">Organizations and facilities accredited to provide CPD activities for Dispensers and Pharmacy Assistants.</p>
     </div>
-    <div class="row g-4">
+    <div class="row g-4 justify-content-center">
       `;
  if (providers && providers.length) { 
 __o += `
         `;
- var providerIcons = ['bi-hospital', 'bi-shield-check', 'bi-capsule', 'bi-globe']; 
+ var providerIcons = ['bi-patch-check', 'bi-hospital', 'bi-people']; 
 __o += `
         `;
  providers.forEach(function(p, i) { 
 __o += `
-          <div class="col-md-6 col-lg-3">
+          <div class="col-md-6 col-lg-4">
             <div class="card provider-card h-100">
               <div class="card-body text-center p-4">
                 <div class="provider-icon mx-auto mb-3"><i class="bi `;
