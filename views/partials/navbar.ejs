@@ -13,7 +13,8 @@
         <% const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; %>
         <% navItems.forEach(function(item) { %>
           <li class="nav-item"><a class="nav-link <%= typeof activeNav !== 'undefined' && activeNav === item.href ? 'active' : '' %>" href="<%= item.href %>"><%= item.label %></a></li>

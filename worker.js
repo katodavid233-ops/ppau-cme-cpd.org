@@ -125,9 +125,9 @@ export default {
       return htmlRes(renderView('index', { events: events.results || [], flash: flashData }));
     }
 
-    // GUIDANCE
-    if (path === '/guidance' && method === 'GET') {
-      return htmlRes(renderView('guidance', { flash: flashData }));
+    // CPD ARTICLES
+    if (path === '/cpd-articles' && method === 'GET') {
+      return htmlRes(renderView('cpd-articles', { flash: flashData }));
     }
 
     // LOGIN

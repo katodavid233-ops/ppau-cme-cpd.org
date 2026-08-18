@@ -47,7 +47,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -202,7 +203,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -426,7 +428,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -682,7 +685,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -873,7 +877,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -1066,7 +1071,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -1260,7 +1266,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -1457,7 +1464,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -1650,7 +1658,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -1868,7 +1877,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -2056,7 +2066,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -2176,6 +2187,191 @@ __o += `
   return __o;
 });
 
+templates['cpd-articles'] = (function(__data) {
+  var flash = __data.flash;
+  var include = __data.include;
+  var partials = __data.partials;
+  var header = __data.header;
+  var title = __data.title;
+  var CPD = __data.CPD;
+  var Articles = __data.Articles;
+  var navbar = __data.navbar;
+  var footer = __data.footer;
+  var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  var __o = "";
+__o += `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>`;
+__o += typeof title !== 'undefined' ? title + ' | ' : '';
+__o += `PPAU CME-CPD Portal</title>
+  <meta name="description" content="PPAU accredited Continuing Medical Education (CME) and Continuing Professional Development (CPD) portal for pharmacists.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="icon" type="image/jpeg" href="/images/ppau-logo.jpeg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark main-nav sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
+      <span><strong>PPAU</strong> <span class="text-white-50">CME-CPD</span></span>
+      <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        `;
+ const navItems = [
+          { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
+          { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
+        ]; 
+__o += `
+        `;
+ navItems.forEach(function(item) { 
+__o += `
+          <li class="nav-item"><a class="nav-link `;
+__o += typeof activeNav !== 'undefined' && activeNav === item.href ? 'active' : '';
+__o += `" href="`;
+__o += item.href;
+__o += `">`;
+__o += item.label;
+__o += `</a></li>
+        `;
+ }); 
+__o += `
+        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+`;
+ if (typeof flash !== 'undefined' && flash && flash.message) { 
+__o += `
+  <div class="container mt-3">
+    <div class="alert alert-`;
+__o += flash.type || 'info';
+__o += ` alert-dismissible fade show" role="alert">
+      <i class="bi bi-`;
+__o += flash.type === 'success' ? 'check-circle' : flash.type === 'danger' ? 'exclamation-triangle' : 'info-circle';
+__o += `"></i>
+      `;
+__o += flash.message;
+__o += `
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+`;
+ } 
+__o += `
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-journal-text"></i> CPD Articles</h4>
+    <div class="text-white-50 small">Guidance and reference materials for pharmacy professionals</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row g-4">
+
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body p-4">
+            <h5 class="fw-bold mb-3">Guidance on CPD Points, Access, Recognized Providers, Requirements and Other Relevant Information</h5>
+
+            <div class="mb-3">
+              <a href="/images/GUIDANCE-CPDs.pdf" target="_blank" class="btn btn-success px-4 me-2">
+                <i class="bi bi-download"></i> Download PDF
+              </a>
+            </div>
+
+            <div class="mb-4">
+              <img src="/images/guidance-page-1.jpg" alt="Guidance on CPD Points - Page 1" class="img-fluid rounded shadow-sm mb-3 w-100">
+              <img src="/images/guidance-page-2.jpg" alt="Guidance on CPD Points - Page 2" class="img-fluid rounded shadow-sm mb-3 w-100">
+              <img src="/images/guidance-page-3.jpg" alt="Guidance on CPD Points - Page 3" class="img-fluid rounded shadow-sm mb-3 w-100">
+            </div>
+
+            <div class="mb-3">
+              <a href="/images/GUIDANCE-CPDs.pdf" target="_blank" class="btn btn-success px-4 me-2">
+                <i class="bi bi-download"></i> Download PDF
+              </a>
+              <a href="/" class="btn btn-outline-success"><i class="bi bi-arrow-left"></i> Back to Home</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header fw-semibold"><i class="bi bi-collection"></i> All Articles</div>
+          <div class="card-body">
+            <div class="list-group list-group-flush">
+              <a href="/cpd-articles" class="list-group-item list-group-item-action active">
+                <i class="bi bi-file-earmark-text me-2"></i> Guidance on CPD Points
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer mt-5">
+  <div class="container py-4">
+    <div class="row g-4 align-items-center">
+      <div class="col-md-5">
+        <div class="d-flex align-items-center mb-2">
+          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
+          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
+          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+        </div>
+        <p class="text-white-50 small mb-0">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
+      </div>
+      <div class="col-md-4">
+        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
+        <ul class="list-unstyled small text-white-50 mb-0">
+          <li>Self Assessment</li>
+          <li>Events / PPAU Sessions</li>
+          <li>Other Ways and Activities</li>
+        </ul>
+      </div>
+      <div class="col-md-3 text-md-end">
+        <h6 class="text-white fw-semibold">Quick Links</h6>
+        <ul class="list-unstyled small mb-0">
+          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li><a class="link-light" href="/login">Administrator Login</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="border-secondary my-3">
+    <p class="text-center text-white-50 small mb-0">&copy; 2026 PPAU CME-CPD Portal. All rights reserved.</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
+`;
+
+  return __o;
+});
+
 templates['guidance'] = (function(__data) {
   var flash = __data.flash;
   var include = __data.include;
@@ -2223,7 +2419,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -2278,26 +2475,26 @@ __o += `
         <div class="card mb-4">
           <div class="card-body p-4">
             <h5 class="fw-bold mb-3">Guidance on CPD Points, Access, Recognized Providers, Requirements and Other Relevant Information</h5>
-            <p class="text-secondary mb-3">
-              This document provides comprehensive guidance on Continuing Professional Development (CPD) for pharmacy professionals in Uganda, covering:
-            </p>
-            <ul class="text-secondary mb-4">
-              <li>CPD points structure and annual requirements</li>
-              <li>Recognized CPD providers and activities</li>
-              <li>Requirements for earning CPD points</li>
-              <li>Registration and verification procedures</li>
-              <li>Other relevant information for pharmacy professionals</li>
-            </ul>
 
-            <div class="text-center my-4">
-              <a href="/images/GUIDANCE-CPDs.pdf" target="_blank" class="btn btn-success btn-lg px-4">
-                <i class="bi bi-file-earmark-pdf"></i> View Guidance Document (PDF)
+            <div class="mb-3">
+              <a href="/images/GUIDANCE-CPDs.pdf" target="_blank" class="btn btn-success px-4 me-2">
+                <i class="bi bi-download"></i> Download PDF
               </a>
+              <a href="/" class="btn btn-outline-success"><i class="bi bi-arrow-left"></i> Back to Home</a>
             </div>
 
-            <p class="text-secondary small text-center">
-              Click the button above to open or download the full guidance document.
-            </p>
+            <div class="mb-4">
+              <img src="/images/GUIDANCE%20TO%20DISPENSERS%20AND%20PHARMACY%20ASSISTANTS%20ON%20CPDs_pages-to-jpg-0001.jpg" alt="Guidance on CPD Points - Page 1" class="img-fluid rounded shadow-sm mb-3 w-100">
+              <img src="/images/GUIDANCE%20TO%20DISPENSERS%20AND%20PHARMACY%20ASSISTANTS%20ON%20CPDs_pages-to-jpg-0002.jpg" alt="Guidance on CPD Points - Page 2" class="img-fluid rounded shadow-sm mb-3 w-100">
+              <img src="/images/GUIDANCE%20TO%20DISPENSERS%20AND%20PHARMACY%20ASSISTANTS%20ON%20CPDs_pages-to-jpg-0003.jpg" alt="Guidance on CPD Points - Page 3" class="img-fluid rounded shadow-sm mb-3 w-100">
+            </div>
+
+            <div class="mb-3">
+              <a href="/images/GUIDANCE-CPDs.pdf" target="_blank" class="btn btn-success px-4 me-2">
+                <i class="bi bi-download"></i> Download PDF
+              </a>
+              <a href="/" class="btn btn-outline-success"><i class="bi bi-arrow-left"></i> Back to Home</a>
+            </div>
           </div>
         </div>
 
@@ -2415,7 +2612,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -2747,7 +2945,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -3032,7 +3231,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -3270,7 +3470,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -3487,7 +3688,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -3686,7 +3888,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -3936,7 +4139,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -4158,7 +4362,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -4385,7 +4590,8 @@ __o += `PPAU CME-CPD Portal</title>
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
@@ -4645,6 +4851,12 @@ templates['partials/navbar'] = (function(__data) {
   var and = __data.and;
   var Activities = __data.Activities;
   var briefcase = __data.briefcase;
+  var cpd = __data.cpd;
+  var articles = __data.articles;
+  var CPD = __data.CPD;
+  var Articles = __data.Articles;
+  var journal = __data.journal;
+  var text = __data.text;
   var forEach = __data.forEach;
   var item = __data.item;
   var activeNav = __data.activeNav;
@@ -4667,7 +4879,8 @@ __o += `<nav class="navbar navbar-expand-lg navbar-dark main-nav sticky-top">
  const navItems = [
           { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
           { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
-          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' }
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
         ]; 
 __o += `
         `;
