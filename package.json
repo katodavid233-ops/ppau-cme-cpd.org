@@ -1,0 +1,22 @@
+{
+  "name": "ppau-cme-cpd",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "build:views": "node scripts/build-views.js",
+    "deploy": "npm run build:views && wrangler deploy",
+    "smoke": "node scripts/_smoke-test.js",
+    "seed": "node scripts/seedData.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "ejs": "^3.1.10",
+    "cookie": "^0.6.0",
+    "multer": "^1.4.5-lts.1",
+    "pdfmake": "^0.2.10"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

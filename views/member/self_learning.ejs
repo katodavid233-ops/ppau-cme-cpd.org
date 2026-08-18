@@ -1,0 +1,83 @@
+<%- include('../partials/header', { title: 'Other Ways and Activities' }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-briefcase"></i> Other Ways and Activities</h4>
+    <div class="text-white-50 small">Done something worth CPD credit at work or through an approved activity? Share it here &mdash; our team reviews it and awards points.</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <div class="card">
+          <div class="card-header fw-semibold"><i class="bi bi-plus-circle"></i> New Submission</div>
+          <div class="card-body">
+            <form method="post" action="/member/self-learning" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label class="form-label">Full name *</label>
+                <input type="text" name="full_name" class="form-control" placeholder="e.g. Jane Atim" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">PPAU Registration Number *</label>
+                <input type="text" name="ppau_reg_no" class="form-control" placeholder="e.g. PPAU-PRO-2026-00001" pattern="PPAU-PRO-\d{4}-\d{5}" required>
+                <div class="form-text small">Format: PPAU-PRO-YYYY-00000</div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">AHPC Registration Number *</label>
+                <input type="text" name="ahpc_reg_no" class="form-control" placeholder="e.g. AHPC/DSP/12345" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email <span class="text-secondary">(optional)</span></label>
+                <input type="email" name="email" class="form-control" placeholder="you@example.com">
+              </div>
+              <hr class="my-3">
+              <div class="mb-3">
+                <label class="form-label">Title of learning activity *</label>
+                <input type="text" name="title" class="form-control" placeholder="e.g. Pharmacy internal CPD on hypertension counselling" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Description &amp; reflection *</label>
+                <textarea name="description" class="form-control" rows="5" placeholder="Describe the activity, what you learned, and how you applied it in practice." required></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Evidence file (PDF, DOC, PNG, JPG &mdash; max 5MB)</label>
+                <input type="file" name="evidence_file" class="form-control">
+              </div>
+              <button type="submit" class="btn btn-success w-100"><i class="bi bi-send"></i> Submit for review</button>
+              <p class="small text-secondary mt-2 mb-0"><i class="bi bi-info-circle"></i> Points are added once our team approves your submission &mdash; usually within a few days.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="card">
+          <div class="card-header fw-semibold"><i class="bi bi-clock-history"></i> My Submissions</div>
+          <div class="card-body p-0">
+            <% if (submissions && submissions.length) { %>
+              <table class="table mb-0">
+                <thead><tr><th>Title</th><th>Status</th><th>Points</th></tr></thead>
+                <tbody>
+                  <% submissions.forEach(function(s) { %>
+                    <tr>
+                      <td><%= s.title %></td>
+                      <td><span class="badge text-bg-<%= s.status === 'approved' ? 'success' : s.status === 'rejected' ? 'danger' : 'warning' %>"><%= s.status %></span></td>
+                      <td><%= s.points_awarded %></td>
+                    </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            <% } else { %>
+              <div class="text-center py-5 text-secondary"><i class="bi bi-inbox fs-1 d-block mb-2"></i>Nothing here yet &mdash; submit your first activity and it'll show up here.</div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

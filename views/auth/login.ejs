@@ -1,0 +1,41 @@
+<%- include('../partials/header', { title: 'Administrator Login' }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="auth-section py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="card auth-card">
+          <div class="card-body p-4 p-md-5">
+            <div class="text-center mb-4">
+              <span class="auth-icon"><i class="bi bi-shield-lock"></i></span>
+              <h4 class="fw-bold mt-3 mb-1">Administrator Login</h4>
+              <p class="text-secondary small">This is the staff entrance &mdash; for PPAU administrators only. Pharmacists don&rsquo;t need to log in; just study and claim your points with your PPAU registration number.</p>
+            </div>
+            <form method="post" action="/login" novalidate>
+              <div class="mb-3">
+                <label class="form-label">Email address</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                  <input type="email" name="email" class="form-control" placeholder="admin@ppau.org" required autofocus>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label class="form-label">Password</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                  <input type="password" name="password" class="form-control" placeholder="Your password" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-success w-100 py-2"><i class="bi bi-box-arrow-in-right"></i> Login</button>
+            </form>
+            <p class="text-center small mt-4 mb-0"><a href="/member/modules" class="text-decoration-none"><i class="bi bi-book"></i> Go to E-Learning instead</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

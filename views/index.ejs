@@ -1,0 +1,178 @@
+<%- include('partials/header', { title: 'Welcome to PPAU CME-CPD Portal' }) %>
+<%- include('partials/navbar') %>
+<%- include('partials/flash') %>
+
+<section class="hero">
+  <div class="hero-bg-photo" aria-hidden="true">
+    <img src="/images/ppau-agm.jpg" alt="">
+  </div>
+  <div class="container py-5">
+    <div class="row align-items-center g-5 py-4">
+      <div class="col-lg-9">
+        <span class="badge text-bg-light mb-3 px-3 py-2"><i class="bi bi-patch-check-fill text-success"></i> Accredited CPD for pharmacy professionals</span>
+        <h1 class="display-4 fw-bold text-white mb-3">Stay current in practice, and earn your CPD points along the way</h1>
+        <p class="lead text-white-50 mb-4">PPAU brings continuing education to your phone or computer. Work through accredited modules, attend conferences, catch up on journal reviews &mdash; then claim your points and certificate using your PPAU registration number. No account needed to start.</p>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="/member/start" class="btn btn-success btn-lg px-4"><i class="bi bi-book"></i> Begin CPD Activities</a>
+          <a href="/login" class="btn btn-outline-light btn-lg px-4"><i class="bi bi-shield-lock"></i> Admin Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="styles" class="py-5 wm-section">
+  <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Three ways to earn your CPD points</h2>
+      <p class="text-secondary">Pick whatever fits your week &mdash; most members mix a few of these.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="card style-card h-100">
+          <div class="card-body p-4">
+            <div class="style-icon mb-3"><i class="bi bi-laptop"></i></div>
+            <h5 class="fw-bold">1. Self Assessment</h5>
+            <p class="text-secondary small mb-3">Short, accredited assessments you take at your own pace, each with a quick scored questionnaire.</p>
+            <span class="badge text-bg-success">Auto-graded &middot; points on 70% pass</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card style-card h-100">
+          <div class="card-body p-4">
+            <div class="style-icon mb-3"><i class="bi bi-easel"></i></div>
+            <h5 class="fw-bold">2. Events / PPAU Sessions</h5>
+            <p class="text-secondary small mb-3">We advertise accredited events &mdash; attend, then claim your points once your attendance is confirmed.</p>
+            <span class="badge text-bg-info">Attendance verified &middot; instant points</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card style-card h-100">
+          <div class="card-body p-4">
+            <div class="style-icon mb-3"><i class="bi bi-briefcase"></i></div>
+            <h5 class="fw-bold">3. Other Ways and Activities</h5>
+            <p class="text-secondary small mb-3">Learned something worth counting? Share it with a short reflection and we'll review it.</p>
+            <span class="badge text-bg-warning text-dark">Admin approved &middot; points awarded</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="events" class="py-5 bg-light wm-section">
+  <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-5">
+      <div>
+        <h2 class="fw-bold mb-1">Upcoming Events &amp; PPAU Sessions</h2>
+        <p class="text-secondary mb-0">Attend, then claim your CPD points once your attendance is confirmed.</p>
+      </div>
+      <a href="/member/events" class="btn btn-outline-success btn-sm px-3">View all events <i class="bi bi-arrow-right"></i></a>
+    </div>
+    <% var eventColors = ['event-mint', 'event-sky', 'event-lilac', 'event-peach']; %>
+    <% if (events && events.length) { %>
+      <div class="row g-4">
+        <% events.forEach(function(ev, i) { %>
+          <div class="col-md-6 col-lg-4">
+            <div class="card event-card h-100 <%= eventColors[i % eventColors.length] %>">
+              <div class="card-body d-flex flex-column p-4">
+                <div class="event-icon-sm mb-3"><i class="bi bi-easel"></i></div>
+                <h6 class="fw-bold"><%= ev.title %></h6>
+                <p class="text-secondary small flex-grow-1"><%= ev.description %></p>
+                <div class="small text-secondary mb-3">
+                  <div><i class="bi bi-geo-alt"></i> <%= ev.venue %></div>
+                  <div><i class="bi bi-calendar-event"></i> <%= ev.event_date %></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="badge text-bg-primary"><%= ev.credit_points %> CPD points</span>
+                  <a href="/member/events" class="btn btn-sm btn-outline-success">Claim points</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<section id="how" class="py-5 wm-section">
+  <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">How does it work</h2>
+      <p class="text-secondary">Four simple steps from joining to earning your CPD points.</p>
+    </div>
+    <div class="row g-4 text-center">
+      <div class="col-md-3"><div class="step-num">1</div><h6 class="fw-bold mt-3">Get Your Membership ID</h6><p class="text-secondary small">Register with PPAU to get your membership ID.</p></div>
+      <div class="col-md-3"><div class="step-num">2</div><h6 class="fw-bold mt-3">Register for CPD Activities</h6><p class="text-secondary small">Register through the PPAU CPD platform or the announced CPD programmes.</p></div>
+      <div class="col-md-3"><div class="step-num">3</div><h6 class="fw-bold mt-3">Participate in CPD Activities</h6><p class="text-secondary small">Attend the CME, webinar, workshop, seminar or other approved learning activity.</p></div>
+      <div class="col-md-3"><div class="step-num">4</div><h6 class="fw-bold mt-3">Earn and Track Your CPD Points</h6><p class="text-secondary small">Complete the required assessment or participation requirements, and ensure the points are recorded against your membership.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="non-cpd" class="py-5 bg-light wm-section">
+  <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="text-center mb-4">
+          <h2 class="fw-bold">Activities that do NOT qualify as CPD</h2>
+          <p class="text-secondary mb-0">Not every professional task counts towards your CPD points.</p>
+        </div>
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4 p-lg-5">
+            <ul class="mb-0 list-check">
+              <li>Holding a portfolio on the professional Council, Boards or any other structure</li>
+              <li>Time spent planning, organizing, or facilitating any activities</li>
+              <li>Daily ward rounds</li>
+              <li>Written assignments</li>
+              <li>Compilation of student training manuals for internal use</li>
+              <li>Staff and/or administrative meetings</li>
+              <li>Tours and/or viewing of exhibits and technological demonstration</li>
+              <li>Presentations and publications for the public</li>
+              <li>Meetings arranged by pharmaceutical companies and manufacturers or importers of products and technical devices for purposes of marketing their products</li>
+              <li>Lecturing or teaching if it is in your Terms of Reference (TOR)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="py-5 wm-section">
+  <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h2 class="fw-bold text-center mb-4">Frequently Asked Questions</h2>
+        <div class="accordion" id="faqAcc">
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">How many points do I need per year?</button></h2>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAcc"><div class="accordion-body">The annual target is set by PPAU &mdash; by default, 30 points a year. You can watch your progress build up on your member dashboard.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">What if I don't pass the assessment?</button></h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Every assessment needs a score of at least 70%. Pass and the module&rsquo;s points are credited straight away. Miss it? No problem &mdash; you can retake the assessment as many times as you need.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Are the modules free?</button></h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Yes. All accredited content is free to learn &mdash; no login or registration needed. Once you pass, enter your PPAU and AHPC registration numbers to claim your CPD points and certificate.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">Do I get a certificate?</button></h2>
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Yes. Every module you pass comes with a printable certificate carrying a unique code, so employers and the council can verify it online.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

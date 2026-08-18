@@ -1,0 +1,46 @@
+<%- include('../partials/header', { title: 'Claims' }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-clipboard-check"></i> All Claims</h4>
+    <div class="text-white-50 small">View all CPD claims from modules and events.</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="card">
+      <div class="card-body p-0">
+        <% if (claims && claims.length) { %>
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead><tr><th>Name</th><th>PPAU No</th><th>Source</th><th>Module/Event</th><th>Score</th><th>Points</th><th>Status</th><th>Code</th><th>Date</th></tr></thead>
+              <tbody>
+                <% claims.forEach(function(c) { %>
+                  <tr>
+                    <td><%= c.full_name %></td>
+                    <td><code class="small"><%= c.ppau_reg_no %></code></td>
+                    <td><span class="badge text-bg-<%= c.source === 'module' ? 'success' : 'info' %>"><%= c.source %></span></td>
+                    <td class="small"><%= c.module_title || c.event_title || '—' %></td>
+                    <td><%= c.score != null ? c.score + '%' : '—' %></td>
+                    <td><%= c.points_awarded %></td>
+                    <td><span class="badge text-bg-<%= c.status === 'approved' ? 'success' : c.status === 'rejected' ? 'danger' : 'warning' %>"><%= c.status %></span></td>
+                    <td class="small"><code><%= c.certificate_code %></code></td>
+                    <td class="small"><%= c.created_at %></td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        <% } else { %>
+          <div class="text-center py-5 text-secondary">No claims yet.</div>
+        <% } %>
+      </div>
+    </div>
+    <div class="mt-3"><a href="/admin" class="text-decoration-none"><i class="bi bi-arrow-left"></i> Back to dashboard</a></div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

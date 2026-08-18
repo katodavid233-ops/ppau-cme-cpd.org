@@ -1,0 +1,72 @@
+<%- include('../partials/header', { title: 'New Module' }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-plus-circle"></i> New Module</h4>
+    <div class="text-white-50 small">Create a new CPD module.</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <form method="post" action="/admin/modules/new">
+          <div class="card mb-4">
+            <div class="card-header fw-semibold">Module Details</div>
+            <div class="card-body">
+              <div class="mb-3">
+                <label class="form-label">Title *</label>
+                <input type="text" name="title" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Summary</label>
+                <textarea name="summary" class="form-control" rows="3"></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Content (HTML)</label>
+                <textarea name="content" class="form-control" rows="8" placeholder="<h4>Learning objectives</h4><p>...</p>"></textarea>
+              </div>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="form-label">Style</label>
+                  <select name="style_id" class="form-select">
+                    <option value="1">E-Learning / CME</option>
+                    <option value="2">Conference</option>
+                    <option value="3">Journal Review</option>
+                    <option value="4">Self-Directed</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">CPD Points</label>
+                  <input type="number" name="credit_points" class="form-control" step="0.5" value="4">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Duration (min)</label>
+                  <input type="number" name="duration_mins" class="form-control" value="30">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-header fw-semibold">Questions (JSON)</div>
+            <div class="card-body">
+              <p class="small text-secondary">Provide questions as JSON array. Each item needs: question, option_a, option_b, option_c, option_d, correct_option (A/B/C/D).</p>
+              <textarea name="questions" class="form-control font-monospace" rows="10" placeholder='[{"question":"...","option_a":"...","option_b":"...","option_c":"...","option_d":"...","correct_option":"A"}]'></textarea>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-success"><i class="bi bi-check-circle"></i> Create Module</button>
+            <a href="/admin/modules" class="btn btn-outline-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

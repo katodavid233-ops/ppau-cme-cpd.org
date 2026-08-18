@@ -1,0 +1,57 @@
+<%- include('../partials/header', { title: 'New Event' }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-plus-circle"></i> New Event</h4>
+    <div class="text-white-50 small">Create a new PPAU session or event.</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <form method="post" action="/admin/events/new">
+          <div class="card">
+            <div class="card-body">
+              <div class="mb-3">
+                <label class="form-label">Title *</label>
+                <input type="text" name="title" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea name="description" class="form-control" rows="4"></textarea>
+              </div>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Venue</label>
+                  <input type="text" name="venue" class="form-control" placeholder="e.g. ONLINE (google meet)">
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Event Date</label>
+                  <input type="date" name="event_date" class="form-control">
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Event Time</label>
+                  <input type="time" name="event_time" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">CPD Points</label>
+                  <input type="number" name="credit_points" class="form-control" step="0.5" value="10">
+                </div>
+              </div>
+              <div class="mt-4 d-flex gap-2">
+                <button type="submit" class="btn btn-success"><i class="bi bi-check-circle"></i> Create Event</button>
+                <a href="/admin/events" class="btn btn-outline-secondary">Cancel</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

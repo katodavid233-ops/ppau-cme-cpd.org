@@ -1,0 +1,88 @@
+<%- include('../partials/header', { title: 'Admin Dashboard' }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-speedometer2"></i> Admin Dashboard</h4>
+    <div class="text-white-50 small">Manage modules, events, claims and submissions.</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row g-4 mb-4">
+      <div class="col-md-4 col-lg">
+        <div class="card stat-card text-center p-3">
+          <div class="stat-label">Modules</div>
+          <div class="stat-value text-success"><%= totalModules %></div>
+          <a href="/admin/modules" class="small">Manage <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg">
+        <div class="card stat-card text-center p-3">
+          <div class="stat-label">Events</div>
+          <div class="stat-value text-info"><%= totalEvents %></div>
+          <a href="/admin/events" class="small">Manage <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg">
+        <div class="card stat-card text-center p-3">
+          <div class="stat-label">Approved Claims</div>
+          <div class="stat-value text-primary"><%= totalClaims %></div>
+          <a href="/admin/claims" class="small">View <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg">
+        <div class="card stat-card text-center p-3">
+          <div class="stat-label">Admins</div>
+          <div class="stat-value"><%= totalUsers %></div>
+          <a href="/admin/users" class="small">Manage <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg">
+        <div class="card stat-card text-center p-3">
+          <div class="stat-label">Pending Reviews</div>
+          <div class="stat-value text-warning"><%= pendingSubmissions %></div>
+          <a href="/admin/submissions" class="small">Review <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header fw-semibold"><i class="bi bi-clock-history"></i> Recent Claims</div>
+      <div class="card-body p-0">
+        <% if (recentClaims && recentClaims.length) { %>
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead><tr><th>Name</th><th>PPAU No</th><th>Source</th><th>Points</th><th>Status</th><th>Date</th></tr></thead>
+              <tbody>
+                <% recentClaims.forEach(function(c) { %>
+                  <tr>
+                    <td><%= c.full_name %></td>
+                    <td><code><%= c.ppau_reg_no %></code></td>
+                    <td><span class="badge text-bg-<%= c.source === 'module' ? 'success' : 'info' %>"><%= c.source %></span></td>
+                    <td><%= c.points_awarded %></td>
+                    <td><span class="badge text-bg-<%= c.status === 'approved' ? 'success' : c.status === 'rejected' ? 'danger' : 'warning' %>"><%= c.status %></span></td>
+                    <td class="small"><%= c.created_at %></td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        <% } else { %>
+          <div class="text-center py-4 text-secondary">No claims yet.</div>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="mt-4 d-flex flex-wrap gap-2">
+      <a href="/admin/modules/new" class="btn btn-success"><i class="bi bi-plus-circle"></i> New Module</a>
+      <a href="/admin/events/new" class="btn btn-success"><i class="bi bi-plus-circle"></i> New Event</a>
+      <a href="/admin/settings" class="btn btn-outline-success"><i class="bi bi-gear"></i> Settings</a>
+      <a href="/logout" class="btn btn-outline-danger"><i class="bi bi-box-arrow-right"></i> Logout</a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

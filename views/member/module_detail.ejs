@@ -1,0 +1,42 @@
+<%- include('../partials/header', { title: mod.title }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="page-header py-4">
+  <div class="container">
+    <a href="/member/modules" class="small text-white-50 text-decoration-none"><i class="bi bi-arrow-left"></i> Back to modules</a>
+    <h4 class="fw-bold mb-0 mt-1"><%= mod.title %></h4>
+    <div class="text-white-50 small"><span class="badge text-bg-light text-dark"><i class="bi bi-laptop"></i> <%= mod.style.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) %></span></div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body p-4 p-md-5">
+            <div class="d-flex flex-wrap gap-2 mb-4">
+              <span class="badge text-bg-primary"><i class="bi bi-patch-check"></i> <%= mod.credit_points %> CPD points</span>
+              <span class="badge text-bg-info"><i class="bi bi-clock"></i> ~<%= mod.duration_minutes %> minutes</span>
+              <span class="badge text-bg-warning text-dark"><i class="bi bi-trophy"></i> Pass mark <%= mod.pass_mark %>%</span>
+            </div>
+            <div class="module-content"><%- mod.content %></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card sticky-top" style="top: 90px; z-index: 1;">
+          <div class="card-body">
+            <h6 class="fw-bold"><i class="bi bi-journal-check"></i> Assessment</h6>
+            <p class="text-secondary small">Once you've read through the content, take the quiz. Score at least <strong><%= mod.pass_mark %>%</strong> to earn <%= mod.credit_points %> points. We verify your PPAU number before issuing points and your certificate.</p>
+            <a href="/member/module/<%= mod.id %>/quiz" class="btn btn-success w-100 py-2"><i class="bi bi-pencil-square"></i> Take Assessment</a>
+            <p class="small text-secondary mt-2 mb-0 text-center"><i class="bi bi-arrow-repeat"></i> No pressure &mdash; you can retake the quiz as often as you need.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

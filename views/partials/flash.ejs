@@ -1,0 +1,9 @@
+<% if (typeof flash !== 'undefined' && flash && flash.message) { %>
+  <div class="container mt-3">
+    <div class="alert alert-<%= flash.type || 'info' %> alert-dismissible fade show" role="alert">
+      <i class="bi bi-<%= flash.type === 'success' ? 'check-circle' : flash.type === 'danger' ? 'exclamation-triangle' : 'info-circle' %>"></i>
+      <%= flash.message %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+<% } %>

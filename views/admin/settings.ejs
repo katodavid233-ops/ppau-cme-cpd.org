@@ -1,0 +1,49 @@
+<%- include('../partials/header', { title: 'Settings' }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-gear"></i> Settings</h4>
+    <div class="text-white-50 small">Configure portal settings.</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <form method="post" action="/admin/settings">
+          <div class="card mb-4">
+            <div class="card-header fw-semibold">CPD Configuration</div>
+            <div class="card-body">
+              <div class="mb-3">
+                <label class="form-label">Annual CPD Target (points)</label>
+                <input type="number" name="cpd_target" class="form-control" value="<%= cpdTarget %>" step="1">
+                <div class="form-text">Default annual target shown in FAQ.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-header fw-semibold">Email (Resend)</div>
+            <div class="card-body">
+              <div class="mb-3">
+                <label class="form-label">Resend API Key</label>
+                <input type="password" name="email_api_key" class="form-control" value="<%= emailApiKey %>" placeholder="re_...">
+                <div class="form-text">Used to send certificate emails. Leave blank to disable.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-success"><i class="bi bi-check-circle"></i> Save Settings</button>
+            <a href="/admin" class="btn btn-outline-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

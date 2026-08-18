@@ -1,0 +1,21 @@
+name = "ppau-cme-cpd"
+main = "worker.js"
+compatibility_date = "2024-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+routes = [
+  { pattern = "ppau-cme-cpd.org", zone_name = "ppau-cme-cpd.org" }
+]
+
+[vars]
+ADMIN_EMAIL = "katodavid233@gmail.com"
+ADMIN_PASSWORD = "ppau-cpd2026"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ppau-cme-cpd"
+database_id = "5ccf1a89-1b8f-40da-af72-290637d9e42d"
+
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "ppau-cme-cpd-assets"

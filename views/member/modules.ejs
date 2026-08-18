@@ -1,0 +1,55 @@
+<%- include('../partials/header', { title: 'CPD Modules' }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-laptop"></i> Self Assessment</h4>
+    <div class="text-white-50 small">Work through e-learning/CME modules and journal reviews at your own pace. Read, then pass the assessment at 70%+, and your points are credited automatically.</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="d-flex flex-wrap gap-2 mb-4">
+      <a href="/member/modules" class="btn btn-success btn-sm">All</a>
+      <a href="/member/modules?style=e_learning" class="btn btn-outline-success btn-sm"><i class="bi bi-laptop"></i> E-Learning / CME Modules</a>
+      <a href="/member/modules?style=conference" class="btn btn-outline-success btn-sm"><i class="bi bi-easel"></i> Conferences &amp; Seminars</a>
+      <a href="/member/modules?style=journal" class="btn btn-outline-success btn-sm"><i class="bi bi-journal-text"></i> Journal / Reading Review</a>
+      <a href="/member/modules?style=self_learning" class="btn btn-outline-success btn-sm"><i class="bi bi-briefcase"></i> Self-Directed / Workplace Learning</a>
+    </div>
+
+    <div class="row g-4">
+      <% var styleIcons = { e_learning: 'bi-laptop', conference: 'bi-easel', journal: 'bi-journal-text', self_learning: 'bi-briefcase' }; %>
+      <% if (modules && modules.length) { %>
+        <% modules.forEach(function(mod) { %>
+          <div class="col-md-6 col-lg-4">
+            <div class="card module-card h-100">
+              <div class="card-body d-flex flex-column p-4">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <span class="style-icon-sm"><i class="bi <%= styleIcons[mod.style] || 'bi-laptop' %>"></i></span>
+                </div>
+                <h6 class="fw-bold mb-1"><%= mod.title %></h6>
+                <div class="text-secondary small mb-2"><%= mod.description %></div>
+                <div class="d-flex flex-wrap gap-2 mb-3 small">
+                  <span class="badge text-bg-light text-dark border"><i class="bi bi-patch-check text-success"></i> <%= mod.credit_points %> CPD pts</span>
+                  <span class="badge text-bg-light text-dark border"><i class="bi bi-clock"></i> <%= mod.duration_minutes %> min</span>
+                  <span class="badge text-bg-light text-dark border"><i class="bi bi-trophy"></i> <%= mod.pass_mark %>% pass</span>
+                </div>
+                <div class="mt-auto">
+                  <a href="/member/module/<%= mod.id %>" class="btn btn-success w-100">Start Module</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <div class="col-12 text-center py-5 text-secondary">
+          <i class="bi bi-inbox fs-1 d-block mb-2"></i>No modules available yet.
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

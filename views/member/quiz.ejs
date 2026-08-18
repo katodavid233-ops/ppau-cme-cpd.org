@@ -1,0 +1,78 @@
+<%- include('../partials/header', { title: 'Assessment — ' + mod.title }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="page-header py-4">
+  <div class="container">
+    <a href="/member/module/<%= mod.id %>" class="small text-white-50 text-decoration-none"><i class="bi bi-arrow-left"></i> Back to module</a>
+    <h4 class="fw-bold mb-0 mt-1"><i class="bi bi-pencil-square"></i> Assessment</h4>
+    <div class="text-white-50 small"><%= mod.title %> &mdash; <%= mod.credit_points %> CPD points</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-header fw-semibold"><i class="bi bi-person"></i> Your Details</div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Full name *</label>
+                <input type="text" name="full_name" class="form-control" form="quizForm" placeholder="e.g. Jane Atim" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">PPAU Registration Number *</label>
+                <input type="text" name="ppau_reg_no" class="form-control" form="quizForm" placeholder="e.g. PPAU-PRO-2026-00001" pattern="PPAU-PRO-\d{4}-\d{5}" required>
+                <div class="form-text small">Format: PPAU-PRO-YYYY-00000</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">AHPC Registration Number *</label>
+                <input type="text" name="ahpc_reg_no" class="form-control" form="quizForm" placeholder="e.g. AHPC/DSP/12345" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Email <span class="text-secondary">(optional)</span></label>
+                <input type="email" name="email" class="form-control" form="quizForm" placeholder="you@example.com">
+                <div class="form-text">Used to email your certificate once passed.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form method="post" action="/member/module/<%= mod.id %>/quiz" id="quizForm">
+          <% questions.forEach(function(q, i) { %>
+            <div class="card question-card mb-3">
+              <div class="card-body p-4">
+                <h6 class="fw-bold mb-3">Question <%= i + 1 %> of <%= questions.length %></h6>
+                <p class="mb-3"><%= q.question %></p>
+                <div class="d-flex flex-column gap-2">
+                  <% ['A','B','C','D'].forEach(function(opt) { %>
+                    <label class="d-flex align-items-center gap-2 p-2 rounded border cursor-pointer hover-bg">
+                      <input type="radio" name="q_<%= q.id %>" value="<%= opt %>" required class="form-check-input">
+                      <span><%= opt %>. <%= q['option_' + opt.toLowerCase()] %></span>
+                    </label>
+                  <% }); %>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+
+          <div class="text-center mt-4">
+            <button type="submit" id="submitQuiz" class="btn btn-success btn-lg px-5 py-3">
+              <i class="bi bi-check-circle"></i> Submit &amp; Grade
+            </button>
+            <p class="small text-secondary mt-2"><i class="bi bi-shield-check"></i> We verify your PPAU number before awarding points.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.cursor-pointer { cursor: pointer; }
+.hover-bg:hover { background: rgba(20,184,166,.08); border-color: var(--ppau-teal) !important; }
+</style>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,49 @@
+<%- include('../partials/header', { title: passed ? 'Congratulations!' : 'Assessment Result' }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="page-header py-4">
+  <div class="container">
+    <a href="/member/modules" class="small text-white-50 text-decoration-none"><i class="bi bi-arrow-left"></i> Back to modules</a>
+    <h4 class="fw-bold mb-0 mt-1"><i class="bi bi-<%= passed ? 'check-circle-fill text-success' : 'x-circle-fill text-danger' %>"></i> Assessment Result</h4>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body p-4 p-md-5 text-center">
+            <% if (passed) { %>
+              <div class="mb-3">
+                <span class="badge rounded-pill px-4 py-2 cert-badge cert-badge-teal fs-5"><i class="bi bi-award-fill"></i> Passed!</span>
+              </div>
+              <h3 class="fw-bold text-success mb-2">Congratulations, <%= full_name %>!</h3>
+              <p class="lead mb-4">You scored <strong><%= score %>%</strong> (<%= correct %>/<%= total %> correct) and earned <strong><%= pointsAwarded %> CPD points</strong>.</p>
+              <div class="card bg-light border-0 mb-4">
+                <div class="card-body">
+                  <p class="mb-1"><strong>Certificate Code:</strong></p>
+                  <p class="fs-5 fw-bold text-success letter-spacing mb-2"><%= certCode %></p>
+                  <p class="small text-secondary mb-0">Keep this code safe — it can be used to verify your certificate online.</p>
+                </div>
+              </div>
+              <a href="/member/certificate/<%= certCode %>" class="btn btn-success btn-lg px-4 me-2"><i class="bi bi-download"></i> View Certificate</a>
+              <a href="/member/modules" class="btn btn-outline-success btn-lg px-4"><i class="bi bi-arrow-left"></i> More Modules</a>
+            <% } else { %>
+              <div class="mb-3">
+                <span class="badge rounded-pill px-4 py-2 bg-danger fs-5"><i class="bi bi-x-circle-fill"></i> Not quite</span>
+              </div>
+              <h3 class="fw-bold mb-2">Keep going, <%= full_name %>!</h3>
+              <p class="lead mb-4">You scored <strong><%= score %>%</strong> (<%= correct %>/<%= total %> correct). You need at least <strong><%= mod.pass_mark %>%</strong> to pass.</p>
+              <a href="/member/module/<%= mod.id %>/quiz" class="btn btn-success btn-lg px-4 me-2"><i class="bi bi-arrow-repeat"></i> Retake Quiz</a>
+              <a href="/member/module/<%= mod.id %>" class="btn btn-outline-success btn-lg px-4"><i class="bi bi-book"></i> Review Content</a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

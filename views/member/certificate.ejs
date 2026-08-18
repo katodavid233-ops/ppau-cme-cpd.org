@@ -1,0 +1,120 @@
+<%- include('../partials/header', { title: 'Certificate' }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="py-4 no-print">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <a href="/" class="btn btn-outline-success btn-sm"><i class="bi bi-arrow-left"></i> Home</a>
+      <button onclick="window.print()" class="btn btn-success btn-sm"><i class="bi bi-printer"></i> Print Certificate</button>
+    </div>
+  </div>
+</section>
+
+<section class="py-2">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="certificate p-4 p-md-5" id="certificate">
+          <div class="text-center mb-4">
+            <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
+              <img src="/images/ppau-logo.jpeg" alt="PPAU" class="cert-logo">
+              <img src="/images/ahpc-logo.jpeg" alt="AHPC" class="cert-logo">
+            </div>
+            <p class="cert-logo-caption mb-1">Pharmacy Professionals Association of Uganda</p>
+            <p class="cert-logo-caption small">Allied Health Professionals Council</p>
+            <div class="cert-flourish"></div>
+          </div>
+
+          <div class="text-center mb-4">
+            <p class="cert-kicker text-uppercase letter-spacing fw-bold">Certificate of CPD Completion</p>
+            <h3 class="cert-title fw-bold">Continuing Professional Development</h3>
+          </div>
+
+          <div class="text-center mb-4">
+            <p class="small text-secondary mb-1">This is to certify that</p>
+            <h4 class="cert-name"><%= item.full_name %></h4>
+            <p class="small text-secondary mb-1">PPAU Reg. No: <strong><%= item.ppau_reg_no %></strong></p>
+            <% if (item.ahpc_reg_no) { %>
+              <p class="small text-secondary mb-0">AHPC Reg. No: <strong><%= item.ahpc_reg_no %></strong></p>
+            <% } %>
+          </div>
+
+          <div class="text-center mb-4">
+            <p class="small text-secondary mb-1">has successfully completed</p>
+            <h5 class="cert-module-title fw-bold"><%= item.module_title || item.event_title || item.title %></h5>
+            <p class="small text-secondary mb-1">and is awarded</p>
+            <h4 class="fw-bold text-success"><%= item.points_awarded %> CPD Points</h4>
+          </div>
+
+          <hr class="cert-divider my-4">
+
+          <div class="d-flex justify-content-between align-items-end">
+            <div>
+              <p class="small mb-1"><strong>Certificate Code:</strong></p>
+              <p class="fw-bold letter-spacing mb-0"><%= certCode %></p>
+            </div>
+            <div class="text-end">
+              <p class="small mb-1"><strong>Date Issued:</strong></p>
+              <p class="mb-0"><%= item.created_at %></p>
+            </div>
+          </div>
+
+          <div class="text-center mt-4">
+            <p class="small text-secondary mb-1">Verify this certificate at</p>
+            <p class="fw-bold text-success mb-0">ppau-cme-cpd.org/api/verify/<%= certCode %></p>
+          </div>
+        </div>
+
+        <div class="text-center mt-4 no-print">
+          <button onclick="downloadPDF()" class="btn btn-success px-4"><i class="bi bi-download"></i> Download PDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js"></script>
+<script>
+function downloadPDF() {
+  var certCode = '<%= certCode %>';
+  var name = '<%= item.full_name %>';
+  var ppau = '<%= item.ppau_reg_no %>';
+  var module = '<%= item.module_title || item.event_title || item.title %>';
+  var points = '<%= item.points_awarded %>';
+  var date = '<%= item.created_at %>';
+
+  var docDefinition = {
+    pageSize: 'A4',
+    pageOrientation: 'landscape',
+    content: [
+      { text: 'PPAU CME-CPD PORTAL', style: 'header', alignment: 'center' },
+      { text: 'Certificate of CPD Completion', style: 'subheader', alignment: 'center', margin: [0, 10, 0, 20] },
+      { text: 'This is to certify that', alignment: 'center', margin: [0, 20, 0, 5] },
+      { text: name, style: 'name', alignment: 'center', margin: [0, 5, 0, 5] },
+      { text: 'PPAU Reg. No: ' + ppau, alignment: 'center', margin: [0, 0, 0, 10] },
+      { text: 'has successfully completed', alignment: 'center', margin: [0, 10, 0, 5] },
+      { text: module, style: 'module', alignment: 'center', margin: [0, 5, 0, 5] },
+      { text: 'and is awarded ' + points + ' CPD Points', alignment: 'center', margin: [0, 5, 0, 20] },
+      { canvas: [{ type: 'line', x1: 200, y1: 0, x2: 595, y2: 0, lineWidth: 1, lineColor: '#14b8a6' }], margin: [0, 10, 0, 20] },
+      { columns: [
+        { text: 'Certificate Code:\n' + certCode, width: '50%' },
+        { text: 'Date Issued:\n' + date, width: '50%', alignment: 'right' }
+      ], margin: [40, 0, 40, 10] },
+      { text: 'Verify at ppau-cme-cpd.org/api/verify/' + certCode, alignment: 'center', margin: [0, 10, 0, 0], style: 'small' }
+    ],
+    styles: {
+      header: { fontSize: 18, bold: true, color: '#0f766e' },
+      subheader: { fontSize: 14, bold: true, color: '#115e59' },
+      name: { fontSize: 22, bold: true, color: '#115e59' },
+      module: { fontSize: 14, bold: true, color: '#115e59' },
+      small: { fontSize: 8, color: '#64748b' }
+    },
+    defaultStyle: { font: 'Roboto' }
+  };
+  pdfMake.createPdf(docDefinition).download('PPAU-CPD-Certificate-' + certCode + '.pdf');
+}
+</script>
+
+<%- include('../partials/footer') %>

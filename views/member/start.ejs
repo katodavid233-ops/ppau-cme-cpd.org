@@ -1,0 +1,52 @@
+<%- include('../partials/header', { title: 'Choose Your CPD Activity' }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-rocket-takeoff"></i> Begin CPD Activities</h4>
+    <div class="text-white-50 small">Choose which CPD activity you would like to start with &mdash; you can do all of them.</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="card style-card h-100">
+          <div class="card-body d-flex flex-column p-4">
+            <div class="style-icon mb-3"><i class="bi bi-laptop"></i></div>
+            <h5 class="fw-bold">Self Assessment</h5>
+            <p class="text-secondary small flex-grow-1 mb-3">Work through e-learning/CME modules and journal reviews at your own pace. Pass the assessment at 70% and your points are credited automatically.</p>
+            <span class="badge text-bg-success mb-3">Auto-graded &middot; instant points</span>
+            <a href="/member/modules" class="btn btn-success w-100">Start Self Assessment</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card style-card h-100">
+          <div class="card-body d-flex flex-column p-4">
+            <div class="style-icon mb-3"><i class="bi bi-easel"></i></div>
+            <h5 class="fw-bold">Events / PPAU Sessions</h5>
+            <p class="text-secondary small flex-grow-1 mb-3">Attend accredited conferences, seminars and PPAU sessions, then claim your points once your attendance is confirmed.</p>
+            <span class="badge text-bg-info mb-3">Attendance verified &middot; instant points</span>
+            <a href="/member/events" class="btn btn-success w-100">Browse Events &amp; Sessions</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card style-card h-100">
+          <div class="card-body d-flex flex-column p-4">
+            <div class="style-icon mb-3"><i class="bi bi-briefcase"></i></div>
+            <h5 class="fw-bold">Other Ways and Activities</h5>
+            <p class="text-secondary small flex-grow-1 mb-3">Learned something on the job or through an approved activity worth counting? Share it and we'll review it for points.</p>
+            <span class="badge text-bg-warning text-dark mb-3">Admin approved &middot; points awarded</span>
+            <a href="/member/self-learning" class="btn btn-success w-100">See Other Activities</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>
