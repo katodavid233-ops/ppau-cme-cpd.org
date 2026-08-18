@@ -102,6 +102,18 @@ export default {
       try { flashData = JSON.parse(decodeURIComponent(cookies._flash)); } catch (e) {}
     }
 
+    // Fetch notifications for navbar
+    let notifications = [];
+    let notifCount = 0;
+    try {
+      const notifResult = await DB.prepare('SELECT * FROM notifications ORDER BY created_at DESC LIMIT 10').all();
+      notifications = notifResult.results || [];
+      const countResult = await DB.prepare('SELECT COUNT(*) as count FROM notifications').first();
+      notifCount = countResult?.count || 0;
+    } catch (e) { /* table may not exist yet */ }
+
+    const viewData = { flash: flashData, notifications, notifCount };
+
     // Static files — serve from R2 or public asset bundle
     if (path.startsWith('/css/') || path.startsWith('/js/') || path.startsWith('/images/')) {
       if (env.R2) {
@@ -122,17 +134,18 @@ export default {
     // HOME
     if (path === '/' && method === 'GET') {
       const events = await DB.prepare('SELECT * FROM events WHERE is_published = 1 ORDER BY event_date ASC LIMIT 6').all();
-      return htmlRes(renderView('index', { events: events.results || [], flash: flashData }));
+      const providers = await DB.prepare('SELECT * FROM cpd_providers WHERE is_active = 1 ORDER BY sort_order ASC').all();
+      return htmlRes(renderView('index', { ...viewData, events: events.results || [], providers: providers.results || [] }));
     }
 
     // CPD ARTICLES
     if (path === '/cpd-articles' && method === 'GET') {
-      return htmlRes(renderView('cpd-articles', { flash: flashData }));
+      return htmlRes(renderView('cpd-articles', viewData));
     }
 
     // LOGIN
     if (path === '/login' && method === 'GET') {
-      return htmlRes(renderView('auth/login', { flash: flashData }));
+      return htmlRes(renderView('auth/login', viewData));
     }
     if (path === '/login' && method === 'POST') {
       const body = await request.formData();
@@ -159,7 +172,7 @@ export default {
 
     // MEMBER START
     if (path === '/member/start' && method === 'GET') {
-      return htmlRes(renderView('member/start', { flash: flashData }));
+      return htmlRes(renderView('member/start', viewData));
     }
 
     // MEMBER MODULES (list)
@@ -171,7 +184,7 @@ export default {
       } else {
         modules = await DB.prepare('SELECT m.*, s.name as style_name, s.slug as style FROM modules m LEFT JOIN cpd_styles s ON m.style_id = s.id WHERE m.is_published = 1 ORDER BY m.id ASC').all();
       }
-      return htmlRes(renderView('member/modules', { modules: modules.results || [], currentStyle: style, flash: flashData }));
+      return htmlRes(renderView('member/modules', { ...viewData, modules: modules.results || [], currentStyle: style }));
     }
 
     // MEMBER MODULE DETAIL
@@ -180,7 +193,7 @@ export default {
       const moduleId = parseInt(moduleMatch[1]);
       const mod = await DB.prepare('SELECT m.*, s.name as style_name, s.slug as style FROM modules m LEFT JOIN cpd_styles s ON m.style_id = s.id WHERE m.id = ?').bind(moduleId).first();
       if (!mod) return redirect('/member/modules');
-      return htmlRes(renderView('member/module_detail', { mod, flash: flashData }));
+      return htmlRes(renderView('member/module_detail', { ...viewData, mod }));
     }
 
     // MEMBER QUIZ
@@ -190,7 +203,7 @@ export default {
       const mod = await DB.prepare('SELECT m.*, s.name as style_name, s.slug as style FROM modules m LEFT JOIN cpd_styles s ON m.style_id = s.id WHERE m.id = ?').bind(moduleId).first();
       if (!mod) return redirect('/member/modules');
       const questions = await DB.prepare('SELECT * FROM questions WHERE module_id = ? ORDER BY id ASC').bind(moduleId).all();
-      return htmlRes(renderView('member/quiz', { mod, questions: questions.results || [], flash: flashData }));
+      return htmlRes(renderView('member/quiz', { ...viewData, mod, questions: questions.results || [] }));
     }
 
     // MEMBER QUIZ SUBMIT
@@ -240,14 +253,14 @@ export default {
       }
 
       return htmlRes(renderView('member/quiz_result', {
-        mod, score, passed: !!passed, pointsAwarded, correct: correctCount, total, certCode, full_name, ppau_reg_no, ahpc_reg_no, flash: flashData
+        mod, score, passed: !!passed, pointsAwarded, correct: correctCount, total, certCode, full_name, ppau_reg_no, ahpc_reg_no, ...viewData
       }));
     }
 
     // MEMBER EVENTS (list)
     if (path === '/member/events' && method === 'GET') {
       const events = await DB.prepare('SELECT * FROM events WHERE is_published = 1 ORDER BY event_date ASC').all();
-      return htmlRes(renderView('member/events', { events: events.results || [], flash: flashData }));
+      return htmlRes(renderView('member/events', { ...viewData, events: events.results || [] }));
     }
 
     // MEMBER EVENT CLAIM
@@ -293,7 +306,7 @@ export default {
 
     // MEMBER SELF-LEARNING
     if (path === '/member/self-learning' && method === 'GET') {
-      return htmlRes(renderView('member/self_learning', { submissions: [], flash: flashData }));
+      return htmlRes(renderView('member/self_learning', { ...viewData, submissions: [] }));
     }
     if (path === '/member/self-learning' && method === 'POST') {
       const body = await request.formData();
@@ -335,7 +348,7 @@ export default {
       const submission = await DB.prepare('SELECT * FROM submissions WHERE certificate_code = ?').bind(code).first();
       const item = claim || submission;
       if (!item) return redirect('/');
-      return htmlRes(renderView('member/certificate', { item, certCode: code, flash: flashData }));
+      return htmlRes(renderView('member/certificate', { ...viewData, item, certCode: code }));
     }
 
     // ADMIN DASHBOARD
@@ -354,7 +367,7 @@ export default {
         totalUsers: totalUsers?.count || 0,
         pendingSubmissions: pendingSubmissions?.count || 0,
         recentClaims: recentClaims.results || [],
-        flash: flashData
+        ...viewData
       }));
     }
 
@@ -362,14 +375,14 @@ export default {
     if (path === '/admin/modules' && method === 'GET') {
       if (!isAdmin) return redirect('/login');
       const modules = await DB.prepare('SELECT m.*, s.name as style_name FROM modules m LEFT JOIN cpd_styles s ON m.style_id = s.id ORDER BY m.id ASC').all();
-      return htmlRes(renderView('admin/modules', { modules: modules.results || [], flash: flashData }));
+      return htmlRes(renderView('admin/modules', { ...viewData, modules: modules.results || [] }));
     }
 
     // ADMIN ADD MODULE
     if (path === '/admin/modules/new' && method === 'GET') {
       if (!isAdmin) return redirect('/login');
       const styles = await DB.prepare('SELECT * FROM cpd_styles').all();
-      return htmlRes(renderView('admin/module_form', { mod: null, styles: styles.results || [], flash: flashData }));
+      return htmlRes(renderView('admin/module_form', { ...viewData, mod: null, styles: styles.results || [] }));
     }
     if (path === '/admin/modules/new' && method === 'POST') {
       if (!isAdmin) return redirect('/login');
@@ -401,12 +414,12 @@ export default {
     if (path === '/admin/events' && method === 'GET') {
       if (!isAdmin) return redirect('/login');
       const events = await DB.prepare('SELECT * FROM events ORDER BY event_date ASC').all();
-      return htmlRes(renderView('admin/events', { events: events.results || [], flash: flashData }));
+      return htmlRes(renderView('admin/events', { ...viewData, events: events.results || [] }));
     }
 
     if (path === '/admin/events/new' && method === 'GET') {
       if (!isAdmin) return redirect('/login');
-      return htmlRes(renderView('admin/event_form', { event: null, flash: flashData }));
+      return htmlRes(renderView('admin/event_form', { ...viewData, event: null }));
     }
     if (path === '/admin/events/new' && method === 'POST') {
       if (!isAdmin) return redirect('/login');
@@ -421,7 +434,7 @@ export default {
     if (path === '/admin/submissions' && method === 'GET') {
       if (!isAdmin) return redirect('/login');
       const submissions = await DB.prepare('SELECT * FROM submissions ORDER BY created_at DESC').all();
-      return htmlRes(renderView('admin/submissions', { submissions: submissions.results || [], flash: flashData }));
+      return htmlRes(renderView('admin/submissions', { ...viewData, submissions: submissions.results || [] }));
     }
 
     const approveMatch = path.match(/^\/admin\/submission\/(\d+)\/approve$/);
@@ -441,7 +454,7 @@ export default {
     if (path === '/admin/claims' && method === 'GET') {
       if (!isAdmin) return redirect('/login');
       const claims = await DB.prepare('SELECT c.*, m.title as module_title, e.title as event_title FROM claims c LEFT JOIN modules m ON c.module_id = m.id LEFT JOIN events e ON c.event_id = e.id ORDER BY c.created_at DESC').all();
-      return htmlRes(renderView('admin/claims', { claims: claims.results || [], flash: flashData }));
+      return htmlRes(renderView('admin/claims', { ...viewData, claims: claims.results || [] }));
     }
 
     // ADMIN SETTINGS
@@ -449,7 +462,7 @@ export default {
       if (!isAdmin) return redirect('/login');
       const cpdTarget = await DB.prepare("SELECT setting_value FROM settings WHERE setting_key = 'cpd_target'").first();
       const emailApiKey = await DB.prepare("SELECT setting_value FROM settings WHERE setting_key = 'email_api_key'").first();
-      return htmlRes(renderView('admin/settings', { cpdTarget: cpdTarget?.setting_value || '30', emailApiKey: emailApiKey?.setting_value || '', flash: flashData }));
+      return htmlRes(renderView('admin/settings', { ...viewData, cpdTarget: cpdTarget?.setting_value || '30', emailApiKey: emailApiKey?.setting_value || '' }));
     }
     if (path === '/admin/settings' && method === 'POST') {
       if (!isAdmin) return redirect('/login');
@@ -467,7 +480,7 @@ export default {
     if (path === '/admin/users' && method === 'GET') {
       if (!isAdmin) return redirect('/login');
       const users = await DB.prepare('SELECT id, full_name, email, role, ppau_reg_no, created_at FROM users ORDER BY id ASC').all();
-      return htmlRes(renderView('admin/users', { users: users.results || [], flash: flashData }));
+      return htmlRes(renderView('admin/users', { ...viewData, users: users.results || [] }));
     }
 
     // API: verify certificate
@@ -480,6 +493,40 @@ export default {
       return jsonRes({ valid: false }, 404);
     }
 
-    return htmlRes(renderView('404', { flash: flashData }), 404);
+    // ADMIN NOTIFICATIONS
+    if (path === '/admin/notifications' && method === 'GET') {
+      if (!isAdmin) return redirect('/login');
+      const allNotifs = await DB.prepare('SELECT * FROM notifications ORDER BY created_at DESC').all();
+      return htmlRes(renderView('admin/notifications', { ...viewData, allNotifications: allNotifs.results || [] }));
+    }
+    if (path === '/admin/notifications/new' && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      const body = await request.formData();
+      const title = body.get('title') || '';
+      const message = body.get('message') || '';
+      const type = body.get('type') || 'info';
+      if (title && message) {
+        await DB.prepare('INSERT INTO notifications (title, message, type) VALUES (?, ?, ?)').bind(title, message, type).run();
+      }
+      const resp = redirect('/admin/notifications');
+      resp.headers.append('Set-Cookie', flashCookie('success', 'Notification created.'));
+      return resp;
+    }
+    const delNotifMatch = path.match(/^\/admin\/notification\/(\d+)\/delete$/);
+    if (delNotifMatch && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      await DB.prepare('DELETE FROM notifications WHERE id = ?').bind(parseInt(delNotifMatch[1])).run();
+      const resp = redirect('/admin/notifications');
+      resp.headers.append('Set-Cookie', flashCookie('success', 'Notification deleted.'));
+      return resp;
+    }
+
+    // API: notifications JSON
+    if (path === '/api/notifications' && method === 'GET') {
+      const allNotifs = await DB.prepare('SELECT * FROM notifications ORDER BY created_at DESC LIMIT 20').all();
+      return jsonRes({ notifications: allNotifs.results || [], count: allNotifs.results?.length || 0 });
+    }
+
+    return htmlRes(renderView('404', viewData), 404);
   }
 };

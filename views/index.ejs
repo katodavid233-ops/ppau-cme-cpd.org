@@ -204,4 +204,33 @@
   </div>
 </section>
 
+<section id="providers" class="py-5 bg-light wm-section">
+  <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Recognised CPD Providers</h2>
+      <p class="text-secondary">Accredited organizations whose activities count towards your CPD points.</p>
+    </div>
+    <div class="row g-4">
+      <% if (providers && providers.length) { %>
+        <% var providerIcons = ['bi-hospital', 'bi-shield-check', 'bi-capsule', 'bi-globe']; %>
+        <% providers.forEach(function(p, i) { %>
+          <div class="col-md-6 col-lg-3">
+            <div class="card provider-card h-100">
+              <div class="card-body text-center p-4">
+                <div class="provider-icon mx-auto mb-3"><i class="bi <%= providerIcons[i % providerIcons.length] %>"></i></div>
+                <h6 class="fw-bold"><%= p.name %></h6>
+                <p class="text-secondary small mb-3"><%= p.description %></p>
+                <% if (p.website) { %>
+                  <a href="<%= p.website %>" target="_blank" class="btn btn-outline-success btn-sm"><i class="bi bi-box-arrow-up-right"></i> Visit Website</a>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      <% } %>
+    </div>
+  </div>
+</section>
+
 <%- include('partials/footer') %>

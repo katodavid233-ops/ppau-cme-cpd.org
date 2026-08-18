@@ -1,0 +1,101 @@
+<%- include('../partials/header', { title: 'Manage Notifications' }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-bell"></i> Manage Notifications</h4>
+    <div class="text-white-50 small">Create and manage notifications shown to website visitors.</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row g-4">
+
+      <div class="col-lg-5">
+        <div class="card mb-4">
+          <div class="card-header fw-semibold"><i class="bi bi-plus-circle"></i> New Notification</div>
+          <div class="card-body">
+            <form method="post" action="/admin/notifications/new">
+              <div class="mb-3">
+                <label class="form-label">Title *</label>
+                <input type="text" name="title" class="form-control" required placeholder="e.g. New CPD Article Published">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Message *</label>
+                <textarea name="message" class="form-control" rows="3" required placeholder="Description of the notification..."></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Type</label>
+                <select name="type" class="form-select">
+                  <option value="info">Info</option>
+                  <option value="article">Article</option>
+                  <option value="event">Event</option>
+                  <option value="announcement">Announcement</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-success"><i class="bi bi-bell"></i> Create Notification</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="card">
+          <div class="card-header fw-semibold"><i class="bi bi-list"></i> All Notifications</div>
+          <div class="card-body p-0">
+            <% if (allNotifications && allNotifications.length) { %>
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>Title</th>
+                      <th>Message</th>
+                      <th>Date</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% allNotifications.forEach(function(n) { %>
+                      <tr>
+                        <td>
+                          <% if (n.type === 'article') { %>
+                            <span class="badge text-bg-primary">Article</span>
+                          <% } else if (n.type === 'event') { %>
+                            <span class="badge text-bg-success">Event</span>
+                          <% } else if (n.type === 'announcement') { %>
+                            <span class="badge text-bg-warning text-dark">Announcement</span>
+                          <% } else { %>
+                            <span class="badge text-bg-info">Info</span>
+                          <% } %>
+                        </td>
+                        <td class="fw-semibold"><%= n.title %></td>
+                        <td class="text-secondary small"><%= n.message %></td>
+                        <td class="text-muted small"><%= n.created_at %></td>
+                        <td>
+                          <form method="post" action="/admin/notification/<%= n.id %>/delete" onsubmit="return confirm('Delete this notification?')">
+                            <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+                          </form>
+                        </td>
+                      </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+              </div>
+            <% } else { %>
+              <div class="text-center text-secondary py-5">
+                <i class="bi bi-bell-slash fs-3 d-block mb-2"></i>
+                No notifications yet. Create one using the form.
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

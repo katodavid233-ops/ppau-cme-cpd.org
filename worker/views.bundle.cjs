@@ -64,11 +64,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -220,11 +298,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -445,11 +601,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -583,6 +817,7 @@ __o += `
     <div class="mt-4 d-flex flex-wrap gap-2">
       <a href="/admin/modules/new" class="btn btn-success"><i class="bi bi-plus-circle"></i> New Module</a>
       <a href="/admin/events/new" class="btn btn-success"><i class="bi bi-plus-circle"></i> New Event</a>
+      <a href="/admin/notifications" class="btn btn-success"><i class="bi bi-bell"></i> Notifications</a>
       <a href="/admin/settings" class="btn btn-outline-success"><i class="bi bi-gear"></i> Settings</a>
       <a href="/logout" class="btn btn-outline-danger"><i class="bi bi-box-arrow-right"></i> Logout</a>
     </div>
@@ -702,11 +937,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -894,11 +1207,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -1088,11 +1479,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -1283,11 +1752,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -1418,6 +1965,349 @@ __o += `
   return __o;
 });
 
+templates['admin/notifications'] = (function(__data) {
+  var flash = __data.flash;
+  var include = __data.include;
+  var partials = __data.partials;
+  var header = __data.header;
+  var title = __data.title;
+  var Manage = __data.Manage;
+  var Notifications = __data.Notifications;
+  var navbar = __data.navbar;
+  var allNotifications = __data.allNotifications;
+  var length = __data.length;
+  var forEach = __data.forEach;
+  var n = __data.n;
+  var type = __data.type;
+  var article = __data.article;
+  var event = __data.event;
+  var announcement = __data.announcement;
+  var message = __data.message;
+  var created_at = __data.created_at;
+  var id = __data.id;
+  var footer = __data.footer;
+  var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  var __o = "";
+__o += `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>`;
+__o += typeof title !== 'undefined' ? title + ' | ' : '';
+__o += `PPAU CME-CPD Portal</title>
+  <meta name="description" content="PPAU accredited Continuing Medical Education (CME) and Continuing Professional Development (CPD) portal for pharmacists.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="icon" type="image/jpeg" href="/images/ppau-logo.jpeg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark main-nav sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
+      <span><strong>PPAU</strong> <span class="text-white-50">CME-CPD</span></span>
+      <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        `;
+ const navItems = [
+          { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
+          { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
+        ]; 
+__o += `
+        `;
+ navItems.forEach(function(item) { 
+__o += `
+          <li class="nav-item"><a class="nav-link `;
+__o += typeof activeNav !== 'undefined' && activeNav === item.href ? 'active' : '';
+__o += `" href="`;
+__o += item.href;
+__o += `">`;
+__o += item.label;
+__o += `</a></li>
+        `;
+ }); 
+__o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+`;
+ if (typeof flash !== 'undefined' && flash && flash.message) { 
+__o += `
+  <div class="container mt-3">
+    <div class="alert alert-`;
+__o += flash.type || 'info';
+__o += ` alert-dismissible fade show" role="alert">
+      <i class="bi bi-`;
+__o += flash.type === 'success' ? 'check-circle' : flash.type === 'danger' ? 'exclamation-triangle' : 'info-circle';
+__o += `"></i>
+      `;
+__o += flash.message;
+__o += `
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+`;
+ } 
+__o += `
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-bell"></i> Manage Notifications</h4>
+    <div class="text-white-50 small">Create and manage notifications shown to website visitors.</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row g-4">
+
+      <div class="col-lg-5">
+        <div class="card mb-4">
+          <div class="card-header fw-semibold"><i class="bi bi-plus-circle"></i> New Notification</div>
+          <div class="card-body">
+            <form method="post" action="/admin/notifications/new">
+              <div class="mb-3">
+                <label class="form-label">Title *</label>
+                <input type="text" name="title" class="form-control" required placeholder="e.g. New CPD Article Published">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Message *</label>
+                <textarea name="message" class="form-control" rows="3" required placeholder="Description of the notification..."></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Type</label>
+                <select name="type" class="form-select">
+                  <option value="info">Info</option>
+                  <option value="article">Article</option>
+                  <option value="event">Event</option>
+                  <option value="announcement">Announcement</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-success"><i class="bi bi-bell"></i> Create Notification</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="card">
+          <div class="card-header fw-semibold"><i class="bi bi-list"></i> All Notifications</div>
+          <div class="card-body p-0">
+            `;
+ if (allNotifications && allNotifications.length) { 
+__o += `
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>Title</th>
+                      <th>Message</th>
+                      <th>Date</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    `;
+ allNotifications.forEach(function(n) { 
+__o += `
+                      <tr>
+                        <td>
+                          `;
+ if (n.type === 'article') { 
+__o += `
+                            <span class="badge text-bg-primary">Article</span>
+                          `;
+ } else if (n.type === 'event') { 
+__o += `
+                            <span class="badge text-bg-success">Event</span>
+                          `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                            <span class="badge text-bg-warning text-dark">Announcement</span>
+                          `;
+ } else { 
+__o += `
+                            <span class="badge text-bg-info">Info</span>
+                          `;
+ } 
+__o += `
+                        </td>
+                        <td class="fw-semibold">`;
+__o += n.title;
+__o += `</td>
+                        <td class="text-secondary small">`;
+__o += n.message;
+__o += `</td>
+                        <td class="text-muted small">`;
+__o += n.created_at;
+__o += `</td>
+                        <td>
+                          <form method="post" action="/admin/notification/`;
+__o += n.id;
+__o += `/delete" onsubmit="return confirm('Delete this notification?')">
+                            <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+                          </form>
+                        </td>
+                      </tr>
+                    `;
+ }); 
+__o += `
+                  </tbody>
+                </table>
+              </div>
+            `;
+ } else { 
+__o += `
+              <div class="text-center text-secondary py-5">
+                <i class="bi bi-bell-slash fs-3 d-block mb-2"></i>
+                No notifications yet. Create one using the form.
+              </div>
+            `;
+ } 
+__o += `
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer mt-5">
+  <div class="container py-4">
+    <div class="row g-4 align-items-center">
+      <div class="col-md-5">
+        <div class="d-flex align-items-center mb-2">
+          <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
+          <span class="fw-bold fs-5">PPAU CME-CPD Portal</span>
+          <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+        </div>
+        <p class="text-white-50 small mb-0">Accredited continuing education for pharmacists and pharmacy professionals &mdash; modules, conferences and journal reviews that count towards your CPD.</p>
+      </div>
+      <div class="col-md-4">
+        <h6 class="text-white fw-semibold">Accredited CPD Styles</h6>
+        <ul class="list-unstyled small text-white-50 mb-0">
+          <li>Self Assessment</li>
+          <li>Events / PPAU Sessions</li>
+          <li>Other Ways and Activities</li>
+        </ul>
+      </div>
+      <div class="col-md-3 text-md-end">
+        <h6 class="text-white fw-semibold">Quick Links</h6>
+        <ul class="list-unstyled small mb-0">
+          <li><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li><a class="link-light" href="/login">Administrator Login</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="border-secondary my-3">
+    <p class="text-center text-white-50 small mb-0">&copy; 2026 PPAU CME-CPD Portal. All rights reserved.</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
+`;
+
+  return __o;
+});
+
 templates['admin/settings'] = (function(__data) {
   var flash = __data.flash;
   var include = __data.include;
@@ -1481,11 +2371,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -1675,11 +2643,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -1894,11 +2940,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -2083,11 +3207,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -2249,11 +3451,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -2436,11 +3716,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -2576,6 +3934,16 @@ templates['index'] = (function(__data) {
   var venue = __data.venue;
   var event_date = __data.event_date;
   var credit_points = __data.credit_points;
+  var providers = __data.providers;
+  var bi = __data.bi;
+  var hospital = __data.hospital;
+  var shield = __data.shield;
+  var check = __data.check;
+  var capsule = __data.capsule;
+  var globe = __data.globe;
+  var p = __data.p;
+  var name = __data.name;
+  var website = __data.website;
   var footer = __data.footer;
   var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   var __o = "";
@@ -2629,11 +3997,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -2878,6 +4324,57 @@ __o += `
   </div>
 </section>
 
+<section id="providers" class="py-5 bg-light wm-section">
+  <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Recognised CPD Providers</h2>
+      <p class="text-secondary">Accredited organizations whose activities count towards your CPD points.</p>
+    </div>
+    <div class="row g-4">
+      `;
+ if (providers && providers.length) { 
+__o += `
+        `;
+ var providerIcons = ['bi-hospital', 'bi-shield-check', 'bi-capsule', 'bi-globe']; 
+__o += `
+        `;
+ providers.forEach(function(p, i) { 
+__o += `
+          <div class="col-md-6 col-lg-3">
+            <div class="card provider-card h-100">
+              <div class="card-body text-center p-4">
+                <div class="provider-icon mx-auto mb-3"><i class="bi `;
+__o += providerIcons[i % providerIcons.length];
+__o += `"></i></div>
+                <h6 class="fw-bold">`;
+__o += p.name;
+__o += `</h6>
+                <p class="text-secondary small mb-3">`;
+__o += p.description;
+__o += `</p>
+                `;
+ if (p.website) { 
+__o += `
+                  <a href="`;
+__o += p.website;
+__o += `" target="_blank" class="btn btn-outline-success btn-sm"><i class="bi bi-box-arrow-up-right"></i> Visit Website</a>
+                `;
+ } 
+__o += `
+              </div>
+            </div>
+          </div>
+        `;
+ }); 
+__o += `
+      `;
+ } 
+__o += `
+    </div>
+  </div>
+</section>
+
 <footer class="site-footer mt-5">
   <div class="container py-4">
     <div class="row g-4 align-items-center">
@@ -2991,11 +4488,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -3277,11 +4852,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -3516,11 +5169,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -3734,11 +5465,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -3934,11 +5743,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -4185,11 +6072,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -4408,11 +6373,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -4636,11 +6679,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 `;
  if (typeof flash !== 'undefined' && flash && flash.message) { 
 __o += `
@@ -4890,6 +7011,17 @@ templates['partials/navbar'] = (function(__data) {
   var item = __data.item;
   var activeNav = __data.activeNav;
   var active = __data.active;
+  var notifCount = __data.notifCount;
+  var notifications = __data.notifications;
+  var length = __data.length;
+  var n = __data.n;
+  var type = __data.type;
+  var article = __data.article;
+  var event = __data.event;
+  var announcement = __data.announcement;
+  var title = __data.title;
+  var message = __data.message;
+  var created_at = __data.created_at;
   var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   var __o = "";
 __o += `<nav class="navbar navbar-expand-lg navbar-dark main-nav sticky-top">
@@ -4925,11 +7057,89 @@ __o += `</a></li>
         `;
  }); 
 __o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
   </div>
-</nav>`;
+</nav>
+`;
 
   return __o;
 });

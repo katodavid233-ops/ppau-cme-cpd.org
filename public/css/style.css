@@ -307,6 +307,40 @@ body {
 
 .table thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .03em; color: #64748b; }
 
+.notification-bell {
+  position: relative;
+  font-size: 1.1rem;
+}
+.notif-badge {
+  font-size: 0.6rem;
+  padding: 0.2em 0.45em;
+}
+.notif-dropdown {
+  box-shadow: 0 8px 30px rgba(15,23,42,.18);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+.notif-item:hover { background: #f8fafc; }
+
+.provider-card {
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(15,23,42,.06);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.provider-card:hover { transform: translateY(-4px); box-shadow: 0 10px 26px rgba(15,23,42,.12); }
+.provider-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--ppau-teal), var(--ppau-green));
+}
+
 @media print {
   .main-nav, .site-footer, .no-print, .btn { display: none !important; }
   body { background: #fff; }

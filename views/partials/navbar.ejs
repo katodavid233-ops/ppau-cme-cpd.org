@@ -19,6 +19,51 @@
         <% navItems.forEach(function(item) { %>
           <li class="nav-item"><a class="nav-link <%= typeof activeNav !== 'undefined' && activeNav === item.href ? 'active' : '' %>" href="<%= item.href %>"><%= item.label %></a></li>
         <% }); %>
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            <% if (typeof notifCount !== 'undefined' && notifCount > 0) { %>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge"><%= notifCount %></span>
+            <% } %>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            <% if (typeof notifications !== 'undefined' && notifications.length > 0) { %>
+              <% notifications.forEach(function(n) { %>
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      <% if (n.type === 'article') { %>
+                        <i class="bi bi-journal-text text-primary"></i>
+                      <% } else if (n.type === 'event') { %>
+                        <i class="bi bi-easel text-success"></i>
+                      <% } else if (n.type === 'announcement') { %>
+                        <i class="bi bi-megaphone text-warning"></i>
+                      <% } else { %>
+                        <i class="bi bi-info-circle text-info"></i>
+                      <% } %>
+                    </div>
+                    <div>
+                      <div class="fw-semibold small"><%= n.title %></div>
+                      <div class="text-secondary" style="font-size:0.8rem;"><%= n.message %></div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;"><%= n.created_at %></div>
+                    </div>
+                  </div>
+                </div>
+              <% }); %>
+            <% } else { %>
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            <% } %>
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
     </div>
