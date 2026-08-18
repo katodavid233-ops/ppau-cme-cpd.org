@@ -2820,6 +2820,35 @@ __o += `
   </div>
 </section>
 
+<section id="articles" class="py-5 wm-section">
+  <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-5">
+      <div>
+        <h2 class="fw-bold mb-1">News &amp; Articles</h2>
+        <p class="text-secondary mb-0">Guidance and reference materials for pharmacy professionals.</p>
+      </div>
+      <a href="/cpd-articles" class="btn btn-outline-success btn-sm px-3">View all articles <i class="bi bi-arrow-right"></i></a>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="card event-card h-100 event-mint">
+          <img src="/images/guidance-page-1.jpg" class="card-img-top" alt="Guidance on CPD Points" style="height:200px;object-fit:cover;">
+          <div class="card-body d-flex flex-column p-4">
+            <div class="event-icon-sm mb-3"><i class="bi bi-journal-text"></i></div>
+            <h6 class="fw-bold">Guidance on CPD Points</h6>
+            <p class="text-secondary small flex-grow-1">Guidance on CPD Points, Access, Recognized Providers, Requirements and Other Relevant Information for pharmacy professionals.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge text-bg-success">Reference</span>
+              <a href="/cpd-articles" class="btn btn-sm btn-outline-success">Read more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="faq" class="py-5 wm-section">
   <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
   <div class="container">
