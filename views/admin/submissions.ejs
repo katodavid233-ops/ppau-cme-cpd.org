@@ -5,7 +5,7 @@
 <section class="page-header py-4">
   <div class="container">
     <h4 class="fw-bold mb-0"><i class="bi bi-inbox"></i> Submissions Review</h4>
-    <div class="text-white-50 small">Review "Other Ways and Activities" submissions and award points.</div>
+    <div class="text-white-50 small">Review "Other Ways and Activities" submissions, read the evidence, award CPD points and send the approval note by email.</div>
   </div>
 </section>
 
@@ -16,23 +16,60 @@
         <div class="card mb-3">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-start">
-              <div>
-                <h6 class="fw-bold"><%= s.title %></h6>
-                <p class="small text-secondary mb-1"><strong><%= s.full_name %></strong> &mdash; PPAU: <%= s.ppau_reg_no %></p>
+              <div class="me-3">
+                <h6 class="fw-bold mb-1"><%= s.title %></h6>
+                <p class="small text-secondary mb-1"><strong><%= s.full_name %></strong> &mdash; PPAU: <%= s.ppau_reg_no %> <span class="text-muted">| <%= s.email %></span></p>
                 <p class="small mb-2"><%= s.description %></p>
                 <% if (s.evidence_file) { %>
-                  <p class="small"><i class="bi bi-paperclip"></i> Evidence file: <%= s.evidence_file %></p>
+                  <p class="small mb-2">
+                    <i class="bi bi-paperclip text-primary"></i>
+                    <a href="/admin/submission/<%= s.id %>/evidence" target="_blank" class="text-decoration-none">View / download evidence</a>
+                  </p>
+                <% } else { %>
+                  <p class="small text-muted mb-2"><i class="bi bi-paperclip"></i> No evidence file submitted.</p>
+                <% } %>
+                <% if (s.admin_note) { %>
+                  <div class="alert alert-light border small mb-2"><i class="bi bi-chat-left-text text-primary"></i> <strong>Admin note:</strong> <%= s.admin_note %></div>
                 <% } %>
               </div>
               <div class="text-end">
                 <span class="badge text-bg-<%= s.status === 'approved' ? 'success' : s.status === 'rejected' ? 'danger' : 'warning' %> mb-2"><%= s.status %></span>
-                <% if (s.status === 'pending') { %>
-                  <form method="post" action="/admin/submission/<%= s.id %>/approve" class="d-inline">
-                    <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-check-circle"></i> Approve</button>
-                  </form>
+                <% if (s.status === 'approved') { %>
+                  <div class="small text-success fw-semibold"><i class="bi bi-patch-check"></i> <%= s.points_awarded %> CPD points</div>
                 <% } %>
               </div>
             </div>
+
+            <% if (s.status === 'pending') { %>
+              <hr>
+              <div class="row g-2 align-items-end">
+                <div class="col-12">
+                  <span class="small fw-semibold text-secondary"><i class="bi bi-chat-square-text"></i> Decision — record points and write a short note (sent by email to the member)</span>
+                </div>
+                <form method="post" action="/admin/submission/<%= s.id %>/approve" class="row g-2 align-items-end">
+                  <div class="col-12 col-sm-2">
+                    <label class="form-label small fw-semibold mb-1">CPD points</label>
+                    <input type="number" name="points" class="form-control form-control-sm" value="5" step="0.5" min="0" max="100" required>
+                  </div>
+                  <div class="col-12 col-sm-7">
+                    <label class="form-label small fw-semibold mb-1">Approval note</label>
+                    <input type="text" name="note" class="form-control form-control-sm" placeholder="e.g. Great work! Activity approved for 5 CPD points.">
+                  </div>
+                  <div class="col-12 col-sm-3 text-end">
+                    <button type="submit" class="btn btn-success btn-sm w-100"><i class="bi bi-check-circle"></i> Approve &amp; award</button>
+                  </div>
+                </form>
+                <form method="post" action="/admin/submission/<%= s.id %>/reject" class="row g-2 align-items-end">
+                  <div class="col-12 col-sm-9">
+                    <label class="form-label small fw-semibold mb-1">Rejection note <span class="text-muted fw-normal">(optional)</span></label>
+                    <input type="text" name="note" class="form-control form-control-sm" placeholder="e.g. Evidence was not sufficient. Please resubmit with more detail.">
+                  </div>
+                  <div class="col-12 col-sm-3 text-end">
+                    <button type="submit" class="btn btn-outline-danger btn-sm w-100"><i class="bi bi-x-circle"></i> Reject</button>
+                  </div>
+                </form>
+              </div>
+            <% } %>
           </div>
         </div>
       <% }); %>

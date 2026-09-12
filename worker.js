@@ -23,7 +23,7 @@ function setCookie(name, value, maxAge = 86400 * 7) {
 }
 
 function renderView(name, data = {}) {
-  const flash = data._flash || {};
+  const flash = data.flash || data._flash || {};
   return render(name, { ...data, flash });
 }
 
@@ -49,13 +49,15 @@ function flashCookie(type, message) {
   return '_flash=' + encodeURIComponent(JSON.stringify({ type, message })) + '; Path=/; Max-Age=5';
 }
 
-async function sendResendEmail({ to, subject, html }, apiKey, from) {
+async function sendResendEmail({ to, subject, html }, DB, env) {
+  const apiKey = (await getSetting(DB, 'email_api_key', '')) || (env && env.RESEND_API_KEY) || '';
+  const from = (await getSetting(DB, 'email_from', '')) || (env && env.EMAIL_FROM) || 'PPAU CME-CPD <noreply@ppau-cme-cpd.org>';
   if (!apiKey || !to) return;
   try {
     await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from: from || 'PPAU CME-CPD <noreply@ppau-cme-cpd.org>', to: [to], subject, html })
+      body: JSON.stringify({ from, to: [to], subject, html })
     });
   } catch (e) { console.error('Email failed:', e); }
 }
@@ -79,6 +81,315 @@ function makeCertCode(prefix) {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
 }
 
+function submissionConfirmationEmailHtml({ name, title, activityType = 'self_learning', points = 0, score = null, passMark = null, passed = null, certUrl = null, hasEvidence = false }) {
+  const esc = (v) => String(v || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  let nextSteps = '';
+  if (activityType === 'module') {
+    nextSteps = passed
+      ? `<p>Congratulations &mdash; you scored <strong>${esc(score)}%</strong> (pass mark ${esc(passMark)}%) and have been awarded <strong>${points} CPD points</strong>.</p>`
+      : `<p>You scored <strong>${esc(score)}%</strong>. The pass mark is ${esc(passMark)}%, so no CPD points were awarded for this attempt. You are welcome to retake the quiz at any time.</p>`;
+  } else if (activityType === 'event') {
+    nextSteps = `<p><strong>What happens next:</strong> an administrator will verify your attendance and award your CPD points. You will receive another email once your claim has been processed.</p>`;
+  } else {
+    nextSteps = `${hasEvidence ? '<p>Your evidence file has been attached and will be reviewed by our team.</p>' : ''}
+    <p><strong>What happens next:</strong> an administrator will review your activity and award CPD points. You will receive another email once your submission has been approved or if further information is needed.</p>
+    <p style="color:#64748b;font-size:0.85em;">Please do not submit the same activity again — this will delay processing.</p>`;
+  }
+
+  const certHtml = certUrl
+    ? `<p>Your certificate is ready:</p>
+       <p style="text-align:center;margin:24px 0;">
+         <a href="${certUrl}" style="background:#0f766e;color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:600;">View Certificate</a>
+       </p>`
+    : '';
+
+  return `<div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+    <h2 style="color:#0f766e;">PPAU CME-CPD — Submission Confirmed</h2>
+    <p>Dear ${esc(name)},</p>
+    <p>We have received your CPD activity submission for "<strong>${esc(title)}</strong>".</p>
+    ${nextSteps}
+    ${certHtml}
+    <p style="color:#64748b;font-size:0.85em;">If you did not expect this email, please ignore it.</p>
+    <hr style="border:none;border-top:1px solid #e2e8f0;margin:20px 0;">
+    <p style="color:#94a3b8;font-size:0.75em;">PPAU CME-CPD Portal &mdash; Pharmacy Professionals Association of Uganda</p>
+  </div>`;
+}
+
+function submissionDecisionEmailHtml({ name, title, points, note, status, certUrl }) {
+  const esc = (v) => String(v || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const approved = status === 'approved';
+  const statusLine = approved
+    ? `<p>We are pleased to inform you that your CPD activity "<strong>${esc(title)}</strong>" has been <strong>approved</strong>. You have been awarded <strong>${points} CPD points</strong>.</p>`
+    : `<p>Thank you for submitting your CPD activity "<strong>${esc(title)}</strong>". After review, we are unable to award CPD points at this time.</p>`;
+  const noteHtml = note
+    ? `<blockquote style="border-left:4px solid #0f766e;margin:16px 0;padding:8px 16px;background:#f1f5f9;border-radius:6px;color:#334155;">${esc(note)}</blockquote>`
+    : '';
+  const certHtml = approved
+    ? `<p>Your certificate is ready:</p>
+       <p style="text-align:center;margin:24px 0;">
+         <a href="${certUrl}" style="background:#0f766e;color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:600;">View Certificate</a>
+       </p>`
+    : '';
+  return `<div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+    <h2 style="color:#0f766e;">PPAU CME-CPD Update</h2>
+    <p>Dear ${esc(name)},</p>
+    ${statusLine}
+    ${noteHtml}
+    ${certHtml}
+    <p style="color:#64748b;font-size:0.85em;">If you did not expect this email, please ignore it.</p>
+    <hr style="border:none;border-top:1px solid #e2e8f0;margin:20px 0;">
+    <p style="color:#94a3b8;font-size:0.75em;">PPAU CME-CPD Portal &mdash; Pharmacy Professionals Association of Uganda</p>
+  </div>`;
+}
+
+function normalizeMatch(v) {
+  return String(v || '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .replace(/\./g, '');
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let field = '';
+  let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (inQuotes) {
+      if (ch === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; }
+        else inQuotes = false;
+      } else field += ch;
+    } else if (ch === '"') {
+      inQuotes = true;
+    } else if (ch === ',') {
+      row.push(field); field = '';
+    } else if (ch === '\n' || ch === '\r') {
+      row.push(field); field = '';
+      if (row.some(c => c.trim())) rows.push(row);
+      row = [];
+    } else {
+      field += ch;
+    }
+  }
+  if (field.trim() || row.length) {
+    row.push(field);
+    if (row.some(c => c.trim())) rows.push(row);
+  }
+  return rows;
+}
+
+function parseAttendanceCsv(text) {
+  const rows = parseCsv(text);
+  if (!rows.length) return [];
+  const header = rows[0].map(h => h.trim().toLowerCase());
+  let nameIdx = -1;
+  let firstNameIdx = -1;
+  let lastNameIdx = -1;
+  let emailIdx = -1;
+  let joinIdx = -1;
+  let leftIdx = -1;
+  let durIdx = -1;
+  header.forEach((h, i) => {
+    if (firstNameIdx === -1 && (h === 'first name' || h === 'firstname' || h === 'first_name')) firstNameIdx = i;
+    if (lastNameIdx === -1 && (h === 'last name' || h === 'lastname' || h === 'last_name')) lastNameIdx = i;
+    if (nameIdx === -1 && h.includes('name') && i !== firstNameIdx && i !== lastNameIdx) nameIdx = i;
+    if (emailIdx === -1 && h.includes('email')) emailIdx = i;
+    if (joinIdx === -1 && (h.includes('join') || (h.includes('time') && !h.includes('duration')))) joinIdx = i;
+    if (leftIdx === -1 && (h.includes('left') || h.includes('exit') || h.includes('end') || h.includes('leave'))) leftIdx = i;
+    if (durIdx === -1 && h.includes('duration')) durIdx = i;
+  });
+  const attendees = [];
+  for (const r of rows.slice(1)) {
+    let fullName = (nameIdx >= 0 && r[nameIdx]) ? String(r[nameIdx]).trim() : '';
+    if (!fullName && (firstNameIdx >= 0 || lastNameIdx >= 0)) {
+      const first = (firstNameIdx >= 0 && r[firstNameIdx]) ? String(r[firstNameIdx]).trim() : '';
+      const last = (lastNameIdx >= 0 && r[lastNameIdx]) ? String(r[lastNameIdx]).trim() : '';
+      fullName = [first, last].filter(Boolean).join(' ');
+    }
+    const email = (emailIdx >= 0 && r[emailIdx]) ? String(r[emailIdx]).trim() : '';
+    if (!fullName && !email) continue;
+    attendees.push({
+      full_name: fullName,
+      email,
+      joined_at: (joinIdx >= 0 && r[joinIdx]) ? String(r[joinIdx]).trim() : '',
+      left_at: (leftIdx >= 0 && r[leftIdx]) ? String(r[leftIdx]).trim() : '',
+      duration: (durIdx >= 0 && r[durIdx]) ? String(r[durIdx]).trim() : ''
+    });
+  }
+  return attendees;
+}
+
+async function ensureSchema(DB) {
+  try {
+    const cols = await DB.prepare('PRAGMA table_info(events)').all();
+    const has = (c) => (cols.results || []).some(x => x.name === c);
+    if (!has('meet_link')) {
+      await DB.prepare('ALTER TABLE events ADD COLUMN meet_link TEXT').run();
+    }
+    const subCols = await DB.prepare('PRAGMA table_info(submissions)').all();
+    const hasSub = (c) => (subCols.results || []).some(x => x.name === c);
+    if (!hasSub('admin_note')) {
+      await DB.prepare('ALTER TABLE submissions ADD COLUMN admin_note TEXT').run();
+    }
+    await DB.prepare(`CREATE TABLE IF NOT EXISTS event_attendance (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      event_id INTEGER NOT NULL,
+      full_name TEXT NOT NULL,
+      email TEXT,
+      joined_at TEXT,
+      left_at TEXT,
+      duration TEXT,
+      created_at TEXT DEFAULT (datetime('now'))
+    )`).run();
+  } catch (e) { console.error('ensureSchema:', e); }
+}
+
+function parseEventTime(timeStr) {
+  if (!timeStr) return { h: 23, m: 59 };
+  const t = timeStr.trim();
+  const pmam = t.match(/am|pm/i);
+  let hours = 23, mins = 59;
+  const colon = t.indexOf(':');
+  const dot = t.indexOf('.');
+  if (colon >= 0) {
+    const parts = t.split(':');
+    hours = parseInt(parts[0], 10) || 0;
+    const rest = parts[1] || '';
+    mins = parseInt(rest.replace(/[^0-9]/g, ''), 10) || 0;
+  } else if (dot >= 0) {
+    const parts = t.split('.');
+    hours = parseInt(parts[0], 10) || 0;
+    const rest = parts[1] || '';
+    mins = parseInt(rest.replace(/[^0-9]/g, ''), 10) || 0;
+  } else {
+    const num = parseInt(t.replace(/[^0-9]/g, ''), 10);
+    if (!isNaN(num)) { hours = num; mins = 0; }
+  }
+  if (pmam) {
+    const isPm = /pm/i.test(pmam[0]);
+    if (isPm && hours < 12) hours += 12;
+    if (!isPm && hours === 12) hours = 0;
+  }
+  return { h: Math.min(23, Math.max(0, hours)), m: Math.min(59, Math.max(0, mins)) };
+}
+
+function eventEndDate(e) {
+  if (!e.event_date) return null;
+  const { h, m } = parseEventTime(e.event_time);
+  return new Date(`${e.event_date}T${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:59+03:00`);
+}
+
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function formatEventDate(dateStr) {
+  if (!dateStr) return '';
+  const parts = dateStr.split('-');
+  if (parts.length !== 3) return dateStr;
+  const d = parseInt(parts[2], 10);
+  const m = parseInt(parts[1], 10) - 1;
+  const y = parseInt(parts[0], 10);
+  if (isNaN(d) || isNaN(m) || isNaN(y)) return dateStr;
+  return `${d} ${MONTHS[m] || parts[1]} ${y}`;
+}
+
+function formatEventTime(timeStr) {
+  if (!timeStr) return '';
+  const { h, m } = parseEventTime(timeStr);
+  const suffix = h >= 12 ? 'PM' : 'AM';
+  const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
+  return m === 0 ? `${h12} ${suffix}` : `${h12}:${String(m).padStart(2, '0')} ${suffix}`;
+}
+
+function formatEventDateTime(dateStr, timeStr) {
+  const date = formatEventDate(dateStr);
+  const time = formatEventTime(timeStr);
+  if (date && time) return `${date} at ${time} EAT`;
+  if (date) return date;
+  return '';
+}
+
+function findAttendanceMatch(claim, attendees) {
+  const claimEmail = normalizeMatch(claim.contact_email || claim.email);
+  const claimName = normalizeMatch(claim.full_name);
+  return attendees.find(a => {
+    const aEmail = normalizeMatch(a.email);
+    const aName = normalizeMatch(a.full_name);
+    if (claimEmail && aEmail && claimEmail === aEmail) return true;
+    if (claimName && aName && claimName === aName) return true;
+    return false;
+  }) || null;
+}
+
+function matchesClaimToAttendance(claim, attendees) {
+  return !!findAttendanceMatch(claim, attendees);
+}
+
+function formatAttendanceTime(iso) {
+  if (!iso) return '';
+  if (/^\d{4}-\d{2}-\d{2}T/.test(iso)) {
+    try {
+      return new Date(iso).toLocaleString('en-GB', { timeZone: 'Africa/Kampala', hour12: true });
+    } catch (e) { return iso; }
+  }
+  return iso;
+}
+
+function durationMinutes(fromVal, toVal) {
+  const a = Date.parse(fromVal);
+  const b = Date.parse(toVal);
+  if (!isFinite(a) || !isFinite(b)) return null;
+  return Math.max(0, Math.round((b - a) / 60000));
+}
+
+function formatDurationFromCols(joined_at, left_at, duration) {
+  if (duration) return String(duration);
+  const mins = durationMinutes(joined_at, left_at);
+  return mins === null ? '' : `${mins} min`;
+}
+
+function parseDurationMinutes(value) {
+  if (value == null) return NaN;
+  const s = String(value);
+  const h = s.match(/(\d+(?:\.\d+)?)\s*h/);
+  const m = s.match(/(\d+(?:\.\d+)?)\s*m/);
+  if (h || m) return (h ? parseFloat(h[1]) * 60 : 0) + (m ? parseFloat(m[1]) : 0);
+  const n = parseFloat(s);
+  return isFinite(n) ? n : NaN;
+}
+
+async function getSetting(DB, key, def) {
+  try {
+    const r = await DB.prepare('SELECT setting_value FROM settings WHERE setting_key = ?').bind(key).first();
+    return r && r.setting_value != null ? r.setting_value : def;
+  } catch (e) { return def; }
+}
+
+async function autoApproveClaim(DB, claim, event, minMinutes, opts) {
+  const attendance = await DB.prepare('SELECT * FROM event_attendance WHERE event_id = ?').bind(claim.event_id).all();
+  const rec = findAttendanceMatch(claim, attendance.results || []);
+  if (!rec) return 'nomatch';
+  let mins = parseDurationMinutes(rec.duration);
+  if (!isFinite(mins)) mins = durationMinutes(rec.joined_at, rec.left_at);
+  if (mins === null || !isFinite(mins)) return 'noduration';
+  if (mins < minMinutes) return 'short';
+  const certCode = makeCertCode('PPAU-EVT');
+  await DB.prepare('UPDATE claims SET status = ?, score = ?, passed = ?, points_awarded = ?, certificate_code = ? WHERE id = ?')
+    .bind('approved', 100, 1, event.credit_points, certCode, claim.id).run();
+  if (claim.contact_email && opts && opts.origin) {
+    const certUrl = `${opts.origin}/member/certificate/${certCode}`;
+    await sendResendEmail({
+      to: claim.contact_email,
+      subject: `Your CPD Certificate — ${event.title}`,
+      html: certEmailHtml({ name: claim.full_name, moduleTitle: event.title, points: event.credit_points, certUrl })
+    }, DB, opts.env);
+  }
+  return 'approved';
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -89,6 +400,8 @@ export default {
     const cookies = parseCookies(request.headers.get('Cookie'));
     const sessionToken = cookies.session || '';
     let isAdmin = false;
+
+    await ensureSchema(DB);
 
     if (sessionToken) {
       try {
@@ -112,7 +425,7 @@ export default {
       notifCount = countResult?.count || 0;
     } catch (e) { /* table may not exist yet */ }
 
-    const viewData = { flash: flashData, notifications, notifCount };
+    const viewData = { flash: flashData, notifications, notifCount, isAdmin };
 
     // Static files — serve from R2 or public asset bundle
     if (path.startsWith('/css/') || path.startsWith('/js/') || path.startsWith('/images/')) {
@@ -133,9 +446,19 @@ export default {
 
     // HOME
     if (path === '/' && method === 'GET') {
-      const events = await DB.prepare('SELECT * FROM events WHERE is_published = 1 ORDER BY event_date ASC LIMIT 6').all();
-      const providers = await DB.prepare('SELECT * FROM cpd_providers WHERE is_active = 1 ORDER BY sort_order ASC').all();
-      return htmlRes(renderView('index', { ...viewData, events: events.results || [], providers: providers.results || [] }));
+      const upcomingEvents = await DB.prepare('SELECT * FROM events WHERE is_published = 1 ORDER BY event_date ASC').all();
+      const now = new Date();
+      const upcomingOnly = (upcomingEvents.results || [])
+        .filter(e => !e.event_date || now < eventEndDate(e))
+        .slice(0, 3);
+      const providers = await DB.prepare('SELECT * FROM cpd_providers WHERE is_active = 1 ORDER BY sort_order ASC').all().catch(() => ({ results: [] }));
+      const evRows = upcomingOnly.map(e => ({
+        ...e,
+        date_display: formatEventDate(e.event_date),
+        time_display: formatEventTime(e.event_time),
+        datetime_display: formatEventDateTime(e.event_date, e.event_time)
+      }));
+      return htmlRes(renderView('index', { ...viewData, events: evRows, providers: providers.results || [] }));
     }
 
     // CPD ARTICLES
@@ -243,13 +566,13 @@ export default {
         'INSERT INTO claims (module_id, full_name, ppau_reg_no, ahpc_reg_no, email, contact_email, score, passed, points_awarded, certificate_code, status, source) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
       ).bind(moduleId, full_name, ppau_reg_no, ahpc_reg_no, placeholderEmail, contactEmail, score, passed, pointsAwarded, certCode, passed ? 'approved' : 'pending', 'module').run();
 
-      if (passed && contactEmail) {
-        const certUrl = `${url.origin}/member/certificate/${certCode}`;
+      if (contactEmail) {
+        const certUrl = passed ? `${url.origin}/member/certificate/${certCode}` : null;
         await sendResendEmail({
           to: contactEmail,
-          subject: `Your CPD Certificate — ${mod.title}`,
-          html: certEmailHtml({ name: full_name, moduleTitle: mod.title, points: pointsAwarded, certUrl })
-        }, env.RESEND_API_KEY, env.EMAIL_FROM);
+          subject: `Submission confirmed — ${mod.title}`,
+          html: submissionConfirmationEmailHtml({ name: full_name, title: mod.title, activityType: 'module', points: pointsAwarded, score, passMark: mod.pass_mark, passed: !!passed, certUrl })
+        }, DB, env);
       }
 
       return htmlRes(renderView('member/quiz_result', {
@@ -260,7 +583,85 @@ export default {
     // MEMBER EVENTS (list)
     if (path === '/member/events' && method === 'GET') {
       const events = await DB.prepare('SELECT * FROM events WHERE is_published = 1 ORDER BY event_date ASC').all();
-      return htmlRes(renderView('member/events', { ...viewData, events: events.results || [] }));
+      const now = new Date();
+      const rows = (events.results || []).map(e => {
+        let ended = true;
+        if (e.event_date) {
+          ended = now >= eventEndDate(e);
+        }
+        return {
+          ...e,
+          ended,
+          date_display: formatEventDate(e.event_date),
+          time_display: formatEventTime(e.event_time),
+          datetime_display: formatEventDateTime(e.event_date, e.event_time)
+        };
+      });
+      const upcoming = rows.filter(e => !e.ended);
+      const past = rows.filter(e => e.ended);
+      return htmlRes(renderView('member/events', { ...viewData, events: rows, upcoming, past }));
+    }
+
+    // MEMBER EVENT JOIN (auto-records attendance, opens Meet)
+    const eventJoinMatch = path.match(/^\/member\/event\/(\d+)\/join$/);
+    if (eventJoinMatch && method === 'GET') {
+      const eventId = parseInt(eventJoinMatch[1]);
+      const event = await DB.prepare('SELECT * FROM events WHERE id = ?').bind(eventId).first();
+      if (!event) return redirect('/member/events');
+      if (event.event_date && new Date() >= eventEndDate(event)) {
+        const resp = redirect('/member/events');
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'This session has ended and can no longer be joined. You can still claim your CPD points.'));
+        return resp;
+      }
+      return htmlRes(renderView('member/join', { ...viewData, event }));
+    }
+    if (eventJoinMatch && method === 'POST') {
+      const eventId = parseInt(eventJoinMatch[1]);
+      const event = await DB.prepare('SELECT * FROM events WHERE id = ?').bind(eventId).first();
+      if (!event) return redirect('/member/events');
+      if (event.event_date && new Date() >= eventEndDate(event)) {
+        const resp = redirect('/member/events');
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'This session has ended and can no longer be joined. You can still claim your CPD points.'));
+        return resp;
+      }
+
+      const body = await request.formData();
+      const full_name = (body.get('full_name') || '').trim();
+      const email = (body.get('email') || '').trim().toLowerCase();
+
+      if (!email) {
+        const resp = redirect(`/member/event/${eventId}/join`);
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'Email is required so we can record your attendance.'));
+        return resp;
+      }
+
+      const existing = await DB.prepare('SELECT id FROM event_attendance WHERE event_id = ? AND email = ?').bind(eventId, email).first();
+      const joinedAtIso = new Date().toISOString();
+      if (!existing) {
+        await DB.prepare('INSERT INTO event_attendance (event_id, full_name, email, joined_at) VALUES (?, ?, ?, ?)')
+          .bind(eventId, full_name || email, email, joinedAtIso).run();
+      }
+
+      const joinedAtDisplay = formatAttendanceTime(joinedAtIso);
+      return htmlRes(renderView('member/join', { ...viewData, event, joined: true, full_name, email, joined_at: joinedAtDisplay }));
+    }
+
+    // MEMBER EVENT LEAVE (best-effort beacon sent when the member closes the join tab)
+    const eventLeaveMatch = path.match(/^\/member\/event\/(\d+)\/leave$/);
+    if (eventLeaveMatch && method === 'POST') {
+      const eventId = parseInt(eventLeaveMatch[1]);
+      const body = await request.formData();
+      const email = (body.get('email') || '').trim().toLowerCase();
+      if (email) {
+        const row = await DB.prepare('SELECT id, joined_at FROM event_attendance WHERE event_id = ? AND email = ? AND left_at IS NULL ORDER BY id DESC LIMIT 1').bind(eventId, email).first();
+        if (row) {
+          const leftIso = new Date().toISOString();
+          const mins = durationMinutes(row.joined_at, leftIso);
+          await DB.prepare('UPDATE event_attendance SET left_at = ?, duration = ? WHERE id = ?')
+            .bind(leftIso, mins !== null ? `${mins} min` : null, row.id).run();
+        }
+      }
+      return new Response(null, { status: 204 });
     }
 
     // MEMBER EVENT CLAIM
@@ -270,11 +671,21 @@ export default {
       const event = await DB.prepare('SELECT * FROM events WHERE id = ?').bind(eventId).first();
       if (!event) return redirect('/member/events');
 
+      if (event.event_date) {
+        const now = new Date();
+        const eventEnd = eventEndDate(event);
+        if (now < eventEnd) {
+          const resp = redirect('/member/events');
+          resp.headers.append('Set-Cookie', flashCookie('danger', 'You can only claim points after this event has ended.'));
+          return resp;
+        }
+      }
+
       const body = await request.formData();
       const full_name = body.get('full_name') || '';
       const ppau_reg_no = normalizePpauRegNo(body.get('ppau_reg_no'));
       const ahpc_reg_no = body.get('ahpc_reg_no') || '';
-      const email = body.get('email') || '';
+      const email = (body.get('email') || '').trim().toLowerCase();
 
       if (!isValidPpauRegNo(ppau_reg_no)) {
         const resp = redirect('/member/events');
@@ -282,31 +693,43 @@ export default {
         return resp;
       }
 
-      const certCode = makeCertCode('PPAU-EVT');
-      const placeholderEmail = email || `member_${Date.now()}_${Math.random().toString(36).substr(2, 4)}@ppau-cpd.local`;
-      const contactEmail = email || null;
+      if (!email) {
+        const resp = redirect('/member/events');
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'Email is required so we can verify your attendance.'));
+        return resp;
+      }
+
+      const existing = await DB.prepare('SELECT id FROM claims WHERE event_id = ? AND contact_email = ?').bind(eventId, email).first();
+      if (existing) {
+        const resp = redirect('/member/events');
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'You have already claimed points for this event with that email.'));
+        return resp;
+      }
 
       await DB.prepare(
         'INSERT INTO claims (event_id, full_name, ppau_reg_no, ahpc_reg_no, email, contact_email, score, passed, points_awarded, certificate_code, status, source) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-      ).bind(eventId, full_name, ppau_reg_no, ahpc_reg_no, placeholderEmail, contactEmail, 100, 1, event.credit_points, certCode, 'approved', 'event').run();
+      ).bind(eventId, full_name, ppau_reg_no, ahpc_reg_no, email, email, null, 0, 0, null, 'pending', 'event').run();
 
-      if (contactEmail) {
-        const certUrl = `${url.origin}/member/certificate/${certCode}`;
-        await sendResendEmail({
-          to: contactEmail,
-          subject: `Your CPD Certificate — ${event.title}`,
-          html: certEmailHtml({ name: full_name, moduleTitle: event.title, points: event.credit_points, certUrl })
-        }, env.RESEND_API_KEY, env.EMAIL_FROM);
-      }
+      await sendResendEmail({
+        to: email,
+        subject: `Claim received — ${event.title}`,
+        html: submissionConfirmationEmailHtml({ name: full_name || email, title: event.title, activityType: 'event' })
+      }, DB, env);
 
       const resp = redirect('/member/events');
-      resp.headers.append('Set-Cookie', flashCookie('success', `Points claimed! ${event.credit_points} CPD points awarded. Certificate code: ${certCode}`));
+      resp.headers.append('Set-Cookie', flashCookie('success', 'Claim received! An administrator will verify your attendance and approve your CPD points and certificate.'));
       return resp;
     }
 
     // MEMBER SELF-LEARNING
     if (path === '/member/self-learning' && method === 'GET') {
-      return htmlRes(renderView('member/self_learning', { ...viewData, submissions: [] }));
+      const reg = normalizePpauRegNo(url.searchParams.get('reg') || '');
+      let mySubmissions = [];
+      if (reg) {
+        const result = await DB.prepare('SELECT * FROM submissions WHERE ppau_reg_no = ? ORDER BY created_at DESC').bind(reg).all();
+        mySubmissions = result.results || [];
+      }
+      return htmlRes(renderView('member/self_learning', { ...viewData, submissions: mySubmissions, lookupReg: reg }));
     }
     if (path === '/member/self-learning' && method === 'POST') {
       const body = await request.formData();
@@ -322,6 +745,11 @@ export default {
         resp.headers.append('Set-Cookie', flashCookie('danger', 'Invalid PPAU registration number format. Use PPAU-PRO-YYYY-NNNNN.'));
         return resp;
       }
+      if (!email || !email.includes('@')) {
+        const resp = redirect('/member/self-learning');
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'A valid email address is required.'));
+        return resp;
+      }
 
       let evidenceFile = null;
       const file = body.get('evidence_file');
@@ -335,7 +763,15 @@ export default {
         'INSERT INTO submissions (full_name, ppau_reg_no, ahpc_reg_no, email, title, description, evidence_file) VALUES (?, ?, ?, ?, ?, ?, ?)'
       ).bind(full_name, ppau_reg_no, ahpc_reg_no, email, title, description, evidenceFile).run();
 
-      const resp = redirect('/member/self-learning');
+      if (email) {
+        await sendResendEmail({
+          to: email,
+          subject: `Submission confirmed — ${title}`,
+          html: submissionConfirmationEmailHtml({ name: full_name, title, activityType: 'self_learning', hasEvidence: !!evidenceFile })
+        }, DB, env);
+      }
+
+      const resp = redirect(`/member/self-learning?reg=${encodeURIComponent(ppau_reg_no)}`);
       resp.headers.append('Set-Cookie', flashCookie('success', 'Submission received! Our team will review it and award points.'));
       return resp;
     }
@@ -414,7 +850,9 @@ export default {
     if (path === '/admin/events' && method === 'GET') {
       if (!isAdmin) return redirect('/login');
       const events = await DB.prepare('SELECT * FROM events ORDER BY event_date ASC').all();
-      return htmlRes(renderView('admin/events', { ...viewData, events: events.results || [] }));
+      const now = new Date();
+      const rows = (events.results || []).map(e => ({ ...e, ended: !e.event_date || now >= eventEndDate(e) }));
+      return htmlRes(renderView('admin/events', { ...viewData, events: rows }));
     }
 
     if (path === '/admin/events/new' && method === 'GET') {
@@ -424,9 +862,251 @@ export default {
     if (path === '/admin/events/new' && method === 'POST') {
       if (!isAdmin) return redirect('/login');
       const body = await request.formData();
-      await DB.prepare('INSERT INTO events (title, description, venue, event_date, event_time, credit_points, is_published) VALUES (?, ?, ?, ?, ?, ?, 1)').bind(body.get('title'), body.get('description'), body.get('venue'), body.get('event_date'), body.get('event_time'), parseFloat(body.get('credit_points')) || 0).run();
+      await DB.prepare('INSERT INTO events (title, description, venue, event_date, event_time, credit_points, meet_link, is_published) VALUES (?, ?, ?, ?, ?, ?, ?, 1)').bind(body.get('title'), body.get('description'), body.get('venue'), body.get('event_date'), body.get('event_time'), parseFloat(body.get('credit_points')) || 0, body.get('meet_link')).run();
       const resp = redirect('/admin/events');
       resp.headers.append('Set-Cookie', flashCookie('success', 'Event created.'));
+      return resp;
+    }
+
+    // ADMIN ATTENDANCE OVERVIEW (section under Admin)
+    if (path === '/admin/attendance' && method === 'GET') {
+      if (!isAdmin) return redirect('/login');
+      const events = await DB.prepare('SELECT * FROM events ORDER BY event_date DESC').all();
+      const minMinutes = parseInt(await getSetting(DB, 'attendance_min_minutes', '30')) || 30;
+      const rows = [];
+      for (const e of (events.results || [])) {
+        const att = await DB.prepare('SELECT COUNT(*) as c FROM event_attendance WHERE event_id = ?').bind(e.id).first();
+        const pend = await DB.prepare("SELECT COUNT(*) as c FROM claims WHERE event_id = ? AND source = 'event' AND status = 'pending'").bind(e.id).first();
+        const appr = await DB.prepare("SELECT COUNT(*) as c FROM claims WHERE event_id = ? AND source = 'event' AND status = 'approved'").bind(e.id).first();
+        rows.push({ ...e, ended: !e.event_date || new Date() >= eventEndDate(e), attendanceCount: att?.c || 0, pendingClaims: pend?.c || 0, approvedClaims: appr?.c || 0 });
+      }
+      return htmlRes(renderView('admin/attendance', { ...viewData, events: rows, minMinutes }));
+    }
+
+    // ADMIN EVENT ATTENDANCE
+    const attendanceMatch = path.match(/^\/admin\/event\/(\d+)\/attendance$/);
+    if (attendanceMatch && method === 'GET') {
+      if (!isAdmin) return redirect('/login');
+      const eventId = parseInt(attendanceMatch[1]);
+      const event = await DB.prepare('SELECT * FROM events WHERE id = ?').bind(eventId).first();
+      if (!event) return redirect('/admin/events');
+      const claims = await DB.prepare('SELECT * FROM claims WHERE event_id = ? ORDER BY created_at DESC').bind(eventId).all();
+      const attendance = await DB.prepare('SELECT * FROM event_attendance WHERE event_id = ? ORDER BY id DESC').bind(eventId).all();
+      const attendees = (attendance.results || []).map(a => ({
+        ...a,
+        joined_display: formatAttendanceTime(a.joined_at),
+        left_display: formatAttendanceTime(a.left_at),
+        duration_display: formatDurationFromCols(a.joined_at, a.left_at, a.duration)
+      }));
+      const claimRows = (claims.results || []).map(c => {
+        const attendanceRecord = findAttendanceMatch(c, attendees);
+        return {
+          ...c,
+          matched: !!attendanceRecord,
+          attendanceRecord
+        };
+      });
+      const minMinutes = parseInt(await getSetting(DB, 'attendance_min_minutes', '30')) || 30;
+      return htmlRes(renderView('admin/event_attendance', { ...viewData, event, claims: claimRows, attendance: attendees, minMinutes }));
+    }
+
+    // ADMIN ATTENDANCE EXPORT (CSV download)
+    const attendanceExportMatch = path.match(/^\/admin\/event\/(\d+)\/attendance\/export$/);
+    if (attendanceExportMatch && method === 'GET') {
+      if (!isAdmin) return redirect('/login');
+      const eventId = parseInt(attendanceExportMatch[1]);
+      const event = await DB.prepare('SELECT * FROM events WHERE id = ?').bind(eventId).first();
+      if (!event) return redirect('/admin/attendance');
+      const attendance = await DB.prepare('SELECT * FROM event_attendance WHERE event_id = ? ORDER BY id ASC').bind(eventId).all();
+      const csvSafe = v => `"${String(v == null ? '' : v).replace(/"/g, '""')}"`;
+      const header = ['Name', 'Email', 'Joined (EAT)', 'Left (EAT)', 'Duration'];
+      const lines = (attendance.results || []).map(a => [
+        csvSafe(a.full_name),
+        csvSafe(a.email),
+        csvSafe(formatAttendanceTime(a.joined_at)),
+        csvSafe(formatAttendanceTime(a.left_at)),
+        csvSafe(formatDurationFromCols(a.joined_at, a.left_at, a.duration))
+      ].join(','));
+      const csv = '\uFEFF' + header.join(',') + '\n' + lines.join('\n');
+      const datePart = (event.event_date || 'date').replace(/-/g, '');
+      return new Response(csv, {
+        headers: {
+          'Content-Type': 'text/csv; charset=utf-8',
+          'Content-Disposition': `attachment; filename="attendance_event_${eventId}_${datePart}.csv"`
+        }
+      });
+    }
+
+    // Upload attendance report (CSV from Google Meet)
+    const attendanceUploadMatch = path.match(/^\/admin\/event\/(\d+)\/attendance\/upload$/);
+    if (attendanceUploadMatch && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      const eventId = parseInt(attendanceUploadMatch[1]);
+      const event = await DB.prepare('SELECT * FROM events WHERE id = ?').bind(eventId).first();
+      if (!event) return redirect('/admin/events');
+
+      const body = await request.formData();
+      const file = body.get('attendance_file');
+      if (!file || !file.size) {
+        const resp = redirect(`/admin/event/${eventId}/attendance`);
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'Please choose a CSV file to upload.'));
+        return resp;
+      }
+
+      const text = await file.text();
+      const attendees = parseAttendanceCsv(text);
+      let added = 0;
+      for (const a of attendees) {
+        const existing = await DB.prepare('SELECT id FROM event_attendance WHERE event_id = ? AND email = ?').bind(eventId, a.email || `__${a.full_name}`).first();
+        if (existing) continue;
+        await DB.prepare('INSERT INTO event_attendance (event_id, full_name, email, joined_at, left_at, duration) VALUES (?, ?, ?, ?, ?, ?)')
+          .bind(eventId, a.full_name, a.email, a.joined_at, a.left_at, a.duration).run();
+        added++;
+      }
+
+      const resp = redirect(`/admin/event/${eventId}/attendance`);
+      resp.headers.append('Set-Cookie', flashCookie('success', `Imported ${added} attendee(s) from the attendance report.`));
+      return resp;
+    }
+
+    // Manually add an attendee
+    const attendanceAddMatch = path.match(/^\/admin\/event\/(\d+)\/attendance\/add$/);
+    if (attendanceAddMatch && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      const eventId = parseInt(attendanceAddMatch[1]);
+      const body = await request.formData();
+      const full_name = body.get('full_name') || '';
+      const email = (body.get('email') || '').trim();
+      if (!full_name) {
+        const resp = redirect(`/admin/event/${eventId}/attendance`);
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'Attendee name is required.'));
+        return resp;
+      }
+      await DB.prepare('INSERT INTO event_attendance (event_id, full_name, email) VALUES (?, ?, ?)').bind(eventId, full_name, email || null).run();
+      const resp = redirect(`/admin/event/${eventId}/attendance`);
+      resp.headers.append('Set-Cookie', flashCookie('success', 'Attendee added.'));
+      return resp;
+    }
+
+    // Remove an attendee
+    const attendanceDeleteMatch = path.match(/^\/admin\/event\/(\d+)\/attendance\/(\d+)\/delete$/);
+    if (attendanceDeleteMatch && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      const eventId = parseInt(attendanceDeleteMatch[1]);
+      await DB.prepare('DELETE FROM event_attendance WHERE id = ? AND event_id = ?').bind(parseInt(attendanceDeleteMatch[2]), eventId).run();
+      const resp = redirect(`/admin/event/${eventId}/attendance`);
+      resp.headers.append('Set-Cookie', flashCookie('success', 'Attendee removed.'));
+      return resp;
+    }
+
+    // Verify/approve claims against attendance (auto-match)
+    const attendanceVerifyMatch = path.match(/^\/admin\/event\/(\d+)\/attendance\/verify$/);
+    if (attendanceVerifyMatch && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      const eventId = parseInt(attendanceVerifyMatch[1]);
+      const event = await DB.prepare('SELECT * FROM events WHERE id = ?').bind(eventId).first();
+      if (!event) return redirect('/admin/events');
+
+      const attendance = await DB.prepare('SELECT * FROM event_attendance WHERE event_id = ?').bind(eventId).all();
+      const attendees = attendance.results || [];
+      const pending = await DB.prepare("SELECT * FROM claims WHERE event_id = ? AND source = 'event' AND status = 'pending'").bind(eventId).all();
+
+      const minMinutes = parseInt(await getSetting(DB, 'attendance_min_minutes', '30')) || 30;
+      let approved = 0, short = 0, nomatch = 0;
+      for (const c of (pending.results || [])) {
+        const result = await autoApproveClaim(DB, c, event, minMinutes, { origin: url.origin, env });
+        if (result === 'approved') approved++;
+        else if (result === 'short') short++;
+        else if (result === 'nomatch') nomatch++;
+      }
+      const leftPending = (pending.results || []).length - approved - short - nomatch;
+
+      const resp = redirect(`/admin/event/${eventId}/attendance`);
+      resp.headers.append('Set-Cookie', flashCookie('success', `Auto-verify (≥${minMinutes} min): ${approved} approved, ${short} too short, ${nomatch} no match, ${leftPending} still pending.`));
+      return resp;
+    }
+
+    // Manually approve a single claim
+    const claimApproveMatch = path.match(/^\/admin\/event\/(\d+)\/attendance\/approve\/(\d+)$/);
+    if (claimApproveMatch && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      const eventId = parseInt(claimApproveMatch[1]);
+      const claimId = parseInt(claimApproveMatch[2]);
+      const event = await DB.prepare('SELECT * FROM events WHERE id = ?').bind(eventId).first();
+      const claim = await DB.prepare('SELECT * FROM claims WHERE id = ? AND event_id = ?').bind(claimId, eventId).first();
+      if (!event || !claim) return redirect(`/admin/event/${eventId}/attendance`);
+      const certCode = makeCertCode('PPAU-EVT');
+      await DB.prepare('UPDATE claims SET status = ?, score = ?, passed = ?, points_awarded = ?, certificate_code = ? WHERE id = ?')
+        .bind('approved', 100, 1, event.credit_points, certCode, claimId).run();
+      if (claim.contact_email) {
+        const certUrl = `${url.origin}/member/certificate/${certCode}`;
+        await sendResendEmail({
+          to: claim.contact_email,
+          subject: `Your CPD Certificate — ${event.title}`,
+          html: certEmailHtml({ name: claim.full_name, moduleTitle: event.title, points: event.credit_points, certUrl })
+        }, DB, env);
+      }
+      const resp = redirect(`/admin/event/${eventId}/attendance`);
+      resp.headers.append('Set-Cookie', flashCookie('success', 'Claim approved.'));
+      return resp;
+    }
+
+    // Manually reject a single claim
+    const claimRejectMatch = path.match(/^\/admin\/event\/(\d+)\/attendance\/reject\/(\d+)$/);
+    if (claimRejectMatch && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      const eventId = parseInt(claimRejectMatch[1]);
+      const claimId = parseInt(claimRejectMatch[2]);
+      await DB.prepare("UPDATE claims SET status = 'rejected', certificate_code = NULL, points_awarded = 0, passed = 0, score = NULL WHERE id = ? AND event_id = ?").bind(claimId, eventId).run();
+      const resp = redirect(`/admin/event/${eventId}/attendance`);
+      resp.headers.append('Set-Cookie', flashCookie('warning', 'Claim rejected. You can still approve it again from the list.'));
+      return resp;
+    }
+
+    // Revoke an auto/manual approval (back to pending)
+    const claimRevokeMatch = path.match(/^\/admin\/event\/(\d+)\/attendance\/revoke\/(\d+)$/);
+    if (claimRevokeMatch && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      const eventId = parseInt(claimRevokeMatch[1]);
+      const claimId = parseInt(claimRevokeMatch[2]);
+      await DB.prepare("UPDATE claims SET status = 'pending', certificate_code = NULL, points_awarded = 0, passed = 0, score = NULL WHERE id = ? AND event_id = ?").bind(claimId, eventId).run();
+      const resp = redirect(`/admin/event/${eventId}/attendance`);
+      resp.headers.append('Set-Cookie', flashCookie('warning', 'Approval revoked — claim is pending again.'));
+      return resp;
+    }
+
+    // Admin clear all completed (ended) sessions and their claims/attendance
+    if (path === '/admin/events/clear-completed' && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      const allEvents = await DB.prepare('SELECT * FROM events').all();
+      const now = new Date();
+      let removed = 0;
+      let claimsDeleted = 0;
+      let attendanceDeleted = 0;
+      for (const e of (allEvents.results || [])) {
+        if (!e.event_date || now < eventEndDate(e)) continue;
+        const att = await DB.prepare('DELETE FROM event_attendance WHERE event_id = ?').bind(e.id).run();
+        const cl = await DB.prepare('DELETE FROM claims WHERE event_id = ?').bind(e.id).run();
+        await DB.prepare('DELETE FROM events WHERE id = ?').bind(e.id).run();
+        removed++;
+        claimsDeleted += cl?.meta?.changes || 0;
+        attendanceDeleted += att?.meta?.changes || 0;
+      }
+      const resp = redirect('/admin/events');
+      resp.headers.append('Set-Cookie', flashCookie('success', `Removed ${removed} completed session(s) (${claimsDeleted} claim(s), ${attendanceDeleted} attendance record(s) deleted).`));
+      return resp;
+    }
+
+    // Admin save minimum attendance duration for auto-approval
+    if (path === '/admin/settings/attendance-minutes' && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      const body = await request.formData();
+      const val = parseInt(body.get('minutes'));
+if (isFinite(val) && val >= 0) {
+        await DB.prepare('INSERT OR REPLACE INTO settings (setting_key, setting_value) VALUES (?, ?)').bind('attendance_min_minutes', String(val)).run();
+      }
+      const resp = redirect('/admin/events');
+      resp.headers.append('Set-Cookie', flashCookie('success', `Auto-approval minimum duration set to ${isFinite(val) && val >= 0 ? val : 'unchanged'} minute(s).`));
       return resp;
     }
 
@@ -443,11 +1123,67 @@ export default {
       const subId = parseInt(approveMatch[1]);
       const sub = await DB.prepare('SELECT * FROM submissions WHERE id = ?').bind(subId).first();
       if (!sub) return redirect('/admin/submissions');
+      const body = await request.formData();
+      const points = parseFloat(body.get('points'));
+      const note = (body.get('note') || '').trim();
+      const awarded = isFinite(points) && points > 0 ? points : 5.0;
       const certCode = makeCertCode('PPAU-SUB');
-      await DB.prepare('UPDATE submissions SET status = ?, certificate_code = ?, points_awarded = ? WHERE id = ?').bind('approved', certCode, 5.0, subId).run();
+      await DB.prepare('UPDATE submissions SET status = ?, certificate_code = ?, points_awarded = ?, admin_note = ? WHERE id = ?')
+        .bind('approved', certCode, awarded, note, subId).run();
+      const certUrl = `${url.origin}/member/certificate/${certCode}`;
+      if (sub.email) {
+        await sendResendEmail({
+          to: sub.email,
+          subject: `Your CPD points approved — ${sub.title}`,
+          html: submissionDecisionEmailHtml({ name: sub.full_name, title: sub.title, points: awarded, note, status: 'approved', certUrl })
+        }, DB, env);
+      }
       const resp = redirect('/admin/submissions');
-      resp.headers.append('Set-Cookie', flashCookie('success', 'Submission approved.'));
+      resp.headers.append('Set-Cookie', flashCookie('success', `Submission approved — ${awarded} CPD points awarded${sub.email ? ' and email sent to the member' : ''}.`));
       return resp;
+    }
+
+    const rejectMatch = path.match(/^\/admin\/submission\/(\d+)\/reject$/);
+    if (rejectMatch && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      const subId = parseInt(rejectMatch[1]);
+      const sub = await DB.prepare('SELECT * FROM submissions WHERE id = ?').bind(subId).first();
+      if (!sub) return redirect('/admin/submissions');
+      const body = await request.formData();
+      const note = (body.get('note') || '').trim();
+      await DB.prepare("UPDATE submissions SET status = 'rejected', certificate_code = NULL, points_awarded = 0, admin_note = ? WHERE id = ?")
+        .bind(note, subId).run();
+      if (sub.email) {
+        await sendResendEmail({
+          to: sub.email,
+          subject: `Update on your CPD points submission — ${sub.title}`,
+          html: submissionDecisionEmailHtml({ name: sub.full_name, title: sub.title, points: 0, note, status: 'rejected' })
+        }, DB, env);
+      }
+      const resp = redirect('/admin/submissions');
+      resp.headers.append('Set-Cookie', flashCookie('warning', 'Submission rejected and the member notified by email.'));
+      return resp;
+    }
+
+    const evidenceMatch = path.match(/^\/admin\/submission\/(\d+)\/evidence$/);
+    if (evidenceMatch && method === 'GET') {
+      if (!isAdmin) return redirect('/login');
+      const subId = parseInt(evidenceMatch[1]);
+      const sub = await DB.prepare('SELECT * FROM submissions WHERE id = ?').bind(subId).first();
+      if (!sub || !sub.evidence_file) return redirect('/admin/submissions');
+      if (!env.R2) return new Response('Storage not available.', { status: 404 });
+      const obj = await env.R2.get(sub.evidence_file);
+      if (!obj) return new Response('Evidence file not found.', { status: 404 });
+      const contentType = (obj.httpMetadata && obj.httpMetadata.contentType) || 'application/octet-stream';
+      const filename = sub.evidence_file.split('/').pop() || 'evidence';
+      const disposition = (contentType.startsWith('image/') || contentType === 'application/pdf') ? 'inline' : 'attachment';
+      return new Response(obj.body, {
+        headers: {
+          'Content-Type': contentType,
+          'Content-Disposition': `${disposition}; filename="${filename.replace(/"/g, '')}"`,
+          'Cache-Control': 'private, max-age=300'
+        }
+      });
     }
 
     // ADMIN CLAIMS
@@ -457,20 +1193,116 @@ export default {
       return htmlRes(renderView('admin/claims', { ...viewData, claims: claims.results || [] }));
     }
 
+    // ADMIN: export per-member CPD points summary (CSV download)
+    // One row per member with total awarded points and a details column of every
+    // approved activity with the date the activity/session was done.
+    if (path === '/admin/export/member-cpd-summary.csv' && method === 'GET') {
+      if (!isAdmin) return redirect('/login');
+
+      const claims = await DB.prepare(
+        "SELECT c.*, m.title AS module_title, e.title AS event_title, e.event_date AS event_date FROM claims c LEFT JOIN modules m ON c.module_id = m.id LEFT JOIN events e ON c.event_id = e.id WHERE c.status = 'approved' AND c.points_awarded > 0 ORDER BY c.created_at ASC"
+      ).all();
+
+      const submissions = await DB.prepare(
+        "SELECT s.* FROM submissions s WHERE s.status = 'approved' AND s.points_awarded > 0 ORDER BY s.created_at ASC"
+      ).all();
+
+      const members = new Map();
+
+      const memberKey = (row) => normalizeMatch(row.ppau_reg_no || `${row.full_name || ''}|${(row.contact_email || row.email) || ''}`);
+
+      const ensureMember = (row) => {
+        const key = memberKey(row);
+        if (!members.has(key)) {
+          members.set(key, {
+            key,
+            full_name: (row.full_name || '').trim(),
+            ppau_reg_no: (row.ppau_reg_no || '').trim(),
+            ahpc_reg_no: (row.ahpc_reg_no || '').trim(),
+            email: ((row.contact_email || row.email) || '').trim(),
+            total: 0,
+            count: 0,
+            module_pts: 0,
+            event_pts: 0,
+            self_pts: 0,
+            details: []
+          });
+        }
+        const m = members.get(key);
+        if (row.full_name) m.full_name = (row.full_name || '').trim();
+        if (row.ppau_reg_no) m.ppau_reg_no = (row.ppau_reg_no || '').trim();
+        if (row.ahpc_reg_no) m.ahpc_reg_no = (row.ahpc_reg_no || '').trim();
+        const email = (row.contact_email || row.email) || '';
+        if (email) m.email = email;
+        return m;
+      };
+
+      const addItem = (m, info) => {
+        m.total += info.points;
+        m.count += 1;
+        if (info.type === 'Module') m.module_pts += info.points;
+        else if (info.type === 'Event') m.event_pts += info.points;
+        else m.self_pts += info.points;
+        m.details.push(`[${info.date || ''}] ${info.type}: ${info.title} (${info.points} pts)`);
+      };
+
+      for (const c of (claims.results || [])) {
+        const points = Number(c.points_awarded) || 0;
+        const type = c.source === 'event' ? 'Event' : 'Module';
+        const title = type === 'Event' ? (c.event_title || 'CPD Event') : (c.module_title || 'CPD Module');
+        const date = (type === 'Event' && c.event_date) ? String(c.event_date).slice(0, 10) : String(c.created_at || '').slice(0, 10);
+        addItem(ensureMember(c), { type, title, points, date });
+      }
+
+      for (const s of (submissions.results || [])) {
+        const points = Number(s.points_awarded) || 0;
+        const date = String(s.created_at || '').slice(0, 10);
+        addItem(ensureMember(s), { type: 'Self-Learning', title: s.title || 'Self-Learning Activity', points, date });
+      }
+
+      const csvSafe = v => `"${String(v == null ? '' : v).replace(/"/g, '""')}"`;
+      const header = ['Full Name', 'PPAU Reg No', 'AHPC Reg No', 'Email', 'Total CPD Points', 'Activities Count', 'Module Points', 'Event Points', 'Self-Learning Points', 'Activity Details (Date | Type | Title | Points)'];
+      const lines = [...members.values()]
+        .sort((a, b) => String(a.full_name || '').localeCompare(String(b.full_name || '')))
+        .map(m => [
+          csvSafe(m.full_name),
+          csvSafe(m.ppau_reg_no),
+          csvSafe(m.ahpc_reg_no),
+          csvSafe(m.email),
+          m.total,
+          m.count,
+          m.module_pts,
+          m.event_pts,
+          m.self_pts,
+          csvSafe(m.details.join(' | '))
+        ].join(','));
+      const csv = '\uFEFF' + header.join(',') + '\n' + lines.join('\n');
+      const datePart = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      return new Response(csv, {
+        headers: {
+          'Content-Type': 'text/csv; charset=utf-8',
+          'Content-Disposition': `attachment; filename="cpd_points_summary_${datePart}.csv"`
+        }
+      });
+    }
+
     // ADMIN SETTINGS
     if (path === '/admin/settings' && method === 'GET') {
       if (!isAdmin) return redirect('/login');
       const cpdTarget = await DB.prepare("SELECT setting_value FROM settings WHERE setting_key = 'cpd_target'").first();
       const emailApiKey = await DB.prepare("SELECT setting_value FROM settings WHERE setting_key = 'email_api_key'").first();
-      return htmlRes(renderView('admin/settings', { ...viewData, cpdTarget: cpdTarget?.setting_value || '30', emailApiKey: emailApiKey?.setting_value || '' }));
+      const emailFrom = await DB.prepare("SELECT setting_value FROM settings WHERE setting_key = 'email_from'").first();
+      return htmlRes(renderView('admin/settings', { ...viewData, cpdTarget: cpdTarget?.setting_value || '30', emailApiKey: emailApiKey?.setting_value || '', emailFrom: emailFrom?.setting_value || '' }));
     }
     if (path === '/admin/settings' && method === 'POST') {
       if (!isAdmin) return redirect('/login');
       const body = await request.formData();
       const cpdTarget = body.get('cpd_target') || '30';
       const emailApiKey = body.get('email_api_key') || '';
+      const emailFrom = body.get('email_from') || '';
       await DB.prepare('INSERT OR REPLACE INTO settings (setting_key, setting_value) VALUES (?, ?)').bind('cpd_target', cpdTarget).run();
       await DB.prepare('INSERT OR REPLACE INTO settings (setting_key, setting_value) VALUES (?, ?)').bind('email_api_key', emailApiKey).run();
+      await DB.prepare('INSERT OR REPLACE INTO settings (setting_key, setting_value) VALUES (?, ?)').bind('email_from', emailFrom).run();
       const resp = redirect('/admin/settings');
       resp.headers.append('Set-Cookie', flashCookie('success', 'Settings updated.'));
       return resp;
@@ -525,6 +1357,62 @@ export default {
     if (path === '/api/notifications' && method === 'GET') {
       const allNotifs = await DB.prepare('SELECT * FROM notifications ORDER BY created_at DESC LIMIT 20').all();
       return jsonRes({ notifications: allNotifs.results || [], count: allNotifs.results?.length || 0 });
+    }
+
+    // API: member CPD points (key-protected) — powers the ppau.info member portal
+    // GET /api/member/cpd-points?reg=PPAU-PRO-2026-NNNNN
+    // Requires header: X-CPD-Api-Key: <CPD_API_KEY>
+    if (path === '/api/member/cpd-points' && method === 'GET') {
+      if (!env.CPD_API_KEY || request.headers.get('X-CPD-Api-Key') !== env.CPD_API_KEY) {
+        return jsonRes({ error: 'Unauthorized' }, 401);
+      }
+      const reg = normalizePpauRegNo(url.searchParams.get('reg') || '');
+      if (!reg) return jsonRes({ error: 'Missing reg number' }, 400);
+
+      const claims = await DB.prepare(
+        "SELECT c.*, m.title as module_title, e.title as event_title, e.event_date FROM claims c LEFT JOIN modules m ON c.module_id = m.id LEFT JOIN events e ON c.event_id = e.id WHERE c.ppau_reg_no = ? AND c.status = 'approved' AND c.points_awarded > 0 ORDER BY c.created_at ASC"
+      ).bind(reg).all();
+
+      const submissions = await DB.prepare(
+        "SELECT s.* FROM submissions s WHERE s.ppau_reg_no = ? AND s.status = 'approved' AND s.points_awarded > 0 ORDER BY s.created_at ASC"
+      ).bind(reg).all();
+
+      const items = [];
+      for (const c of (claims.results || [])) {
+        items.push({
+          type: 'claim',
+          source: c.source || 'module',
+          title: c.event_title || c.module_title || 'CPD Activity',
+          points: c.points_awarded,
+          date: c.created_at,
+          event_date: c.event_date || null,
+          passed: !!c.passed,
+          score: c.score,
+          certificate_code: c.certificate_code || null
+        });
+      }
+      for (const s of (submissions.results || [])) {
+        items.push({
+          type: 'submission',
+          source: 'self_learning',
+          title: s.title || 'Self-Learning Activity',
+          points: s.points_awarded,
+          date: s.created_at,
+          event_date: null,
+          passed: true,
+          score: null,
+          certificate_code: s.certificate_code || null
+        });
+      }
+
+      items.sort((a, b) => String(a.date).localeCompare(String(b.date)));
+      const total = items.reduce((sum, it) => sum + (Number(it.points) || 0), 0);
+
+      const targetSetting = await DB.prepare("SELECT setting_value FROM settings WHERE setting_key = 'cpd_target'").first();
+      const target = parseFloat(targetSetting?.setting_value) || 30;
+      const percent = target > 0 ? Math.min(100, Math.round((total / target) * 100)) : 0;
+
+      return jsonRes({ ppau_reg_no: reg, total_points: total, target, percent, count: items.length, items });
     }
 
     return htmlRes(renderView('404', viewData), 404);

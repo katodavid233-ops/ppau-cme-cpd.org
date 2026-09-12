@@ -64,7 +64,25 @@
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        <% if (typeof isAdmin !== 'undefined' && isAdmin) { %>
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        <% } else { %>
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        <% } %>
       </ul>
     </div>
   </div>

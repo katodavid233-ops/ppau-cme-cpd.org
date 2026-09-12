@@ -31,7 +31,12 @@
               <div class="mb-3">
                 <label class="form-label">Resend API Key</label>
                 <input type="password" name="email_api_key" class="form-control" value="<%= emailApiKey %>" placeholder="re_...">
-                <div class="form-text">Used to send certificate emails. Leave blank to disable.</div>
+                <div class="form-text">Used to send confirmation, certificate, and decision emails. Leave blank to disable.</div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">From address</label>
+                <input type="text" name="email_from" class="form-control" value="<%= emailFrom %>" placeholder="PPAU CME-CPD <noreply@ppau-cme-cpd.org>">
+                <div class="form-text">Must be a domain verified in your Resend account.</div>
               </div>
             </div>
           </div>

@@ -10,6 +10,7 @@ routes = [
 [vars]
 ADMIN_EMAIL = "katodavid233@gmail.com"
 ADMIN_PASSWORD = "ppau-cpd2026"
+CPD_API_KEY = "MHTwbv8rlmLEMpjuviNVKxIxoPVBLv5CTAKlsCeN7nY="
 
 [[d1_databases]]
 binding = "DB"

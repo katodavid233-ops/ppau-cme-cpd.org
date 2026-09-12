@@ -9,7 +9,12 @@
         <h4 class="fw-bold mb-0"><i class="bi bi-calendar-event"></i> Manage Events</h4>
         <div class="text-white-50 small">Create and manage PPAU sessions and events.</div>
       </div>
-      <a href="/admin/events/new" class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i> New Event</a>
+      <div class="d-flex flex-wrap gap-2">
+        <form method="post" action="/admin/events/clear-completed" onsubmit="return confirm('Delete all completed sessions and their claims/attendance? This cannot be undone.');">
+          <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-eraser"></i> Clear Completed Sessions</button>
+        </form>
+        <a href="/admin/events/new" class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i> New Event</a>
+      </div>
     </div>
   </div>
 </section>
@@ -21,15 +26,17 @@
         <% if (events && events.length) { %>
           <div class="table-responsive">
             <table class="table table-hover mb-0">
-              <thead><tr><th>ID</th><th>Title</th><th>Location</th><th>Date</th><th>Points</th></tr></thead>
+              <thead><tr><th>ID</th><th>Title</th><th>Status</th><th>Location</th><th>Date</th><th>Points</th><th>Attendance</th></tr></thead>
               <tbody>
                 <% events.forEach(function(e) { %>
                   <tr>
                     <td><%= e.id %></td>
                     <td class="fw-semibold"><%= e.title %></td>
+                    <td><% if (e.ended) { %><span class="badge text-bg-secondary">Past</span><% } else { %><span class="badge text-bg-warning">Upcoming</span><% } %></td>
                     <td><%= e.venue %></td>
                     <td class="small"><%= e.event_date %></td>
                     <td><%= e.credit_points %></td>
+                    <td><a href="/admin/event/<%= e.id %>/attendance" class="btn btn-sm btn-outline-primary"><i class="bi bi-people"></i> Verify Attendance</a></td>
                   </tr>
                 <% }); %>
               </tbody>

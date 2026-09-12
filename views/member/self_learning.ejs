@@ -2,76 +2,107 @@
 <%- include('../partials/navbar') %>
 <%- include('../partials/flash') %>
 
-<section class="page-header py-4">
-  <div class="container">
-    <h4 class="fw-bold mb-0"><i class="bi bi-briefcase"></i> Other Ways and Activities</h4>
-    <div class="text-white-50 small">Done something worth CPD credit at work or through an approved activity? Share it here &mdash; our team reviews it and awards points.</div>
+<section class="hero py-5" style="min-height:200px;">
+  <div class="hero-bg-photo" aria-hidden="true">
+    <img src="/images/ppau-agm.jpg" alt="">
+  </div>
+  <div class="container py-4 position-relative" style="z-index:2;">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge badge-soft mb-3 px-3 py-2"><i class="bi bi-briefcase text-success"></i> CPD activity</span>
+        <h2 class="fw-bold text-white mb-2">Other ways &amp; activities</h2>
+        <p class="text-white-50 mb-0" style="max-width:560px;">If you have completed meaningful learning in practice or through an approved activity, submit it here for review and possible CPD credit.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="py-4">
+<section class="py-5">
   <div class="container">
     <div class="row g-4">
       <div class="col-lg-5">
-        <div class="card">
-          <div class="card-header fw-semibold"><i class="bi bi-plus-circle"></i> New Submission</div>
+        <div class="card panel-card">
+          <div class="card-header fw-semibold d-flex align-items-center">
+            <span class="style-icon-sm me-2"><i class="bi bi-plus-circle"></i></span>
+            New submission
+          </div>
           <div class="card-body">
             <form method="post" action="/member/self-learning" enctype="multipart/form-data">
               <div class="mb-3">
-                <label class="form-label">Full name *</label>
+                <label class="form-label fw-semibold">Full name *</label>
                 <input type="text" name="full_name" class="form-control" placeholder="e.g. Jane Atim" required>
               </div>
               <div class="mb-3">
-                <label class="form-label">PPAU Registration Number *</label>
+                <label class="form-label fw-semibold">PPAU Registration Number *</label>
                 <input type="text" name="ppau_reg_no" class="form-control" placeholder="e.g. PPAU-PRO-2026-00001" pattern="PPAU-PRO-\d{4}-\d{5}" required>
                 <div class="form-text small">Format: PPAU-PRO-YYYY-00000</div>
               </div>
               <div class="mb-3">
-                <label class="form-label">AHPC Registration Number *</label>
+                <label class="form-label fw-semibold">AHPC Registration Number *</label>
                 <input type="text" name="ahpc_reg_no" class="form-control" placeholder="e.g. AHPC/DSP/12345" required>
               </div>
               <div class="mb-3">
-                <label class="form-label">Email <span class="text-secondary">(optional)</span></label>
-                <input type="email" name="email" class="form-control" placeholder="you@example.com">
+                <label class="form-label fw-semibold">Email *</label>
+                <input type="email" name="email" class="form-control" placeholder="you@example.com" required>
               </div>
               <hr class="my-3">
               <div class="mb-3">
-                <label class="form-label">Title of learning activity *</label>
+                <label class="form-label fw-semibold">Title of learning activity *</label>
                 <input type="text" name="title" class="form-control" placeholder="e.g. Pharmacy internal CPD on hypertension counselling" required>
               </div>
               <div class="mb-3">
-                <label class="form-label">Description &amp; reflection *</label>
+                <label class="form-label fw-semibold">Description &amp; reflection *</label>
                 <textarea name="description" class="form-control" rows="5" placeholder="Describe the activity, what you learned, and how you applied it in practice." required></textarea>
               </div>
               <div class="mb-3">
-                <label class="form-label">Evidence file (PDF, DOC, PNG, JPG &mdash; max 5MB)</label>
+                <label class="form-label fw-semibold">Evidence file <span class="text-secondary fw-normal">(PDF, DOC, PNG, JPG &mdash; max 5MB)</span></label>
                 <input type="file" name="evidence_file" class="form-control">
               </div>
               <button type="submit" class="btn btn-success w-100"><i class="bi bi-send"></i> Submit for review</button>
-              <p class="small text-secondary mt-2 mb-0"><i class="bi bi-info-circle"></i> Points are added once our team approves your submission &mdash; usually within a few days.</p>
+              <div class="alert alert-info small mb-0 mt-3"><i class="bi bi-info-circle"></i> Points are awarded after review and approval by the PPAU team.</div>
             </form>
           </div>
         </div>
       </div>
       <div class="col-lg-7">
-        <div class="card">
-          <div class="card-header fw-semibold"><i class="bi bi-clock-history"></i> My Submissions</div>
+        <div class="card panel-card">
+          <div class="card-header fw-semibold d-flex align-items-center">
+            <span class="style-icon-sm me-2"><i class="bi bi-clock-history"></i></span>
+            My submissions
+          </div>
           <div class="card-body p-0">
+            <form method="get" action="/member/self-learning" class="p-3 border-bottom">
+              <div class="input-group input-group-sm">
+                <input type="text" name="reg" class="form-control" placeholder="Enter your PPAU number to see status e.g. PPAU-PRO-2026-00001" value="<%= lookupReg || '' %>">
+                <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+              </div>
+            </form>
             <% if (submissions && submissions.length) { %>
               <table class="table mb-0">
-                <thead><tr><th>Title</th><th>Status</th><th>Points</th></tr></thead>
+                <thead><tr><th>Title</th><th>Status</th><th>Points</th><th>Note</th></tr></thead>
                 <tbody>
                   <% submissions.forEach(function(s) { %>
                     <tr>
-                      <td><%= s.title %></td>
+                      <td class="small"><%= s.title %></td>
                       <td><span class="badge text-bg-<%= s.status === 'approved' ? 'success' : s.status === 'rejected' ? 'danger' : 'warning' %>"><%= s.status %></span></td>
-                      <td><%= s.points_awarded %></td>
+                      <td><%= s.status === 'approved' ? s.points_awarded : '—' %></td>
+                      <td class="small text-muted"><%= s.admin_note || '—' %></td>
                     </tr>
                   <% }); %>
                 </tbody>
               </table>
+            <% } else if (lookupReg) { %>
+              <div class="empty-state">
+                <div class="empty-state-icon"><i class="bi bi-inbox"></i></div>
+                <h5>No submissions found</h5>
+                <p>No submissions were found for <code><%= lookupReg %></code>. Submit a new activity to get started.</p>
+              </div>
             <% } else { %>
-              <div class="text-center py-5 text-secondary"><i class="bi bi-inbox fs-1 d-block mb-2"></i>Nothing here yet &mdash; submit your first activity and it'll show up here.</div>
+              <div class="empty-state">
+                <div class="empty-state-icon"><i class="bi bi-inbox"></i></div>
+                <h5>No submissions yet</h5>
+                <p>Start by submitting your first learning activity. It will appear here once the team reviews it.</p>
+              </div>
             <% } %>
           </div>
         </div>

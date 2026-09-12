@@ -9,17 +9,25 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TEXT DEFAULT (datetime('now'))
 );
 
+CREATE TABLE IF NOT EXISTS cpd_styles (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  slug TEXT UNIQUE NOT NULL,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+
 CREATE TABLE IF NOT EXISTS modules (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT NOT NULL,
-  description TEXT,
+  summary TEXT,
   content TEXT,
-  style TEXT DEFAULT 'e_learning',
-  cpd_points REAL DEFAULT 0,
-  duration_minutes INTEGER DEFAULT 30,
+  style_id INTEGER,
+  credit_points REAL DEFAULT 0,
+  duration_mins INTEGER DEFAULT 30,
   pass_mark INTEGER DEFAULT 70,
-  is_active INTEGER DEFAULT 1,
-  created_at TEXT DEFAULT (datetime('now'))
+  is_published INTEGER DEFAULT 1,
+  created_at TEXT DEFAULT (datetime('now')),
+  FOREIGN KEY (style_id) REFERENCES cpd_styles(id)
 );
 
 CREATE TABLE IF NOT EXISTS questions (
@@ -30,7 +38,7 @@ CREATE TABLE IF NOT EXISTS questions (
   option_b TEXT NOT NULL,
   option_c TEXT NOT NULL,
   option_d TEXT NOT NULL,
-  correct_option TEXT NOT NULL,
+  correct TEXT NOT NULL,
   FOREIGN KEY (module_id) REFERENCES modules(id) ON DELETE CASCADE
 );
 
@@ -38,10 +46,12 @@ CREATE TABLE IF NOT EXISTS events (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT NOT NULL,
   description TEXT,
-  location TEXT,
+  venue TEXT,
   event_date TEXT,
-  cpd_points REAL DEFAULT 0,
-  is_active INTEGER DEFAULT 1,
+  event_time TEXT,
+  meet_link TEXT,
+  credit_points REAL DEFAULT 0,
+  is_published INTEGER DEFAULT 1,
   created_at TEXT DEFAULT (datetime('now'))
 );
 
@@ -74,13 +84,34 @@ CREATE TABLE IF NOT EXISTS submissions (
   evidence_file TEXT,
   status TEXT DEFAULT 'pending',
   points_awarded REAL DEFAULT 0,
+  admin_note TEXT,
   certificate_code TEXT UNIQUE,
   created_at TEXT DEFAULT (datetime('now'))
 );
 
+CREATE TABLE IF NOT EXISTS event_attendance (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  event_id INTEGER NOT NULL,
+  full_name TEXT NOT NULL,
+  email TEXT,
+  joined_at TEXT,
+  left_at TEXT,
+  duration TEXT,
+  created_at TEXT DEFAULT (datetime('now')),
+  FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS notifications (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  message TEXT,
+  type TEXT DEFAULT 'info',
+  created_at TEXT DEFAULT (datetime('now'))
+);
+
 CREATE TABLE IF NOT EXISTS settings (
-  key TEXT PRIMARY KEY,
-  value TEXT
+  setting_key TEXT PRIMARY KEY,
+  setting_value TEXT
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS idx_users_ppau_reg_no ON users(ppau_reg_no);

@@ -36,6 +36,11 @@ function extractVarNames(template) {
   const vars = new Set();
   vars.add('flash');
 
+  // Data shared via partials (navbar, flash, footer) must always be bound from data
+  vars.add('isAdmin');
+  vars.add('notifications');
+  vars.add('notifCount');
+
   // Find variables declared with const/let/var in template code blocks
   const declared = new Set();
   const declRegex = /<%\s*(?:const|let|var)\s+([a-zA-Z_]\w*)/g;

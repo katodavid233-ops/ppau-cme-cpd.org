@@ -3,6 +3,9 @@ const templates = {};
 
 templates['404'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -141,7 +144,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -243,8 +270,363 @@ __o += `
   return __o;
 });
 
+templates['admin/attendance'] = (function(__data) {
+  var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
+  var include = __data.include;
+  var partials = __data.partials;
+  var header = __data.header;
+  var title = __data.title;
+  var Attendance = __data.Attendance;
+  var navbar = __data.navbar;
+  var events = __data.events;
+  var length = __data.length;
+  var forEach = __data.forEach;
+  var e = __data.e;
+  var ended = __data.ended;
+  var event_date = __data.event_date;
+  var event_time = __data.event_time;
+  var credit_points = __data.credit_points;
+  var attendanceCount = __data.attendanceCount;
+  var pendingClaims = __data.pendingClaims;
+  var approvedClaims = __data.approvedClaims;
+  var id = __data.id;
+  var minMinutes = __data.minMinutes;
+  var footer = __data.footer;
+  var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  var __o = "";
+__o += `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>`;
+__o += typeof title !== 'undefined' ? title + ' | ' : '';
+__o += `PPAU CME-CPD Portal</title>
+  <meta name="description" content="PPAU accredited Continuing Medical Education (CME) and Continuing Professional Development (CPD) portal for pharmacists.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="icon" type="image/jpeg" href="/images/ppau-logo.jpeg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark main-nav sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
+      <span><strong>PPAU</strong> <span class="text-white-50">CME-CPD</span></span>
+      <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        `;
+ const navItems = [
+          { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
+          { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
+        ]; 
+__o += `
+        `;
+ navItems.forEach(function(item) { 
+__o += `
+          <li class="nav-item"><a class="nav-link `;
+__o += typeof activeNav !== 'undefined' && activeNav === item.href ? 'active' : '';
+__o += `" href="`;
+__o += item.href;
+__o += `">`;
+__o += item.label;
+__o += `</a></li>
+        `;
+ }); 
+__o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
+      </ul>
+    </div>
+  </div>
+</nav>
+
+`;
+ if (typeof flash !== 'undefined' && flash && flash.message) { 
+__o += `
+  <div class="container mt-3">
+    <div class="alert alert-`;
+__o += flash.type || 'info';
+__o += ` alert-dismissible fade show" role="alert">
+      <i class="bi bi-`;
+__o += flash.type === 'success' ? 'check-circle' : flash.type === 'danger' ? 'exclamation-triangle' : 'info-circle';
+__o += `"></i>
+      `;
+__o += flash.message;
+__o += `
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+`;
+ } 
+__o += `
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-people"></i> Attendance</h4>
+    <div class="text-white-50 small">Every attendee is recorded for each session. Open a session console to verify and approve claims, or download the attendance CSV.</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="card">
+      <div class="card-header fw-semibold"><i class="bi bi-calendar-event"></i> Sessions</div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead><tr><th>Event</th><th>Date</th><th>Points</th><th>Attendees</th><th>Pending</th><th>Approved</th><th></th></tr></thead>
+            <tbody>
+              `;
+ if (events.length) { 
+__o += `
+                `;
+ events.forEach(function(e) { 
+__o += `
+                  <tr>
+                    <td class="small">`;
+__o += e.title;
+__o += `<br>`;
+ if (e.ended) { 
+__o += `<span class="badge text-bg-secondary mt-1">Past</span>`;
+ } else { 
+__o += `<span class="badge text-bg-warning mt-1">Upcoming</span>`;
+ } 
+__o += `</td>
+                    <td class="small text-nowrap">`;
+__o += e.event_date;
+__o += ` `;
+__o += e.event_time || '';
+__o += `</td>
+                    <td class="small">`;
+__o += e.credit_points;
+__o += `</td>
+                    <td><span class="badge text-bg-primary">`;
+__o += e.attendanceCount;
+__o += `</span></td>
+                    <td><span class="badge text-bg-warning">`;
+__o += e.pendingClaims;
+__o += `</span></td>
+                    <td><span class="badge text-bg-success">`;
+__o += e.approvedClaims;
+__o += `</span></td>
+                    <td class="text-end text-nowrap">
+                      <a href="/admin/event/`;
+__o += e.id;
+__o += `/attendance" class="btn btn-sm btn-outline-primary"><i class="bi bi-clipboard-check"></i> Verify</a>
+                      <a href="/admin/event/`;
+__o += e.id;
+__o += `/attendance/export" class="btn btn-sm btn-outline-secondary"><i class="bi bi-download"></i> CSV</a>
+                    </td>
+                  </tr>
+                `;
+ }); 
+__o += `
+              `;
+ } else { 
+__o += `
+                <tr><td colspan="7" class="text-center text-secondary py-4">No events yet.</td></tr>
+              `;
+ } 
+__o += `
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3 text-secondary small"><i class="bi bi-info-circle"></i> The one-click approve action uses the minimum duration filter of `;
+__o += minMinutes;
+__o += ` minutes of matched attendance.</div>
+  </div>
+</section>
+
+<footer class="site-footer mt-5">
+  <div class="container py-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
+        <div class="d-flex align-items-center mb-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
+        </div>
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
+          <li>Self Assessment</li>
+          <li>Events / PPAU Sessions</li>
+          <li>Other Ways and Activities</li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
+          <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+          <li><a class="link-light" href="/login">Administrator Login</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="border-secondary my-3">
+    <p class="text-center text-white-50 small mb-0">&copy; 2026 PPAU CME-CPD Portal. All rights reserved.</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
+`;
+
+  return __o;
+});
+
 templates['admin/claims'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -402,7 +784,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -429,9 +835,12 @@ __o += `
 __o += `
 
 <section class="page-header py-4">
-  <div class="container">
-    <h4 class="fw-bold mb-0"><i class="bi bi-clipboard-check"></i> All Claims</h4>
-    <div class="text-white-50 small">View all CPD claims from modules and events.</div>
+  <div class="container d-flex justify-content-between align-items-center">
+    <div>
+      <h4 class="fw-bold mb-0"><i class="bi bi-clipboard-check"></i> All Claims</h4>
+      <div class="text-white-50 small">View all CPD claims from modules and events.</div>
+    </div>
+    <a href="/admin/export/member-cpd-summary.csv" class="btn btn-light btn-sm"><i class="bi bi-filetype-csv"></i> Export member CPD summary (CSV)</a>
   </div>
 </section>
 
@@ -573,6 +982,9 @@ __o += `
 
 templates['admin/dashboard'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -732,7 +1144,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -758,10 +1194,19 @@ __o += `
  } 
 __o += `
 
-<section class="page-header py-4">
+<section class="admin-page-header py-4">
   <div class="container">
-    <h4 class="fw-bold mb-0"><i class="bi bi-speedometer2"></i> Admin Dashboard</h4>
-    <div class="text-white-50 small">Manage modules, events, claims and submissions.</div>
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+      <div>
+        <p class="eyebrow text-white-50 mb-2">Operations overview</p>
+        <h4 class="fw-bold mb-1"><i class="bi bi-speedometer2"></i> Admin Dashboard</h4>
+        <div class="text-white-50 small">Monitor content, attendance, submissions, and verified CPD activity across the platform.</div>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+        <a href="/admin/modules/new" class="btn btn-light btn-sm"><i class="bi bi-plus-circle"></i> New module</a>
+        <a href="/admin/events/new" class="btn btn-outline-light btn-sm"><i class="bi bi-plus-circle"></i> New event</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -769,7 +1214,7 @@ __o += `
   <div class="container">
     <div class="row g-4 mb-4">
       <div class="col-md-4 col-lg">
-        <div class="card stat-card text-center p-3">
+        <div class="card admin-stat-card text-center p-3">
           <div class="stat-label">Modules</div>
           <div class="stat-value text-success">`;
 __o += totalModules;
@@ -778,7 +1223,7 @@ __o += `</div>
         </div>
       </div>
       <div class="col-md-4 col-lg">
-        <div class="card stat-card text-center p-3">
+        <div class="card admin-stat-card text-center p-3">
           <div class="stat-label">Events</div>
           <div class="stat-value text-info">`;
 __o += totalEvents;
@@ -787,7 +1232,7 @@ __o += `</div>
         </div>
       </div>
       <div class="col-md-4 col-lg">
-        <div class="card stat-card text-center p-3">
+        <div class="card admin-stat-card text-center p-3">
           <div class="stat-label">Approved Claims</div>
           <div class="stat-value text-primary">`;
 __o += totalClaims;
@@ -796,7 +1241,7 @@ __o += `</div>
         </div>
       </div>
       <div class="col-md-4 col-lg">
-        <div class="card stat-card text-center p-3">
+        <div class="card admin-stat-card text-center p-3">
           <div class="stat-label">Admins</div>
           <div class="stat-value">`;
 __o += totalUsers;
@@ -805,7 +1250,7 @@ __o += `</div>
         </div>
       </div>
       <div class="col-md-4 col-lg">
-        <div class="card stat-card text-center p-3">
+        <div class="card admin-stat-card text-center p-3">
           <div class="stat-label">Pending Reviews</div>
           <div class="stat-value text-warning">`;
 __o += pendingSubmissions;
@@ -815,65 +1260,81 @@ __o += `</div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header fw-semibold"><i class="bi bi-clock-history"></i> Recent Claims</div>
-      <div class="card-body p-0">
-        `;
+    <div class="row g-4 mb-4">
+      <div class="col-lg-8">
+        <div class="card panel-card h-100">
+          <div class="card-header fw-semibold d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-clock-history"></i> Recent Claims</span>
+            <a href="/admin/claims" class="small text-success text-decoration-none">View all</a>
+          </div>
+          <div class="card-body p-0">
+            `;
  if (recentClaims && recentClaims.length) { 
 __o += `
-          <div class="table-responsive">
-            <table class="table table-hover mb-0">
-              <thead><tr><th>Name</th><th>PPAU No</th><th>Source</th><th>Points</th><th>Status</th><th>Date</th></tr></thead>
-              <tbody>
-                `;
+              <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle">
+                  <thead><tr><th>Name</th><th>PPAU No</th><th>Source</th><th>Points</th><th>Status</th><th>Date</th></tr></thead>
+                  <tbody>
+                    `;
  recentClaims.forEach(function(c) { 
 __o += `
-                  <tr>
-                    <td>`;
+                      <tr>
+                        <td>`;
 __o += c.full_name;
 __o += `</td>
-                    <td><code>`;
+                        <td><code>`;
 __o += c.ppau_reg_no;
 __o += `</code></td>
-                    <td><span class="badge text-bg-`;
+                        <td><span class="badge text-bg-`;
 __o += c.source === 'module' ? 'success' : 'info';
 __o += `">`;
 __o += c.source;
 __o += `</span></td>
-                    <td>`;
+                        <td>`;
 __o += c.points_awarded;
 __o += `</td>
-                    <td><span class="badge text-bg-`;
+                        <td><span class="badge text-bg-`;
 __o += c.status === 'approved' ? 'success' : c.status === 'rejected' ? 'danger' : 'warning';
 __o += `">`;
 __o += c.status;
 __o += `</span></td>
-                    <td class="small">`;
+                        <td class="small">`;
 __o += c.created_at;
 __o += `</td>
-                  </tr>
-                `;
+                      </tr>
+                    `;
  }); 
 __o += `
-              </tbody>
-            </table>
-          </div>
-        `;
+                  </tbody>
+                </table>
+              </div>
+            `;
  } else { 
 __o += `
-          <div class="text-center py-4 text-secondary">No claims yet.</div>
-        `;
+              <div class="text-center py-4 text-secondary">No claims yet.</div>
+            `;
  } 
 __o += `
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="mt-4 d-flex flex-wrap gap-2">
-      <a href="/admin/modules/new" class="btn btn-success"><i class="bi bi-plus-circle"></i> New Module</a>
-      <a href="/admin/events/new" class="btn btn-success"><i class="bi bi-plus-circle"></i> New Event</a>
-      <a href="/admin/notifications" class="btn btn-success"><i class="bi bi-bell"></i> Notifications</a>
-      <a href="/admin/settings" class="btn btn-outline-success"><i class="bi bi-gear"></i> Settings</a>
-      <a href="/logout" class="btn btn-outline-danger"><i class="bi bi-box-arrow-right"></i> Logout</a>
+      <div class="col-lg-4">
+        <div class="card panel-card h-100">
+          <div class="card-header fw-semibold"><i class="bi bi-lightning-charge"></i> Quick actions</div>
+          <div class="card-body p-3">
+            <div class="quick-action-stack">
+              <a href="/admin/attendance" class="quick-action-item"><i class="bi bi-people"></i> Attendance</a>
+              <a href="/admin/export/member-cpd-summary.csv" class="quick-action-item"><i class="bi bi-filetype-csv"></i> Export CPD summary (CSV)</a>
+              <a href="/admin/modules/new" class="quick-action-item"><i class="bi bi-plus-circle"></i> New Module</a>
+              <a href="/admin/events/new" class="quick-action-item"><i class="bi bi-plus-circle"></i> New Event</a>
+              <a href="/admin/notifications" class="quick-action-item"><i class="bi bi-bell"></i> Notifications</a>
+              <a href="/admin/settings" class="quick-action-item"><i class="bi bi-gear"></i> Settings</a>
+              <a href="/logout" class="quick-action-item danger"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -950,6 +1411,9 @@ __o += `
 
 templates['admin/events'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -962,6 +1426,7 @@ templates['admin/events'] = (function(__data) {
   var forEach = __data.forEach;
   var e = __data.e;
   var id = __data.id;
+  var ended = __data.ended;
   var venue = __data.venue;
   var event_date = __data.event_date;
   var credit_points = __data.credit_points;
@@ -1095,7 +1560,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -1128,7 +1617,12 @@ __o += `
         <h4 class="fw-bold mb-0"><i class="bi bi-calendar-event"></i> Manage Events</h4>
         <div class="text-white-50 small">Create and manage PPAU sessions and events.</div>
       </div>
-      <a href="/admin/events/new" class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i> New Event</a>
+      <div class="d-flex flex-wrap gap-2">
+        <form method="post" action="/admin/events/clear-completed" onsubmit="return confirm('Delete all completed sessions and their claims/attendance? This cannot be undone.');">
+          <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-eraser"></i> Clear Completed Sessions</button>
+        </form>
+        <a href="/admin/events/new" class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i> New Event</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1142,7 +1636,7 @@ __o += `
 __o += `
           <div class="table-responsive">
             <table class="table table-hover mb-0">
-              <thead><tr><th>ID</th><th>Title</th><th>Location</th><th>Date</th><th>Points</th></tr></thead>
+              <thead><tr><th>ID</th><th>Title</th><th>Status</th><th>Location</th><th>Date</th><th>Points</th><th>Attendance</th></tr></thead>
               <tbody>
                 `;
  events.forEach(function(e) { 
@@ -1155,6 +1649,13 @@ __o += `</td>
 __o += e.title;
 __o += `</td>
                     <td>`;
+ if (e.ended) { 
+__o += `<span class="badge text-bg-secondary">Past</span>`;
+ } else { 
+__o += `<span class="badge text-bg-warning">Upcoming</span>`;
+ } 
+__o += `</td>
+                    <td>`;
 __o += e.venue;
 __o += `</td>
                     <td class="small">`;
@@ -1163,6 +1664,9 @@ __o += `</td>
                     <td>`;
 __o += e.credit_points;
 __o += `</td>
+                    <td><a href="/admin/event/`;
+__o += e.id;
+__o += `/attendance" class="btn btn-sm btn-outline-primary"><i class="bi bi-people"></i> Verify Attendance</a></td>
                   </tr>
                 `;
  }); 
@@ -1253,8 +1757,585 @@ __o += `
   return __o;
 });
 
+templates['admin/event_attendance'] = (function(__data) {
+  var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
+  var include = __data.include;
+  var partials = __data.partials;
+  var header = __data.header;
+  var title = __data.title;
+  var Event = __data.Event;
+  var Attendance = __data.Attendance;
+  var navbar = __data.navbar;
+  var event = __data.event;
+  var event_date = __data.event_date;
+  var event_time = __data.event_time;
+  var credit_points = __data.credit_points;
+  var meet_link = __data.meet_link;
+  var id = __data.id;
+  var minMinutes = __data.minMinutes;
+  var attendance = __data.attendance;
+  var length = __data.length;
+  var forEach = __data.forEach;
+  var a = __data.a;
+  var full_name = __data.full_name;
+  var email = __data.email;
+  var joined_display = __data.joined_display;
+  var left_display = __data.left_display;
+  var duration_display = __data.duration_display;
+  var claims = __data.claims;
+  var c = __data.c;
+  var ppau_reg_no = __data.ppau_reg_no;
+  var contact_email = __data.contact_email;
+  var status = __data.status;
+  var rejected = __data.rejected;
+  var attendanceRecord = __data.attendanceRecord;
+  var session = __data.session;
+  var approved = __data.approved;
+  var success = __data.success;
+  var danger = __data.danger;
+  var warning = __data.warning;
+  var footer = __data.footer;
+  var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  var __o = "";
+__o += `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>`;
+__o += typeof title !== 'undefined' ? title + ' | ' : '';
+__o += `PPAU CME-CPD Portal</title>
+  <meta name="description" content="PPAU accredited Continuing Medical Education (CME) and Continuing Professional Development (CPD) portal for pharmacists.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="icon" type="image/jpeg" href="/images/ppau-logo.jpeg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark main-nav sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
+      <span><strong>PPAU</strong> <span class="text-white-50">CME-CPD</span></span>
+      <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        `;
+ const navItems = [
+          { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
+          { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
+        ]; 
+__o += `
+        `;
+ navItems.forEach(function(item) { 
+__o += `
+          <li class="nav-item"><a class="nav-link `;
+__o += typeof activeNav !== 'undefined' && activeNav === item.href ? 'active' : '';
+__o += `" href="`;
+__o += item.href;
+__o += `">`;
+__o += item.label;
+__o += `</a></li>
+        `;
+ }); 
+__o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
+      </ul>
+    </div>
+  </div>
+</nav>
+
+`;
+ if (typeof flash !== 'undefined' && flash && flash.message) { 
+__o += `
+  <div class="container mt-3">
+    <div class="alert alert-`;
+__o += flash.type || 'info';
+__o += ` alert-dismissible fade show" role="alert">
+      <i class="bi bi-`;
+__o += flash.type === 'success' ? 'check-circle' : flash.type === 'danger' ? 'exclamation-triangle' : 'info-circle';
+__o += `"></i>
+      `;
+__o += flash.message;
+__o += `
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+`;
+ } 
+__o += `
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-people"></i> Event Attendance — `;
+__o += event.title;
+__o += `</h4>
+    <div class="text-white-50 small">
+      <div><i class="bi bi-calendar-event"></i> `;
+__o += event.event_date;
+__o += ` `;
+__o += event.event_time || '';
+__o += `</div>
+      <div><i class="bi bi-star"></i> `;
+__o += event.credit_points;
+__o += ` CPD points per attendee</div>
+      `;
+ if (event.meet_link) { 
+__o += `
+        <div><i class="bi bi-camera-video"></i> <a href="`;
+__o += event.meet_link;
+__o += `" target="_blank" rel="noopener" class="text-white text-decoration-underline">`;
+__o += event.meet_link;
+__o += `</a></div>
+      `;
+ } 
+__o += `
+    </div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <div class="card">
+          <div class="card-header fw-semibold"><i class="bi bi-cloud-arrow-up"></i> 1. Import Google Meet Attendance</div>
+          <div class="card-body">
+            <p class="text-secondary small">Export the Google Meet <strong>attendance report</strong> (or any CSV of attendees) and upload it here. Columns for name/email/join/leave/duration are detected automatically. You can also add attendees manually below.</p>
+            <form method="post" enctype="multipart/form-data" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/upload" class="mb-2">
+              <div class="mb-2">
+                <input type="file" name="attendance_file" accept=".csv,text/csv" class="form-control form-control-sm" required>
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm w-100"><i class="bi bi-upload"></i> Upload Attendance CSV</button>
+            </form>
+            <hr>
+            <h6 class="fw-semibold"><i class="bi bi-person-plus"></i> Add attendee manually</h6>
+            <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/add">
+              <div class="mb-2">
+                <input type="text" name="full_name" class="form-control form-control-sm" placeholder="Full name" required>
+              </div>
+              <div class="mb-2">
+                <input type="email" name="email" class="form-control form-control-sm" placeholder="Email (optional)">
+              </div>
+              <button type="submit" class="btn btn-outline-primary btn-sm w-100"><i class="bi bi-person-plus"></i> Add Attendee</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-header fw-semibold"><i class="bi bi-robot"></i> Auto-Approval</div>
+          <div class="card-body">
+            <p class="text-secondary small">Claims are <strong>never</strong> approved automatically — every claim awaits your decision here. All attendees are retained on the attendance list whether or not a claim is approved. You can <strong>Approve</strong>, <strong>Reject</strong>, or <strong>Revoke</strong> claims. For convenience, the batch button approves in one action every pending claim that matches attendance with a duration <strong>at or above</strong> the minimum below.</p>
+            <form method="post" action="/admin/settings/attendance-minutes" class="d-flex gap-2 align-items-center">
+              <input type="number" name="minutes" min="0" value="`;
+__o += minMinutes;
+__o += `" class="form-control form-control-sm" style="max-width:110px">
+              <button type="submit" class="btn btn-sm btn-outline-primary">Save Minimum (minutes)</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-header fw-semibold"><i class="bi bi-check2-circle"></i> 2. Verify &amp; Approve Claims</div>
+          <div class="card-body">
+            <p class="text-secondary small">Claims are matched against the attendance list by <strong>email</strong> (or name). Approve claims one by one, or use the batch option to approve every pending claim whose attendance duration meets the <strong>`;
+__o += minMinutes;
+__o += `-minute</strong> minimum. Unmatched or too-short claims stay pending.</p>
+            <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/verify">
+              <button type="submit" class="btn btn-success w-100"><i class="bi bi-patch-check"></i> Auto-Approve Matched (duration &ge; `;
+__o += minMinutes;
+__o += ` min)</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-header fw-semibold d-flex justify-content-between align-items-center"><span><i class="bi bi-person-lines-fill"></i> Attendance List (`;
+__o += attendance.length;
+__o += `)</span><a href="/admin/event/`;
+__o += event.id;
+__o += `/attendance/export" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i> CSV</a></div>
+          <div class="card-body p-0">
+            `;
+ if (attendance.length) { 
+__o += `
+              <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                  <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Left</th><th>Duration</th><th></th></tr></thead>
+                  <tbody>
+                    `;
+ attendance.forEach(function(a) { 
+__o += `
+                      <tr>
+                        <td class="small">`;
+__o += a.full_name;
+__o += `</td>
+                        <td class="small">`;
+__o += a.email;
+__o += `</td>
+                        <td class="small">`;
+__o += a.joined_display;
+__o += `</td>
+                        <td class="small">`;
+__o += a.left_display;
+__o += `</td>
+                        <td class="small">`;
+__o += a.duration_display;
+__o += `</td>
+                        <td class="text-end">
+                          <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/`;
+__o += a.id;
+__o += `/delete" onsubmit="return confirm('Remove this attendee?');">
+                            <button type="submit" class="btn btn-sm btn-link text-danger p-0"><i class="bi bi-x-circle"></i></button>
+                          </form>
+                        </td>
+                      </tr>
+                    `;
+ }); 
+__o += `
+                  </tbody>
+                </table>
+              </div>
+            `;
+ } else { 
+__o += `
+              <div class="text-center text-secondary py-4 small">No attendance records yet. Upload a report or add attendees above.</div>
+            `;
+ } 
+__o += `
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="card">
+          <div class="card-header fw-semibold"><i class="bi bi-clipboard-check"></i> Claims for this event (`;
+__o += claims.length;
+__o += `)</div>
+          <div class="card-body p-0">
+            `;
+ if (claims.length) { 
+__o += `
+              <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                  <thead><tr><th>Name</th><th>PPAU No</th><th>Email</th><th>Match</th><th>Status</th><th></th></tr></thead>
+                  <tbody>
+                    `;
+ claims.forEach(function(c) { 
+__o += `
+                      <tr>
+                        <td class="small">`;
+__o += c.full_name;
+__o += `</td>
+                        <td class="small"><code>`;
+__o += c.ppau_reg_no;
+__o += `</code></td>
+                        <td class="small">`;
+__o += c.contact_email;
+__o += `</td>
+                        <td>
+                          `;
+ if (c.status === 'rejected') { 
+__o += `
+                            <span class="badge text-bg-danger">Rejected</span>
+                          `;
+ } else if (c.attendanceRecord) { 
+__o += `
+                            <span class="badge text-bg-success">Matched</span>
+                            <div class="small text-secondary mt-1"><i class="bi bi-clock-history"></i> `;
+__o += c.attendanceRecord.joined_display;
+ if (c.attendanceRecord.left_display || c.attendanceRecord.duration_display) { 
+__o += ` &rarr; `;
+__o += c.attendanceRecord.left_display || '';
+__o += ` (`;
+__o += c.attendanceRecord.duration_display || 'in session';
+__o += `)`;
+ } 
+__o += `</div>
+                          `;
+ } else { 
+__o += `
+                            <span class="badge text-bg-danger">No match</span>
+                          `;
+ } 
+__o += `
+                        </td>
+                        <td><span class="badge text-bg-`;
+__o += c.status === 'approved' ? 'success' : c.status === 'rejected' ? 'danger' : 'warning';
+__o += `">`;
+__o += c.status;
+__o += `</span></td>
+                        <td>
+                          `;
+ if (c.status === 'approved') { 
+__o += `
+                            <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/revoke/`;
+__o += c.id;
+__o += `" onsubmit="return confirm('Revoke this approval? The certificate link will be invalidated and the claim returns to pending.');">
+                              <button type="submit" class="btn btn-sm btn-link text-danger p-0">Revoke</button>
+                            </form>
+                          `;
+ } else { 
+__o += `
+                            <div class="d-flex gap-1">
+                              `;
+ if (c.attendanceRecord) { 
+__o += `
+                                <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/approve/`;
+__o += c.id;
+__o += `" onsubmit="return confirm('Attendance confirmed (`;
+__o += (c.attendanceRecord.duration_display || 'in session');
+__o += `). Approve this claim now?');">
+                                  <button type="submit" class="btn btn-sm btn-outline-success">Approve</button>
+                                </form>
+                              `;
+ } else { 
+__o += `
+                                <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/approve/`;
+__o += c.id;
+__o += `" onsubmit="return confirm('WARNING: no attendance record matches this claim (`;
+__o += c.contact_email || c.full_name;
+__o += `). Approve anyway?');">
+                                  <button type="submit" class="btn btn-sm btn-outline-warning">Approve</button>
+                                </form>
+                              `;
+ } 
+__o += `
+                              <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/reject/`;
+__o += c.id;
+__o += `" onsubmit="return confirm('Reject this claim? Points will not be awarded.');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Reject</button>
+                              </form>
+                            </div>
+                          `;
+ } 
+__o += `
+                        </td>
+                      </tr>
+                    `;
+ }); 
+__o += `
+                  </tbody>
+                </table>
+              </div>
+            `;
+ } else { 
+__o += `
+              <div class="text-center text-secondary py-4">No claims submitted for this event yet.</div>
+            `;
+ } 
+__o += `
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-3"><a href="/admin/events" class="text-decoration-none"><i class="bi bi-arrow-left"></i> Back to events</a></div>
+  </div>
+</section>
+
+<footer class="site-footer mt-5">
+  <div class="container py-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
+        <div class="d-flex align-items-center mb-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
+        </div>
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
+          <li>Self Assessment</li>
+          <li>Events / PPAU Sessions</li>
+          <li>Other Ways and Activities</li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
+          <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+          <li><a class="link-light" href="/login">Administrator Login</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="border-secondary my-3">
+    <p class="text-center text-white-50 small mb-0">&copy; 2026 PPAU CME-CPD Portal. All rights reserved.</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
+`;
+
+  return __o;
+});
+
 templates['admin/event_form'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -1392,7 +2473,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -1444,6 +2549,10 @@ __o += `
                 <div class="col-md-6">
                   <label class="form-label">Venue</label>
                   <input type="text" name="venue" class="form-control" placeholder="e.g. ONLINE (google meet)">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Google Meet Link</label>
+                  <input type="url" name="meet_link" class="form-control" placeholder="https://meet.google.com/xxx-xxxx-xxx">
                 </div>
                 <div class="col-md-3">
                   <label class="form-label">Event Date</label>
@@ -1542,6 +2651,9 @@ __o += `
 
 templates['admin/modules'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -1691,7 +2803,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -1854,6 +2990,9 @@ __o += `
 
 templates['admin/module_form'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -1991,7 +3130,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -2156,6 +3319,9 @@ __o += `
 
 templates['admin/notifications'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -2304,7 +3470,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -2526,6 +3716,9 @@ __o += `
 
 templates['admin/settings'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -2534,6 +3727,7 @@ templates['admin/settings'] = (function(__data) {
   var navbar = __data.navbar;
   var cpdTarget = __data.cpdTarget;
   var emailApiKey = __data.emailApiKey;
+  var emailFrom = __data.emailFrom;
   var footer = __data.footer;
   var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   var __o = "";
@@ -2664,7 +3858,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -2723,7 +3941,14 @@ __o += `" step="1">
                 <input type="password" name="email_api_key" class="form-control" value="`;
 __o += emailApiKey;
 __o += `" placeholder="re_...">
-                <div class="form-text">Used to send certificate emails. Leave blank to disable.</div>
+                <div class="form-text">Used to send confirmation, certificate, and decision emails. Leave blank to disable.</div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">From address</label>
+                <input type="text" name="email_from" class="form-control" value="`;
+__o += emailFrom;
+__o += `" placeholder="PPAU CME-CPD <noreply@ppau-cme-cpd.org>">
+                <div class="form-text">Must be a domain verified in your Resend account.</div>
               </div>
             </div>
           </div>
@@ -2810,6 +4035,9 @@ __o += `" placeholder="re_...">
 
 templates['admin/submissions'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -2823,16 +4051,19 @@ templates['admin/submissions'] = (function(__data) {
   var s = __data.s;
   var full_name = __data.full_name;
   var ppau_reg_no = __data.ppau_reg_no;
+  var email = __data.email;
   var description = __data.description;
   var evidence_file = __data.evidence_file;
+  var id = __data.id;
+  var admin_note = __data.admin_note;
   var status = __data.status;
   var approved = __data.approved;
   var success = __data.success;
   var rejected = __data.rejected;
   var danger = __data.danger;
   var warning = __data.warning;
+  var points_awarded = __data.points_awarded;
   var pending = __data.pending;
-  var id = __data.id;
   var footer = __data.footer;
   var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   var __o = "";
@@ -2963,7 +4194,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -2992,7 +4247,7 @@ __o += `
 <section class="page-header py-4">
   <div class="container">
     <h4 class="fw-bold mb-0"><i class="bi bi-inbox"></i> Submissions Review</h4>
-    <div class="text-white-50 small">Review "Other Ways and Activities" submissions and award points.</div>
+    <div class="text-white-50 small">Review "Other Ways and Activities" submissions, read the evidence, award CPD points and send the approval note by email.</div>
   </div>
 </section>
 
@@ -3007,24 +4262,42 @@ __o += `
         <div class="card mb-3">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-start">
-              <div>
-                <h6 class="fw-bold">`;
+              <div class="me-3">
+                <h6 class="fw-bold mb-1">`;
 __o += s.title;
 __o += `</h6>
                 <p class="small text-secondary mb-1"><strong>`;
 __o += s.full_name;
 __o += `</strong> &mdash; PPAU: `;
 __o += s.ppau_reg_no;
-__o += `</p>
+__o += ` <span class="text-muted">| `;
+__o += s.email;
+__o += `</span></p>
                 <p class="small mb-2">`;
 __o += s.description;
 __o += `</p>
                 `;
  if (s.evidence_file) { 
 __o += `
-                  <p class="small"><i class="bi bi-paperclip"></i> Evidence file: `;
-__o += s.evidence_file;
-__o += `</p>
+                  <p class="small mb-2">
+                    <i class="bi bi-paperclip text-primary"></i>
+                    <a href="/admin/submission/`;
+__o += s.id;
+__o += `/evidence" target="_blank" class="text-decoration-none">View / download evidence</a>
+                  </p>
+                `;
+ } else { 
+__o += `
+                  <p class="small text-muted mb-2"><i class="bi bi-paperclip"></i> No evidence file submitted.</p>
+                `;
+ } 
+__o += `
+                `;
+ if (s.admin_note) { 
+__o += `
+                  <div class="alert alert-light border small mb-2"><i class="bi bi-chat-left-text text-primary"></i> <strong>Admin note:</strong> `;
+__o += s.admin_note;
+__o += `</div>
                 `;
  } 
 __o += `
@@ -3036,18 +4309,55 @@ __o += ` mb-2">`;
 __o += s.status;
 __o += `</span>
                 `;
- if (s.status === 'pending') { 
+ if (s.status === 'approved') { 
 __o += `
-                  <form method="post" action="/admin/submission/`;
-__o += s.id;
-__o += `/approve" class="d-inline">
-                    <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-check-circle"></i> Approve</button>
-                  </form>
+                  <div class="small text-success fw-semibold"><i class="bi bi-patch-check"></i> `;
+__o += s.points_awarded;
+__o += ` CPD points</div>
                 `;
  } 
 __o += `
               </div>
             </div>
+
+            `;
+ if (s.status === 'pending') { 
+__o += `
+              <hr>
+              <div class="row g-2 align-items-end">
+                <div class="col-12">
+                  <span class="small fw-semibold text-secondary"><i class="bi bi-chat-square-text"></i> Decision — record points and write a short note (sent by email to the member)</span>
+                </div>
+                <form method="post" action="/admin/submission/`;
+__o += s.id;
+__o += `/approve" class="row g-2 align-items-end">
+                  <div class="col-12 col-sm-2">
+                    <label class="form-label small fw-semibold mb-1">CPD points</label>
+                    <input type="number" name="points" class="form-control form-control-sm" value="5" step="0.5" min="0" max="100" required>
+                  </div>
+                  <div class="col-12 col-sm-7">
+                    <label class="form-label small fw-semibold mb-1">Approval note</label>
+                    <input type="text" name="note" class="form-control form-control-sm" placeholder="e.g. Great work! Activity approved for 5 CPD points.">
+                  </div>
+                  <div class="col-12 col-sm-3 text-end">
+                    <button type="submit" class="btn btn-success btn-sm w-100"><i class="bi bi-check-circle"></i> Approve &amp; award</button>
+                  </div>
+                </form>
+                <form method="post" action="/admin/submission/`;
+__o += s.id;
+__o += `/reject" class="row g-2 align-items-end">
+                  <div class="col-12 col-sm-9">
+                    <label class="form-label small fw-semibold mb-1">Rejection note <span class="text-muted fw-normal">(optional)</span></label>
+                    <input type="text" name="note" class="form-control form-control-sm" placeholder="e.g. Evidence was not sufficient. Please resubmit with more detail.">
+                  </div>
+                  <div class="col-12 col-sm-3 text-end">
+                    <button type="submit" class="btn btn-outline-danger btn-sm w-100"><i class="bi bi-x-circle"></i> Reject</button>
+                  </div>
+                </form>
+              </div>
+            `;
+ } 
+__o += `
           </div>
         </div>
       `;
@@ -3130,7 +4440,6 @@ __o += `
 <script src="/js/app.js"></script>
 </body>
 </html>
-
 `;
 
   return __o;
@@ -3138,6 +4447,9 @@ __o += `
 
 templates['admin/users'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -3287,7 +4599,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -3444,6 +4780,9 @@ __o += `
 
 templates['auth/login'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -3581,7 +4920,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -3607,16 +4970,48 @@ __o += `
  } 
 __o += `
 
-<section class="auth-section py-5">
+<section class="auth-shell py-5">
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6 col-lg-5">
+    <div class="row align-items-center justify-content-center g-4">
+      <div class="col-lg-5">
+        <div class="auth-spotlight">
+          <p class="eyebrow text-success mb-2">Secure access</p>
+          <h1 class="fw-bold mb-3">Professional administration, built for confident oversight.</h1>
+          <p class="mb-4 text-secondary">This portal supports CPD administration, event management, member review, and reporting in one trusted workspace.</p>
+
+          <div class="auth-feature-list">
+            <div class="auth-feature-item">
+              <span class="auth-feature-icon"><i class="bi bi-people"></i></span>
+              <div>
+                <h6>Member support</h6>
+                <p>Review applications, submissions, and CPD tracking without friction.</p>
+              </div>
+            </div>
+            <div class="auth-feature-item">
+              <span class="auth-feature-icon"><i class="bi bi-calendar3"></i></span>
+              <div>
+                <h6>Event management</h6>
+                <p>Coordinate programmes, attendance, and verified participation records.</p>
+              </div>
+            </div>
+            <div class="auth-feature-item">
+              <span class="auth-feature-icon"><i class="bi bi-graph-up-arrow"></i></span>
+              <div>
+                <h6>Clear reporting</h6>
+                <p>Track approved claims and activity progress with a single overview.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8 col-lg-5">
         <div class="card auth-card">
           <div class="card-body p-4 p-md-5">
             <div class="text-center mb-4">
               <span class="auth-icon"><i class="bi bi-shield-lock"></i></span>
               <h4 class="fw-bold mt-3 mb-1">Administrator Login</h4>
-              <p class="text-secondary small">This is the staff entrance &mdash; for PPAU administrators only. Pharmacists don&rsquo;t need to log in; just study and claim your points with your PPAU registration number.</p>
+              <p class="text-secondary small mb-0">Secure access for PPAU staff and authorised administrators.</p>
             </div>
             <form method="post" action="/login" novalidate>
               <div class="mb-3">
@@ -3633,9 +5028,9 @@ __o += `
                   <input type="password" name="password" class="form-control" placeholder="Your password" required>
                 </div>
               </div>
-              <button type="submit" class="btn btn-success w-100 py-2"><i class="bi bi-box-arrow-in-right"></i> Login</button>
+              <button type="submit" class="btn btn-success w-100 py-2"><i class="bi bi-box-arrow-in-right"></i> Login to dashboard</button>
             </form>
-            <p class="text-center small mt-4 mb-0"><a href="/member/modules" class="text-decoration-none"><i class="bi bi-book"></i> Go to E-Learning instead</a></p>
+            <p class="text-center small mt-4 mb-0"><a href="/member/modules" class="text-decoration-none"><i class="bi bi-book"></i> Return to learning portal</a></p>
           </div>
         </div>
       </div>
@@ -3715,6 +5110,9 @@ __o += `
 
 templates['cpd-articles'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -3852,7 +5250,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -4005,6 +5427,9 @@ __o += `
 
 templates['guidance'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -4144,7 +5569,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -4287,16 +5736,17 @@ __o += `
 
 templates['index'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
   var title = __data.title;
-  var Welcome = __data.Welcome;
-  var to = __data.to;
-  var PPAU = __data.PPAU;
-  var CME = __data.CME;
+  var Professional = __data.Professional;
   var CPD = __data.CPD;
-  var Portal = __data.Portal;
+  var Pharmacy = __data.Pharmacy;
+  var Professionals = __data.Professionals;
   var navbar = __data.navbar;
   var event = __data.event;
   var mint = __data.mint;
@@ -4309,8 +5759,10 @@ templates['index'] = (function(__data) {
   var ev = __data.ev;
   var i = __data.i;
   var description = __data.description;
-  var venue = __data.venue;
+  var date_display = __data.date_display;
   var event_date = __data.event_date;
+  var time_display = __data.time_display;
+  var event_time = __data.event_time;
   var credit_points = __data.credit_points;
   var providers = __data.providers;
   var bi = __data.bi;
@@ -4451,7 +5903,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -4483,33 +5959,116 @@ __o += `
   </div>
   <div class="container py-5">
     <div class="row align-items-center g-5 py-4">
-      <div class="col-lg-9">
-        <span class="badge text-bg-light mb-3 px-3 py-2"><i class="bi bi-patch-check-fill text-success"></i> Accredited CPD for pharmacy professionals</span>
-        <h1 class="display-4 fw-bold text-white mb-3">Stay current in practice, and earn your CPD points along the way</h1>
-        <p class="lead text-white-50 mb-4">PPAU brings continuing education to your phone or computer. Work through accredited modules, attend conferences, catch up on journal reviews &mdash; then claim your points and certificate using your PPAU registration number. No account needed to start.</p>
-        <div class="d-flex flex-wrap gap-2">
+      <div class="col-lg-7" data-reveal>
+        <span class="badge badge-soft mb-3 px-3 py-2"><i class="bi bi-patch-check-fill text-success"></i> Accredited CPD for pharmacy professionals</span>
+        <h1 class="display-4 fw-bold text-white mb-3">Grow with confidence. Keep your practice current.</h1>
+        <p class="lead text-white-50 mb-4">PPAU supports your professional growth with trusted learning, clear CPD tracking, and meaningful development opportunities designed around the realities of modern pharmacy practice.</p>
+        <div class="d-flex flex-wrap gap-3">
           <a href="/member/start" class="btn btn-success btn-lg px-4"><i class="bi bi-book"></i> Begin CPD Activities</a>
-          <a href="/login" class="btn btn-outline-light btn-lg px-4"><i class="bi bi-shield-lock"></i> Admin Login</a>
+          <a href="/member/events" class="btn btn-outline-light btn-lg px-4"><i class="bi bi-calendar3"></i> Explore Events</a>
+        </div>
+        <div class="hero-meta mt-4 d-flex flex-wrap gap-3 text-white-50 small">
+          <span><i class="bi bi-check-circle-fill text-success"></i> Free accredited learning</span>
+          <span><i class="bi bi-check-circle-fill text-success"></i> Verified attendance</span>
+          <span><i class="bi bi-check-circle-fill text-success"></i> Printable certificate</span>
+        </div>
+      </div>
+
+      <div class="col-lg-5" data-reveal>
+        <div class="hero-card p-4 p-lg-5">
+          <div class="d-flex justify-content-between align-items-start mb-4">
+            <div>
+              <p class="eyebrow mb-2">This year at a glance</p>
+              <h3 class="text-white mb-0">Professional growth, simplified.</h3>
+            </div>
+            <span class="hero-chip">Verified</span>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-6">
+              <div class="stat-tile h-100">
+                <div class="stat-label">Annual target</div>
+                <div class="stat-value">30+</div>
+                <div class="stat-sub">CPD points</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="stat-tile h-100">
+                <div class="stat-label">Modules</div>
+                <div class="stat-value">24/7</div>
+                <div class="stat-sub">Access anytime</div>
+              </div>
+            </div>
+          </div>
+
+          <ul class="modern-list mb-0">
+            <li>Self-paced assessments to fit your schedule</li>
+            <li>Accredited events and learning sessions</li>
+            <li>Clear tracking from enrolment to certification</li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="styles" class="py-5 wm-section">
+<section class="py-5 wm-section">
   <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="fw-bold">Three ways to earn your CPD points</h2>
-      <p class="text-secondary">Pick whatever fits your week &mdash; most members mix a few of these.</p>
+      <p class="eyebrow text-success mb-2">Why members choose PPAU</p>
+      <h2 class="fw-bold mb-3">Support that makes continuous learning feel practical and achievable.</h2>
+      <p class="section-copy mx-auto">We combine professional guidance, trusted content, and an easy user experience so your CPD remains meaningful, timely, and relevant to your daily work.</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card h-100">
+          <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
+          <h5>Trusted standards</h5>
+          <p>Accredited learning aligned with professional expectations and quality assurance.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card h-100">
+          <div class="feature-icon"><i class="bi bi-clock-history"></i></div>
+          <h5>Flexible access</h5>
+          <p>Learn at your own pace, on the days and times that work for you.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card h-100">
+          <div class="feature-icon"><i class="bi bi-people"></i></div>
+          <h5>Professional community</h5>
+          <p>Connect with a network committed to standards, knowledge-sharing, and excellence.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card h-100">
+          <div class="feature-icon"><i class="bi bi-award"></i></div>
+          <h5>Recognised outcomes</h5>
+          <p>Earn verifiable CPD points and receive proof of progress when you need it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="styles" class="py-5 bg-light wm-section">
+  <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="eyebrow text-success mb-2">How you can earn</p>
+      <h2 class="fw-bold">Three practical ways to earn your CPD points</h2>
+      <p class="section-copy mx-auto">Choose the route that fits your month, your role, and your learning style. Most members build points through a mix of these formats.</p>
     </div>
     <div class="row g-4">
       <div class="col-md-6 col-lg-4">
         <div class="card style-card h-100">
           <div class="card-body p-4">
             <div class="style-icon mb-3"><i class="bi bi-laptop"></i></div>
-            <h5 class="fw-bold">1. Self Assessment</h5>
-            <p class="text-secondary small mb-3">Short, accredited assessments you take at your own pace, each with a quick scored questionnaire.</p>
+            <h5 class="fw-bold">Self Assessment</h5>
+            <p class="text-secondary small mb-3">Short, accredited assessments you complete at your own pace with instant feedback and a clear pass threshold.</p>
             <span class="badge text-bg-success">Auto-graded &middot; points on 70% pass</span>
           </div>
         </div>
@@ -4518,9 +6077,9 @@ __o += `
         <div class="card style-card h-100">
           <div class="card-body p-4">
             <div class="style-icon mb-3"><i class="bi bi-easel"></i></div>
-            <h5 class="fw-bold">2. Events / PPAU Sessions</h5>
-            <p class="text-secondary small mb-3">We advertise accredited events &mdash; attend, then claim your points once your attendance is confirmed.</p>
-            <span class="badge text-bg-info">Attendance verified &middot; instant points</span>
+            <h5 class="fw-bold">Events &amp; PPAU Sessions</h5>
+            <p class="text-secondary small mb-3">Attend seminars, learning sessions, and member events, then claim your points once attendance has been verified.</p>
+            <span class="badge text-bg-info">Attendance verified &middot; points awarded</span>
           </div>
         </div>
       </div>
@@ -4528,9 +6087,9 @@ __o += `
         <div class="card style-card h-100">
           <div class="card-body p-4">
             <div class="style-icon mb-3"><i class="bi bi-briefcase"></i></div>
-            <h5 class="fw-bold">3. Other Ways and Activities</h5>
-            <p class="text-secondary small mb-3">Learned something worth counting? Share it with a short reflection and we'll review it.</p>
-            <span class="badge text-bg-warning text-dark">Admin approved &middot; points awarded</span>
+            <h5 class="fw-bold">Other Ways &amp; Activities</h5>
+            <p class="text-secondary small mb-3">Share evidence of other relevant learning and a short reflection for review by the PPAU team.</p>
+            <span class="badge text-bg-warning text-dark">Admin reviewed &middot; points approved</span>
           </div>
         </div>
       </div>
@@ -4538,13 +6097,14 @@ __o += `
   </div>
 </section>
 
-<section id="events" class="py-5 bg-light wm-section">
+<section id="events" class="py-5 wm-section">
   <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
   <div class="container">
     <div class="d-flex flex-wrap justify-content-between align-items-end mb-5">
       <div>
-        <h2 class="fw-bold mb-1">Upcoming Events &amp; PPAU Sessions</h2>
-        <p class="text-secondary mb-0">Attend, then claim your CPD points once your attendance is confirmed.</p>
+        <p class="eyebrow text-success mb-2">Upcoming learning</p>
+        <h2 class="fw-bold mb-1">Events &amp; PPAU Sessions</h2>
+        <p class="text-secondary mb-0">Register for opportunities that strengthen your expertise and help you build toward your annual CPD target.</p>
       </div>
       <a href="/member/events" class="btn btn-outline-success btn-sm px-3">View all events <i class="bi bi-arrow-right"></i></a>
     </div>
@@ -4571,12 +6131,21 @@ __o += `</h6>
 __o += ev.description;
 __o += `</p>
                 <div class="small text-secondary mb-3">
-                  <div><i class="bi bi-geo-alt"></i> `;
-__o += ev.venue;
-__o += `</div>
-                  <div><i class="bi bi-calendar-event"></i> `;
-__o += ev.event_date;
-__o += `</div>
+                  <div class="event-date-block mb-2">
+                    <i class="bi bi-calendar-event"></i>
+                    <span>`;
+__o += ev.date_display || ev.event_date;
+__o += `</span>
+                  </div>
+                  `;
+ if (ev.time_display || ev.event_time) { 
+__o += `
+                    <span class="event-time-badge"><i class="bi bi-clock"></i> `;
+__o += ev.time_display || ev.event_time;
+__o += ` EAT</span>
+                  `;
+ } 
+__o += `
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                   <span class="badge text-bg-primary">`;
@@ -4601,14 +6170,15 @@ __o += `
   <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="fw-bold">How does it work</h2>
-      <p class="text-secondary">Four simple steps from joining to earning your CPD points.</p>
+      <p class="eyebrow text-success mb-2">Simple process</p>
+      <h2 class="fw-bold">A clear path from learning to recognition</h2>
+      <p class="section-copy mx-auto">Your professional development should stay easy to follow. We’ve designed the journey to be simple, transparent, and supportive from start to finish.</p>
     </div>
     <div class="row g-4 text-center">
-      <div class="col-md-3"><div class="step-num">1</div><h6 class="fw-bold mt-3">Get Your Membership ID</h6><p class="text-secondary small">Register with PPAU to get your membership ID.</p></div>
-      <div class="col-md-3"><div class="step-num">2</div><h6 class="fw-bold mt-3">Register for CPD Activities</h6><p class="text-secondary small">Register through the PPAU CPD platform or the announced CPD programmes.</p></div>
-      <div class="col-md-3"><div class="step-num">3</div><h6 class="fw-bold mt-3">Participate in CPD Activities</h6><p class="text-secondary small">Attend the CME, webinar, workshop, seminar or other approved learning activity.</p></div>
-      <div class="col-md-3"><div class="step-num">4</div><h6 class="fw-bold mt-3">Earn and Track Your CPD Points</h6><p class="text-secondary small">Complete the required assessment or participation requirements, and ensure the points are recorded against your membership.</p></div>
+      <div class="col-md-3"><div class="step-num">1</div><h6 class="fw-bold mt-3">Get your membership ID</h6><p class="text-secondary small">Register with PPAU and keep your credentials ready for every activity.</p></div>
+      <div class="col-md-3"><div class="step-num">2</div><h6 class="fw-bold mt-3">Choose your activity</h6><p class="text-secondary small">Select a module, event, or learning opportunity that matches your area of practice.</p></div>
+      <div class="col-md-3"><div class="step-num">3</div><h6 class="fw-bold mt-3">Participate and learn</h6><p class="text-secondary small">Attend, complete the assessment, or submit evidence of the learning you undertook.</p></div>
+      <div class="col-md-3"><div class="step-num">4</div><h6 class="fw-bold mt-3">Track and celebrate</h6><p class="text-secondary small">Earn points, review your progress, and download a certificate when you qualify.</p></div>
     </div>
   </div>
 </section>
@@ -4619,8 +6189,9 @@ __o += `
     <div class="row justify-content-center">
       <div class="col-lg-10">
         <div class="text-center mb-4">
-          <h2 class="fw-bold">Activities that do NOT qualify as CPD</h2>
-          <p class="text-secondary mb-0">Not every professional task counts towards your CPD points.</p>
+          <p class="eyebrow text-success mb-2">Important to know</p>
+          <h2 class="fw-bold">Activities that do not qualify as CPD</h2>
+          <p class="text-secondary mb-0">Not every professional task counts toward continuing professional development. These examples do not typically qualify.</p>
         </div>
         <div class="card border-0 shadow-sm">
           <div class="card-body p-4 p-lg-5">
@@ -4648,8 +6219,9 @@ __o += `
   <div class="container">
     <div class="d-flex flex-wrap justify-content-between align-items-end mb-5">
       <div>
-        <h2 class="fw-bold mb-1">News &amp; Articles</h2>
-        <p class="text-secondary mb-0">Guidance and reference materials for pharmacy professionals.</p>
+        <p class="eyebrow text-success mb-2">News &amp; guidance</p>
+        <h2 class="fw-bold mb-1">Professional reading and updates</h2>
+        <p class="text-secondary mb-0">Useful resources, guidance notes, and updates that support informed and confident practice.</p>
       </div>
       <a href="/cpd-articles" class="btn btn-outline-success btn-sm px-3">View all articles <i class="bi bi-arrow-right"></i></a>
     </div>
@@ -4660,7 +6232,7 @@ __o += `
           <div class="card-body d-flex flex-column p-4">
             <div class="event-icon-sm mb-3"><i class="bi bi-journal-text"></i></div>
             <h6 class="fw-bold">Guidance on CPD Points</h6>
-            <p class="text-secondary small flex-grow-1">Guidance on CPD Points, Access, Recognized Providers, Requirements and Other Relevant Information for pharmacy professionals.</p>
+            <p class="text-secondary small flex-grow-1">A clear overview of how CPD points are accessed, recognised, and tracked for pharmacy professionals.</p>
             <div class="d-flex justify-content-between align-items-center">
               <span class="badge text-bg-success">Reference</span>
               <a href="/cpd-articles" class="btn btn-sm btn-outline-success">Read more</a>
@@ -4677,23 +6249,24 @@ __o += `
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <h2 class="fw-bold text-center mb-4">Frequently Asked Questions</h2>
+        <p class="eyebrow text-success text-center mb-2">Questions answered</p>
+        <h2 class="fw-bold text-center mb-4">Frequently asked questions</h2>
         <div class="accordion" id="faqAcc">
           <div class="accordion-item">
             <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">How many points do I need per year?</button></h2>
-            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAcc"><div class="accordion-body">The annual target is set by PPAU &mdash; by default, 30 points a year. You can watch your progress build up on your member dashboard.</div></div>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAcc"><div class="accordion-body">The annual target is set by PPAU and is commonly aligned to a minimum of 30 CPD points each year. Your progress can be tracked through your member dashboard.</div></div>
           </div>
           <div class="accordion-item">
-            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">What if I don't pass the assessment?</button></h2>
-            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Every assessment needs a score of at least 70%. Pass and the module&rsquo;s points are credited straight away. Miss it? No problem &mdash; you can retake the assessment as many times as you need.</div></div>
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">What if I do not pass the assessment?</button></h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Every assessment requires a score of at least 70%. If you fall short, you can retake the assessment and continue building your knowledge without losing momentum.</div></div>
           </div>
           <div class="accordion-item">
-            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Are the modules free?</button></h2>
-            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Yes. All accredited content is free to learn &mdash; no login or registration needed. Once you pass, enter your PPAU and AHPC registration numbers to claim your CPD points and certificate.</div></div>
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Are the learning modules free?</button></h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Yes. Accredited learning content is freely accessible so members can continue developing professionally without unnecessary barriers.</div></div>
           </div>
           <div class="accordion-item">
-            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">Do I get a certificate?</button></h2>
-            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Yes. Every module you pass comes with a printable certificate carrying a unique code, so employers and the council can verify it online.</div></div>
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">Do I receive a certificate?</button></h2>
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Yes. Every completed approved learning activity can lead to a downloadable certificate, which supports professional verification and record-keeping.</div></div>
           </div>
         </div>
       </div>
@@ -4705,8 +6278,9 @@ __o += `
   <div class="wm-logos" aria-hidden="true"><img src="/images/ppau-logo.jpeg" alt=""><img src="/images/ahpc-logo.jpeg" alt=""></div>
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="fw-bold">Recognised CPD Providers</h2>
-      <p class="text-secondary">Organizations and facilities accredited to provide CPD activities for Dispensers and Pharmacy Assistants.</p>
+      <p class="eyebrow text-success mb-2">Recognised partners</p>
+      <h2 class="fw-bold">Recognised CPD providers</h2>
+      <p class="section-copy mx-auto">Organizations and facilities accredited to provide quality CPD opportunities for pharmacists and pharmacy professionals.</p>
     </div>
     <div class="row g-4 justify-content-center">
       `;
@@ -4748,6 +6322,21 @@ __o += `
       `;
  } 
 __o += `
+    </div>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="cta-section p-4 p-lg-5">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-8">
+        <p class="eyebrow text-white-50 mb-2">Ready to begin?</p>
+        <h3 class="mb-2">Build your professional edge with every learning activity.</h3>
+        <p class="mb-0">Whether you’re starting fresh or catching up on your annual points, PPAU is here to support your next step with clarity, trust, and practical guidance.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a href="/member/start" class="btn btn-light btn-lg px-4">Get started today</a>
+      </div>
     </div>
   </div>
 </section>
@@ -4824,6 +6413,9 @@ __o += `
 
 templates['member/certificate'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -4969,7 +6561,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -5214,6 +6830,9 @@ __o += `';
 
 templates['member/events'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -5223,13 +6842,20 @@ templates['member/events'] = (function(__data) {
   var navbar = __data.navbar;
   var events = __data.events;
   var length = __data.length;
+  var s = __data.s;
+  var upcoming = __data.upcoming;
   var forEach = __data.forEach;
   var ev = __data.ev;
   var description = __data.description;
-  var venue = __data.venue;
+  var date_display = __data.date_display;
   var event_date = __data.event_date;
+  var time_display = __data.time_display;
+  var event_time = __data.event_time;
+  var venue = __data.venue;
   var credit_points = __data.credit_points;
+  var meet_link = __data.meet_link;
   var id = __data.id;
+  var past = __data.past;
   var footer = __data.footer;
   var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   var __o = "";
@@ -5360,7 +6986,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -5386,92 +7036,640 @@ __o += `
  } 
 __o += `
 
-<section class="page-header py-4">
-  <div class="container">
-    <h4 class="fw-bold mb-0"><i class="bi bi-easel"></i> Conferences &amp; Seminars</h4>
-    <div class="text-white-50 small">Been to one of our accredited events? Claim your CPD points here &mdash; we verify your PPAU number before issuing points and your certificate.</div>
+<section class="hero py-5" style="min-height:220px;">
+  <div class="hero-bg-photo" aria-hidden="true">
+    <img src="/images/ppau-agm.jpg" alt="">
+  </div>
+  <div class="container py-4 position-relative" style="z-index:2;">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge badge-soft mb-3 px-3 py-2"><i class="bi bi-easel text-success"></i> PPAU accredited sessions</span>
+        <h2 class="fw-bold text-white mb-2">Conferences &amp; live learning sessions</h2>
+        <p class="text-white-50 mb-0" style="max-width:560px;">Join accredited sessions and learning events that keep your practice informed, relevant, and aligned with professional standards.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+        `;
+ if (events && events.length) { 
+__o += `
+          <span class="stat-counter me-2"><i class="bi bi-calendar-check"></i> `;
+__o += events.length;
+__o += ` session`;
+__o += events.length !== 1 ? 's' : '';
+__o += `</span>
+        `;
+ } 
+__o += `
+        `;
+ if (upcoming && upcoming.length) { 
+__o += `
+          <span class="stat-counter"><i class="bi bi-lightning-charge"></i> `;
+__o += upcoming.length;
+__o += ` upcoming</span>
+        `;
+ } 
+__o += `
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="py-4">
+<section class="py-5">
   <div class="container">
-    <div class="row g-4">
-      `;
+
+    `;
  if (events && events.length) { 
 __o += `
-        `;
- events.forEach(function(ev) { 
+
+      `;
+ if (upcoming && upcoming.length) { 
 __o += `
-          <div class="col-md-6 col-lg-4">
-            <div class="card h-100">
-              <div class="card-body d-flex flex-column p-4">
-                <div class="d-flex justify-content-between align-items-start">
-                  <span class="style-icon-sm"><i class="bi bi-easel"></i></span>
-                </div>
-                <h6 class="fw-bold mt-2">`;
+        <div class="section-intro mb-4">
+          <h3><i class="bi bi-lightning-charge-fill text-warning"></i> Upcoming &amp; live sessions</h3>
+          <p>Attend a live session and record your participation as it happens. Points are claimed after attendance is verified.</p>
+        </div>
+        <div class="row g-4 mb-5">
+          `;
+ upcoming.forEach(function(ev) { 
+__o += `
+            <div class="col-md-6 col-lg-4">
+              <div class="card event-card-upcoming h-100">
+                <div class="card-body d-flex flex-column p-4">
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="style-icon-sm"><i class="bi bi-easel"></i></div>
+                    <span class="badge text-bg-warning"><i class="bi bi-lightning-charge-fill"></i> Upcoming</span>
+                  </div>
+                  <h6 class="fw-bold mb-2">`;
 __o += ev.title;
 __o += `</h6>
-                <p class="text-secondary small">`;
+                  <p class="text-secondary small flex-grow-1 mb-3">`;
 __o += ev.description;
 __o += `</p>
-                <div class="small text-secondary mb-2">
-                  <div><i class="bi bi-geo-alt"></i> `;
+                  <div class="mb-3">
+                    <div class="event-date-block mb-2">
+                      <i class="bi bi-calendar-event"></i>
+                      <span>`;
+__o += ev.date_display || ev.event_date;
+__o += `</span>
+                    </div>
+                    `;
+ if (ev.time_display || ev.event_time) { 
+__o += `
+                      <span class="event-time-badge"><i class="bi bi-clock"></i> `;
+__o += ev.time_display || ev.event_time;
+__o += ` EAT</span>
+                    `;
+ } 
+__o += `
+                  </div>
+                  <div class="small text-secondary mb-3">
+                    <div><i class="bi bi-geo-alt text-success"></i> `;
 __o += ev.venue;
 __o += `</div>
-                  <div><i class="bi bi-calendar-event"></i> `;
-__o += ev.event_date;
-__o += `</div>
-                </div>
-                <div class="mt-auto">
-                  <span class="badge text-bg-primary mb-2">`;
+                  </div>
+                  <div class="mt-auto">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="badge text-bg-success fs-6">`;
 __o += ev.credit_points;
 __o += ` CPD points</span>
-                  <button class="btn btn-sm btn-outline-success w-100" type="button" data-bs-toggle="collapse" data-bs-target="#claim-`;
-__o += ev.id;
-__o += `"><i class="bi bi-patch-check"></i> Claim Points for This Event</button>
-                  <div class="collapse mt-2" id="claim-`;
+                    </div>
+                    `;
+ if (ev.meet_link) { 
+__o += `
+                      <button class="btn btn-success w-100 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#join-`;
 __o += ev.id;
 __o += `">
-                    <form method="post" action="/member/event/`;
+                        <i class="bi bi-camera-video"></i> Join session on Google Meet
+                      </button>
+                      <div class="collapse mt-2" id="join-`;
 __o += ev.id;
-__o += `/claim" class="border rounded p-3 bg-light">
-                      <div class="mb-2">
-                        <label class="form-label small fw-semibold">Full name *</label>
-                        <input type="text" name="full_name" class="form-control form-control-sm" placeholder="e.g. Jane Atim" required>
+__o += `">
+                        <div class="card border-0 shadow-sm">
+                          <div class="card-body p-3">
+                            <div class="d-flex align-items-center mb-3">
+                              <div class="style-icon-sm me-2"><i class="bi bi-person-plus"></i></div>
+                              <div><small class="fw-semibold">Record your attendance</small><br><small class="text-secondary">Use the same name and email as your Google Meet account.</small></div>
+                            </div>
+                            <form method="post" action="/member/event/`;
+__o += ev.id;
+__o += `/join">
+                              <div class="mb-2">
+                                <label class="form-label small fw-semibold">Full name *</label>
+                                <input type="text" name="full_name" class="form-control form-control-sm" placeholder="e.g. Jane Atim" required>
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label small fw-semibold">Email (same as your Google Meet account) *</label>
+                                <input type="email" name="email" class="form-control form-control-sm" placeholder="you@example.com" required>
+                              </div>
+                              <button type="submit" class="btn btn-success btn-sm w-100"><i class="bi bi-camera-video"></i> Join &amp; record attendance</button>
+                            </form>
+                          </div>
+                        </div>
                       </div>
-                      <div class="mb-2">
-                        <label class="form-label small fw-semibold">PPAU Registration Number *</label>
-                        <input type="text" name="ppau_reg_no" class="form-control form-control-sm" placeholder="e.g. PPAU-PRO-2026-00001" pattern="PPAU-PRO-\\d{4}-\\d{5}" required>
-                        <div class="form-text small">Format: PPAU-PRO-YYYY-00000</div>
-                      </div>
-                      <div class="mb-2">
-                        <label class="form-label small fw-semibold">AHPC Registration Number *</label>
-                        <input type="text" name="ahpc_reg_no" class="form-control form-control-sm" placeholder="e.g. AHPC/DSP/12345" required>
-                      </div>
-                      <div class="mb-2">
-                        <label class="form-label small fw-semibold">Email <span class="text-secondary">(optional)</span></label>
-                        <input type="email" name="email" class="form-control form-control-sm" placeholder="you@example.com">
-                        <div class="form-text">Used to email your certificate once issued.</div>
-                      </div>
-                      <button type="submit" class="btn btn-success btn-sm w-100"><i class="bi bi-patch-check"></i> Submit &amp; Claim Points</button>
-                    </form>
+                    `;
+ } else { 
+__o += `
+                      <div class="alert alert-info small mb-0"><i class="bi bi-info-circle"></i> The Google Meet link will appear here once it is published.</div>
+                    `;
+ } 
+__o += `
+                    <button class="btn btn-sm btn-outline-secondary w-100 mt-2" disabled><i class="bi bi-clock"></i> Claim opens after session ends</button>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        `;
+          `;
  }); 
 __o += `
-      `;
- } else { 
-__o += `
-        <div class="col-12 text-center py-5 text-secondary">
-          <i class="bi bi-calendar-x fs-1 d-block mb-2"></i>No events available yet.
         </div>
       `;
  } 
 __o += `
+
+      `;
+ if (past && past.length) { 
+__o += `
+        <div class="section-intro mb-4">
+          <h3><i class="bi bi-check-circle-fill text-success"></i> Completed sessions</h3>
+          <p>These sessions have ended. If you attended, you can still claim your points and certificate below.</p>
+        </div>
+        <div class="row g-4">
+          `;
+ past.forEach(function(ev) { 
+__o += `
+            <div class="col-md-6 col-lg-4">
+              <div class="card event-card-completed h-100">
+                <div class="card-body d-flex flex-column p-4">
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="style-icon-sm" style="background:rgba(148,163,184,.15);"><i class="bi bi-check-lg" style="color:#64748b;"></i></div>
+                    <span class="badge text-bg-secondary"><i class="bi bi-check2-all"></i> Completed</span>
+                  </div>
+                  <h6 class="fw-bold mb-2">`;
+__o += ev.title;
+__o += `</h6>
+                  <p class="text-secondary small flex-grow-1 mb-3">`;
+__o += ev.description;
+__o += `</p>
+                  <div class="mb-3">
+                    <div class="event-date-block mb-2">
+                      <i class="bi bi-calendar-event"></i>
+                      <span>`;
+__o += ev.date_display || ev.event_date;
+__o += `</span>
+                    </div>
+                    `;
+ if (ev.time_display || ev.event_time) { 
+__o += `
+                      <span class="event-time-badge" style="background:#64748b;"><i class="bi bi-clock"></i> `;
+__o += ev.time_display || ev.event_time;
+__o += ` EAT</span>
+                    `;
+ } 
+__o += `
+                  </div>
+                  <div class="small text-secondary mb-3">
+                    <div><i class="bi bi-geo-alt text-secondary"></i> `;
+__o += ev.venue;
+__o += `</div>
+                  </div>
+                  <div class="mt-auto">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="badge text-bg-success fs-6">`;
+__o += ev.credit_points;
+__o += ` CPD points</span>
+                    </div>
+                    <button class="btn btn-outline-success w-100" type="button" data-bs-toggle="collapse" data-bs-target="#claim-`;
+__o += ev.id;
+__o += `">
+                      <i class="bi bi-patch-check"></i> Claim points for this event
+                    </button>
+                    <div class="collapse mt-2" id="claim-`;
+__o += ev.id;
+__o += `">
+                      <div class="card border-0 shadow-sm">
+                        <div class="card-body p-3">
+                          <div class="d-flex align-items-center mb-3">
+                            <div class="style-icon-sm me-2"><i class="bi bi-clipboard-check"></i></div>
+                            <div><small class="fw-semibold">Claim your CPD points</small><br><small class="text-secondary">We verify attendance before points and certificates are issued.</small></div>
+                          </div>
+                          <form method="post" action="/member/event/`;
+__o += ev.id;
+__o += `/claim">
+                            <div class="mb-2">
+                              <label class="form-label small fw-semibold">Full name *</label>
+                              <input type="text" name="full_name" class="form-control form-control-sm" placeholder="e.g. Jane Atim" required>
+                            </div>
+                            <div class="mb-2">
+                              <label class="form-label small fw-semibold">PPAU Registration Number *</label>
+                              <input type="text" name="ppau_reg_no" class="form-control form-control-sm" placeholder="e.g. PPAU-PRO-2026-00001" pattern="PPAU-PRO-\\d{4}-\\d{5}" required>
+                              <div class="form-text small">Format: PPAU-PRO-YYYY-00000</div>
+                            </div>
+                            <div class="mb-2">
+                              <label class="form-label small fw-semibold">AHPC Registration Number *</label>
+                              <input type="text" name="ahpc_reg_no" class="form-control form-control-sm" placeholder="e.g. AHPC/DSP/12345" required>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label small fw-semibold">Email (same as your Google Meet account) *</label>
+                              <input type="email" name="email" class="form-control form-control-sm" placeholder="you@example.com" required>
+                              <div class="form-text small">We use this to verify attendance and send the certificate.</div>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-sm w-100"><i class="bi bi-patch-check"></i> Submit &amp; claim points</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+ }); 
+__o += `
+        </div>
+      `;
+ } 
+__o += `
+
+    `;
+ } else { 
+__o += `
+      <div class="empty-state">
+        <div class="empty-state-icon"><i class="bi bi-calendar-x"></i></div>
+        <h5>No sessions scheduled yet</h5>
+        <p>PPAU hasn't published any sessions yet. Check back soon as new learning opportunities are added regularly.</p>
+        <a href="/member/start" class="btn btn-success mt-2"><i class="bi bi-arrow-left"></i> Back to activities</a>
+      </div>
+    `;
+ } 
+__o += `
+
+  </div>
+</section>
+
+<footer class="site-footer mt-5">
+  <div class="container py-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-3 col-md-6">
+        <div class="d-flex align-items-center mb-2">
+          <img src="/images/ppau-logo.jpeg" alt="PPAU logo" class="brand-logo me-2">
+          <span class="fw-bold fs-6">PPAU CME-CPD</span>
+          <img src="/images/ahpc-logo.jpeg" alt="AHPC logo" class="brand-logo ms-2">
+        </div>
+        <p class="text-white-50 small mb-2">Accredited continuing education for pharmacists and pharmacy professionals.</p>
+        <h6 class="text-white fw-semibold small">CPD Styles</h6>
+        <ul class="list-unstyled text-white-50 mb-0" style="font-size:0.78rem;">
+          <li>Self Assessment</li>
+          <li>Events / PPAU Sessions</li>
+          <li>Other Ways and Activities</li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-telephone"></i> Phone</h6>
+        <p class="text-white-50 mb-1" style="font-size:0.78rem;">+256 740 657759</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Mon to Fri, 9:00 AM to 5:00 PM EAT</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-envelope"></i> General Enquiries</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau.info">info@ppau.info</a></p>
+        <p class="mb-2" style="font-size:0.78rem;"><a class="link-light" href="mailto:info@ppau-cme-cpd.org">info@ppau-cme-cpd.org</a></p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person-badge"></i> Secretary</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppausecretary@gmail.com">ppausecretary@gmail.com</a></p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Secretariat and membership correspondence</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-person"></i> President</h6>
+        <p class="mb-0" style="font-size:0.78rem;"><a class="link-light" href="mailto:ppau.ltd@gmail.com">ppau.ltd@gmail.com</a></p>
+        <p class="text-white-50 mb-0" style="font-size:0.72rem;">Office of the President</p>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small"><i class="bi bi-geo-alt"></i> Office</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Nakawa, Kampala, Uganda</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">Visit us during office hours</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-clock"></i> Office Hours</h6>
+        <p class="text-white-50 mb-0" style="font-size:0.78rem;">Mon to Fri: 9:00 AM to 5:00 PM</p>
+        <p class="text-white-50 mb-2" style="font-size:0.72rem;">East Africa Time (EAT)</p>
+        <h6 class="text-white fw-semibold small"><i class="bi bi-share"></i> Social Media</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="https://x.com/ppau_official" target="_blank"><i class="bi bi-twitter-x"></i> X @ppau_official</a></li>
+          <li><a class="link-light" href="https://www.tiktok.com/@ppau_official" target="_blank"><i class="bi bi-tiktok"></i> TikTok @ppau_official</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="text-white fw-semibold small">Quick Links</h6>
+        <ul class="list-unstyled mb-0" style="font-size:0.78rem;">
+          <li class="mb-1"><a class="link-light" href="/member/start">Begin CPD Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/modules">Self Assessment</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/events">Events / PPAU Sessions</a></li>
+          <li class="mb-1"><a class="link-light" href="/member/self-learning">Other Ways and Activities</a></li>
+          <li class="mb-1"><a class="link-light" href="/cpd-articles">CPD Articles</a></li>
+          <li><a class="link-light" href="/login">Administrator Login</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="border-secondary my-3">
+    <p class="text-center text-white-50 small mb-0">&copy; 2026 PPAU CME-CPD Portal. All rights reserved.</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
+`;
+
+  return __o;
+});
+
+templates['member/join'] = (function(__data) {
+  var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
+  var include = __data.include;
+  var partials = __data.partials;
+  var header = __data.header;
+  var title = __data.title;
+  var Join = __data.Join;
+  var Session = __data.Session;
+  var navbar = __data.navbar;
+  var joined = __data.joined;
+  var event = __data.event;
+  var full_name = __data.full_name;
+  var joined_at = __data.joined_at;
+  var meet_link = __data.meet_link;
+  var id = __data.id;
+  var email = __data.email;
+  var event_date = __data.event_date;
+  var event_time = __data.event_time;
+  var credit_points = __data.credit_points;
+  var footer = __data.footer;
+  var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  var __o = "";
+__o += `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>`;
+__o += typeof title !== 'undefined' ? title + ' | ' : '';
+__o += `PPAU CME-CPD Portal</title>
+  <meta name="description" content="PPAU accredited Continuing Medical Education (CME) and Continuing Professional Development (CPD) portal for pharmacists.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="icon" type="image/jpeg" href="/images/ppau-logo.jpeg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark main-nav sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/images/ppau-logo.jpeg" alt="Pharmacy Professionals Association of Uganda logo" class="brand-logo me-2">
+      <span><strong>PPAU</strong> <span class="text-white-50">CME-CPD</span></span>
+      <img src="/images/ahpc-logo.jpeg" alt="Allied Health Professionals Council logo" class="brand-logo ms-2">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        `;
+ const navItems = [
+          { href: '/member/modules', label: 'Self Assessment', icon: 'bi-laptop' },
+          { href: '/member/events', label: 'Events / PPAU Sessions', icon: 'bi-easel' },
+          { href: '/member/self-learning', label: 'Other Ways and Activities', icon: 'bi-briefcase' },
+          { href: '/cpd-articles', label: 'CPD Articles', icon: 'bi-journal-text' }
+        ]; 
+__o += `
+        `;
+ navItems.forEach(function(item) { 
+__o += `
+          <li class="nav-item"><a class="nav-link `;
+__o += typeof activeNav !== 'undefined' && activeNav === item.href ? 'active' : '';
+__o += `" href="`;
+__o += item.href;
+__o += `">`;
+__o += item.label;
+__o += `</a></li>
+        `;
+ }); 
+__o += `
+        <li class="nav-item ms-lg-2 position-relative">
+          <a class="nav-link notification-bell" href="#" id="notifBell" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            `;
+ if (typeof notifCount !== 'undefined' && notifCount > 0) { 
+__o += `
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notif-badge">`;
+__o += notifCount;
+__o += `</span>
+            `;
+ } 
+__o += `
+          </a>
+          <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0" aria-labelledby="notifBell" id="notifDropdown" style="width:360px;max-height:420px;overflow-y:auto;">
+            <div class="px-3 py-2 border-bottom fw-semibold bg-light">
+              <i class="bi bi-bell"></i> Notifications
+            </div>
+            `;
+ if (typeof notifications !== 'undefined' && notifications.length > 0) { 
+__o += `
+              `;
+ notifications.forEach(function(n) { 
+__o += `
+                <div class="dropdown-item-text notif-item px-3 py-2 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <div class="me-2 mt-1">
+                      `;
+ if (n.type === 'article') { 
+__o += `
+                        <i class="bi bi-journal-text text-primary"></i>
+                      `;
+ } else if (n.type === 'event') { 
+__o += `
+                        <i class="bi bi-easel text-success"></i>
+                      `;
+ } else if (n.type === 'announcement') { 
+__o += `
+                        <i class="bi bi-megaphone text-warning"></i>
+                      `;
+ } else { 
+__o += `
+                        <i class="bi bi-info-circle text-info"></i>
+                      `;
+ } 
+__o += `
+                    </div>
+                    <div>
+                      <div class="fw-semibold small">`;
+__o += n.title;
+__o += `</div>
+                      <div class="text-secondary" style="font-size:0.8rem;">`;
+__o += n.message;
+__o += `</div>
+                      <div class="text-muted mt-1" style="font-size:0.72rem;">`;
+__o += n.created_at;
+__o += `</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+ }); 
+__o += `
+            `;
+ } else { 
+__o += `
+              <div class="dropdown-item-text text-center text-secondary py-4">
+                <i class="bi bi-bell-slash fs-4 d-block mb-2"></i>
+                No new notifications
+              </div>
+            `;
+ } 
+__o += `
+            <div class="text-center py-2 border-top bg-light">
+              <a href="/cpd-articles" class="text-decoration-none small">View all articles &rarr;</a>
+            </div>
+          </div>
+        </li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
+      </ul>
+    </div>
+  </div>
+</nav>
+
+`;
+ if (typeof flash !== 'undefined' && flash && flash.message) { 
+__o += `
+  <div class="container mt-3">
+    <div class="alert alert-`;
+__o += flash.type || 'info';
+__o += ` alert-dismissible fade show" role="alert">
+      <i class="bi bi-`;
+__o += flash.type === 'success' ? 'check-circle' : flash.type === 'danger' ? 'exclamation-triangle' : 'info-circle';
+__o += `"></i>
+      `;
+__o += flash.message;
+__o += `
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+`;
+ } 
+__o += `
+
+<section class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card text-center">
+          <div class="card-body p-4">
+            <i class="bi bi-camera-video text-primary fs-1 d-block mb-2"></i>
+            `;
+ if (joined) { 
+__o += `
+              <span class="badge text-bg-success mb-2"><i class="bi bi-check2-circle"></i> Attendance recorded</span>
+              <h5 class="fw-bold">`;
+__o += event.title;
+__o += `</h5>
+              <p class="text-secondary small">Thanks `;
+__o += full_name;
+__o += `! Your attendance has been recorded automatically.</p>
+              <div class="border rounded p-3 bg-light text-start small mb-3">
+                <div class="d-flex justify-content-between mb-1"><span class="text-secondary">Joined at</span><strong>`;
+__o += joined_at;
+__o += `</strong></div>
+                <div class="d-flex justify-content-between text-secondary"><span>Source</span><span>Portal join record</span></div>
+              </div>
+              <p class="text-secondary small">Open the meeting below, then <strong>close this tab when you leave</strong> — your leaving time and total time on the session are recorded automatically.</p>
+              <div class="d-grid gap-2 mt-3">
+                <a href="`;
+__o += event.meet_link;
+__o += `" target="_blank" rel="noopener" class="btn btn-primary"><i class="bi bi-camera-video"></i> Open Meeting</a>
+                <a href="/member/events" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Back to Events</a>
+              </div>
+              <p class="text-muted mt-3 small"><i class="bi bi-lightbulb"></i> After the session ends, come back to <a href="/member/events">Events</a> and claim your CPD points using the same email.</p>
+              <script>setTimeout(function(){ window.open('`;
+__o += event.meet_link;
+__o += `', '_blank', 'noopener'); }, 1200);</script>
+              <script>
+                (function(){
+                  var eventId = '`;
+__o += event.id;
+__o += `';
+                  var email = '`;
+__o += email;
+__o += `';
+                  var sent = false;
+                  function leave() {
+                    if (sent) return;
+                    sent = true;
+                    var payload = new Blob(['email=' + encodeURIComponent(email)], { type: 'application/x-www-form-urlencoded' });
+                    if (navigator.sendBeacon) {
+                      try { navigator.sendBeacon('/member/event/' + eventId + '/leave', payload); } catch (e) {}
+                    } else {
+                      fetch('/member/event/' + eventId + '/leave', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'email=' + encodeURIComponent(email), keepalive: true }).catch(function(){});
+                    }
+                  }
+                  window.addEventListener('pagehide', leave);
+                })();
+              </script>
+            `;
+ } else { 
+__o += `
+              <span class="badge text-bg-warning mb-2">Upcoming</span>
+              <h5 class="fw-bold">`;
+__o += event.title;
+__o += `</h5>
+              <div class="small text-secondary mb-3">
+                <div><i class="bi bi-calendar-event"></i> `;
+__o += event.event_date;
+__o += ` `;
+__o += event.event_time || '';
+__o += `</div>
+                <div><i class="bi bi-star"></i> `;
+__o += event.credit_points;
+__o += ` CPD points</div>
+              </div>
+              <p class="text-secondary small">Enter the details you used for this session. Your attendance is recorded automatically when you join.</p>
+              <form method="post" action="/member/event/`;
+__o += event.id;
+__o += `/join" class="text-start">
+                <div class="mb-2">
+                  <label class="form-label small fw-semibold">Full name *</label>
+                  <input type="text" name="full_name" class="form-control form-control-sm" placeholder="e.g. Jane Atim" required>
+                </div>
+                <div class="mb-2">
+                  <label class="form-label small fw-semibold">Email (same as your Google Meet account) *</label>
+                  <input type="email" name="email" class="form-control form-control-sm" placeholder="you@example.com" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-camera-video"></i> Join &amp; Record Attendance</button>
+              </form>
+              <div class="mt-3"><a href="/member/events" class="text-decoration-none small"><i class="bi bi-arrow-left"></i> Back to Events</a></div>
+            `;
+ } 
+__o += `
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -5540,7 +7738,6 @@ __o += `
 <script src="/js/app.js"></script>
 </body>
 </html>
-
 `;
 
   return __o;
@@ -5548,6 +7745,9 @@ __o += `
 
 templates['member/modules'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -5704,7 +7904,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -5730,10 +7954,15 @@ __o += `
  } 
 __o += `
 
-<section class="page-header py-4">
+<section class="admin-page-header py-4">
   <div class="container">
-    <h4 class="fw-bold mb-0"><i class="bi bi-laptop"></i> Self Assessment</h4>
-    <div class="text-white-50 small">Work through e-learning/CME modules and journal reviews at your own pace. Read, then pass the assessment at 70%+, and your points are credited automatically.</div>
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-2">
+      <div>
+        <p class="eyebrow text-white-50 mb-2">Self assessment</p>
+        <h4 class="fw-bold mb-0"><i class="bi bi-laptop"></i> CPD Modules</h4>
+      </div>
+      <div class="text-white-50 small">Choose the format that best fits your learning needs.</div>
+    </div>
   </div>
 </section>
 
@@ -5785,7 +8014,7 @@ __o += `% pass</span>
                 <div class="mt-auto">
                   <a href="/member/module/`;
 __o += mod.id;
-__o += `" class="btn btn-success w-100">Start Module</a>
+__o += `" class="btn btn-success w-100">Start module</a>
                 </div>
               </div>
             </div>
@@ -5878,6 +8107,9 @@ __o += `
 
 templates['member/module_detail'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -6027,7 +8259,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -6180,6 +8436,9 @@ __o += `/quiz" class="btn btn-success w-100 py-2"><i class="bi bi-pencil-square"
 
 templates['member/quiz'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -6332,7 +8591,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -6533,6 +8816,9 @@ __o += `
 
 templates['member/quiz_result'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -6688,7 +8974,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -6866,6 +9176,9 @@ __o += `
 
 templates['member/self_learning'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -6875,6 +9188,7 @@ templates['member/self_learning'] = (function(__data) {
   var and = __data.and;
   var Activities = __data.Activities;
   var navbar = __data.navbar;
+  var lookupReg = __data.lookupReg;
   var submissions = __data.submissions;
   var length = __data.length;
   var forEach = __data.forEach;
@@ -6886,6 +9200,7 @@ templates['member/self_learning'] = (function(__data) {
   var danger = __data.danger;
   var warning = __data.warning;
   var points_awarded = __data.points_awarded;
+  var admin_note = __data.admin_note;
   var footer = __data.footer;
   var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   var __o = "";
@@ -7016,7 +9331,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -7042,72 +9381,94 @@ __o += `
  } 
 __o += `
 
-<section class="page-header py-4">
-  <div class="container">
-    <h4 class="fw-bold mb-0"><i class="bi bi-briefcase"></i> Other Ways and Activities</h4>
-    <div class="text-white-50 small">Done something worth CPD credit at work or through an approved activity? Share it here &mdash; our team reviews it and awards points.</div>
+<section class="hero py-5" style="min-height:200px;">
+  <div class="hero-bg-photo" aria-hidden="true">
+    <img src="/images/ppau-agm.jpg" alt="">
+  </div>
+  <div class="container py-4 position-relative" style="z-index:2;">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge badge-soft mb-3 px-3 py-2"><i class="bi bi-briefcase text-success"></i> CPD activity</span>
+        <h2 class="fw-bold text-white mb-2">Other ways &amp; activities</h2>
+        <p class="text-white-50 mb-0" style="max-width:560px;">If you have completed meaningful learning in practice or through an approved activity, submit it here for review and possible CPD credit.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="py-4">
+<section class="py-5">
   <div class="container">
     <div class="row g-4">
       <div class="col-lg-5">
-        <div class="card">
-          <div class="card-header fw-semibold"><i class="bi bi-plus-circle"></i> New Submission</div>
+        <div class="card panel-card">
+          <div class="card-header fw-semibold d-flex align-items-center">
+            <span class="style-icon-sm me-2"><i class="bi bi-plus-circle"></i></span>
+            New submission
+          </div>
           <div class="card-body">
             <form method="post" action="/member/self-learning" enctype="multipart/form-data">
               <div class="mb-3">
-                <label class="form-label">Full name *</label>
+                <label class="form-label fw-semibold">Full name *</label>
                 <input type="text" name="full_name" class="form-control" placeholder="e.g. Jane Atim" required>
               </div>
               <div class="mb-3">
-                <label class="form-label">PPAU Registration Number *</label>
+                <label class="form-label fw-semibold">PPAU Registration Number *</label>
                 <input type="text" name="ppau_reg_no" class="form-control" placeholder="e.g. PPAU-PRO-2026-00001" pattern="PPAU-PRO-\\d{4}-\\d{5}" required>
                 <div class="form-text small">Format: PPAU-PRO-YYYY-00000</div>
               </div>
               <div class="mb-3">
-                <label class="form-label">AHPC Registration Number *</label>
+                <label class="form-label fw-semibold">AHPC Registration Number *</label>
                 <input type="text" name="ahpc_reg_no" class="form-control" placeholder="e.g. AHPC/DSP/12345" required>
               </div>
               <div class="mb-3">
-                <label class="form-label">Email <span class="text-secondary">(optional)</span></label>
-                <input type="email" name="email" class="form-control" placeholder="you@example.com">
+                <label class="form-label fw-semibold">Email *</label>
+                <input type="email" name="email" class="form-control" placeholder="you@example.com" required>
               </div>
               <hr class="my-3">
               <div class="mb-3">
-                <label class="form-label">Title of learning activity *</label>
+                <label class="form-label fw-semibold">Title of learning activity *</label>
                 <input type="text" name="title" class="form-control" placeholder="e.g. Pharmacy internal CPD on hypertension counselling" required>
               </div>
               <div class="mb-3">
-                <label class="form-label">Description &amp; reflection *</label>
+                <label class="form-label fw-semibold">Description &amp; reflection *</label>
                 <textarea name="description" class="form-control" rows="5" placeholder="Describe the activity, what you learned, and how you applied it in practice." required></textarea>
               </div>
               <div class="mb-3">
-                <label class="form-label">Evidence file (PDF, DOC, PNG, JPG &mdash; max 5MB)</label>
+                <label class="form-label fw-semibold">Evidence file <span class="text-secondary fw-normal">(PDF, DOC, PNG, JPG &mdash; max 5MB)</span></label>
                 <input type="file" name="evidence_file" class="form-control">
               </div>
               <button type="submit" class="btn btn-success w-100"><i class="bi bi-send"></i> Submit for review</button>
-              <p class="small text-secondary mt-2 mb-0"><i class="bi bi-info-circle"></i> Points are added once our team approves your submission &mdash; usually within a few days.</p>
+              <div class="alert alert-info small mb-0 mt-3"><i class="bi bi-info-circle"></i> Points are awarded after review and approval by the PPAU team.</div>
             </form>
           </div>
         </div>
       </div>
       <div class="col-lg-7">
-        <div class="card">
-          <div class="card-header fw-semibold"><i class="bi bi-clock-history"></i> My Submissions</div>
+        <div class="card panel-card">
+          <div class="card-header fw-semibold d-flex align-items-center">
+            <span class="style-icon-sm me-2"><i class="bi bi-clock-history"></i></span>
+            My submissions
+          </div>
           <div class="card-body p-0">
+            <form method="get" action="/member/self-learning" class="p-3 border-bottom">
+              <div class="input-group input-group-sm">
+                <input type="text" name="reg" class="form-control" placeholder="Enter your PPAU number to see status e.g. PPAU-PRO-2026-00001" value="`;
+__o += lookupReg || '';
+__o += `">
+                <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+              </div>
+            </form>
             `;
  if (submissions && submissions.length) { 
 __o += `
               <table class="table mb-0">
-                <thead><tr><th>Title</th><th>Status</th><th>Points</th></tr></thead>
+                <thead><tr><th>Title</th><th>Status</th><th>Points</th><th>Note</th></tr></thead>
                 <tbody>
                   `;
  submissions.forEach(function(s) { 
 __o += `
                     <tr>
-                      <td>`;
+                      <td class="small">`;
 __o += s.title;
 __o += `</td>
                       <td><span class="badge text-bg-`;
@@ -7116,7 +9477,10 @@ __o += `">`;
 __o += s.status;
 __o += `</span></td>
                       <td>`;
-__o += s.points_awarded;
+__o += s.status === 'approved' ? s.points_awarded : '—';
+__o += `</td>
+                      <td class="small text-muted">`;
+__o += s.admin_note || '—';
 __o += `</td>
                     </tr>
                   `;
@@ -7125,9 +9489,23 @@ __o += `
                 </tbody>
               </table>
             `;
+ } else if (lookupReg) { 
+__o += `
+              <div class="empty-state">
+                <div class="empty-state-icon"><i class="bi bi-inbox"></i></div>
+                <h5>No submissions found</h5>
+                <p>No submissions were found for <code>`;
+__o += lookupReg;
+__o += `</code>. Submit a new activity to get started.</p>
+              </div>
+            `;
  } else { 
 __o += `
-              <div class="text-center py-5 text-secondary"><i class="bi bi-inbox fs-1 d-block mb-2"></i>Nothing here yet &mdash; submit your first activity and it'll show up here.</div>
+              <div class="empty-state">
+                <div class="empty-state-icon"><i class="bi bi-inbox"></i></div>
+                <h5>No submissions yet</h5>
+                <p>Start by submitting your first learning activity. It will appear here once the team reviews it.</p>
+              </div>
             `;
  } 
 __o += `
@@ -7202,7 +9580,6 @@ __o += `
 <script src="/js/app.js"></script>
 </body>
 </html>
-
 `;
 
   return __o;
@@ -7210,6 +9587,9 @@ __o += `
 
 templates['member/start'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var include = __data.include;
   var partials = __data.partials;
   var header = __data.header;
@@ -7349,7 +9729,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>
@@ -7375,24 +9779,36 @@ __o += `
  } 
 __o += `
 
-<section class="page-header py-4">
-  <div class="container">
-    <h4 class="fw-bold mb-0"><i class="bi bi-rocket-takeoff"></i> Begin CPD Activities</h4>
-    <div class="text-white-50 small">Choose which CPD activity you would like to start with &mdash; you can do all of them.</div>
+<section class="hero py-5" style="min-height:200px;">
+  <div class="hero-bg-photo" aria-hidden="true">
+    <img src="/images/ppau-agm.jpg" alt="">
+  </div>
+  <div class="container py-4 position-relative" style="z-index:2;">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge badge-soft mb-3 px-3 py-2"><i class="bi bi-rocket-takeoff text-success"></i> PPAU CME-CPD Portal</span>
+        <h2 class="fw-bold text-white mb-2">Begin your CPD journey with confidence.</h2>
+        <p class="text-white-50 mb-0" style="max-width:560px;">Choose a way to learn that fits your schedule. Whether you prefer self-paced study, live events, or reflective learning, each route supports your professional growth.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="py-4">
+<section class="py-5">
   <div class="container">
+    <div class="text-center mb-5">
+      <p class="eyebrow text-success mb-2">Choose your path</p>
+      <h2 class="fw-bold">Three practical ways to earn your CPD points</h2>
+    </div>
     <div class="row g-4">
       <div class="col-md-6 col-lg-4">
         <div class="card style-card h-100">
           <div class="card-body d-flex flex-column p-4">
             <div class="style-icon mb-3"><i class="bi bi-laptop"></i></div>
             <h5 class="fw-bold">Self Assessment</h5>
-            <p class="text-secondary small flex-grow-1 mb-3">Work through e-learning/CME modules and journal reviews at your own pace. Pass the assessment at 70% and your points are credited automatically.</p>
+            <p class="text-secondary small flex-grow-1 mb-3">Move through accredited modules and quick assessments at your own pace. Pass at 70% and your points are recorded instantly.</p>
             <span class="badge text-bg-success mb-3">Auto-graded &middot; instant points</span>
-            <a href="/member/modules" class="btn btn-success w-100">Start Self Assessment</a>
+            <a href="/member/modules" class="btn btn-success w-100"><i class="bi bi-laptop"></i> Start self assessment</a>
           </div>
         </div>
       </div>
@@ -7400,10 +9816,10 @@ __o += `
         <div class="card style-card h-100">
           <div class="card-body d-flex flex-column p-4">
             <div class="style-icon mb-3"><i class="bi bi-easel"></i></div>
-            <h5 class="fw-bold">Events / PPAU Sessions</h5>
-            <p class="text-secondary small flex-grow-1 mb-3">Attend accredited conferences, seminars and PPAU sessions, then claim your points once your attendance is confirmed.</p>
-            <span class="badge text-bg-info mb-3">Attendance verified &middot; instant points</span>
-            <a href="/member/events" class="btn btn-success w-100">Browse Events &amp; Sessions</a>
+            <h5 class="fw-bold">Events &amp; PPAU Sessions</h5>
+            <p class="text-secondary small flex-grow-1 mb-3">Attend meetings, seminars, and live learning sessions designed to support your practice and strengthen your expertise.</p>
+            <span class="badge text-bg-info mb-3">Attendance verified &middot; points awarded</span>
+            <a href="/member/events" class="btn btn-success w-100"><i class="bi bi-easel"></i> Browse events</a>
           </div>
         </div>
       </div>
@@ -7411,10 +9827,10 @@ __o += `
         <div class="card style-card h-100">
           <div class="card-body d-flex flex-column p-4">
             <div class="style-icon mb-3"><i class="bi bi-briefcase"></i></div>
-            <h5 class="fw-bold">Other Ways and Activities</h5>
-            <p class="text-secondary small flex-grow-1 mb-3">Learned something on the job or through an approved activity worth counting? Share it and we'll review it for points.</p>
-            <span class="badge text-bg-warning text-dark mb-3">Admin approved &middot; points awarded</span>
-            <a href="/member/self-learning" class="btn btn-success w-100">See Other Activities</a>
+            <h5 class="fw-bold">Other Ways &amp; Activities</h5>
+            <p class="text-secondary small flex-grow-1 mb-3">Submit a reflective learning activity when you've gained relevant knowledge in practice. Our team reviews it and awards points where appropriate.</p>
+            <span class="badge text-bg-warning text-dark mb-3">Admin reviewed &middot; points approved</span>
+            <a href="/member/self-learning" class="btn btn-success w-100"><i class="bi bi-briefcase"></i> See other activities</a>
           </div>
         </div>
       </div>
@@ -7486,7 +9902,6 @@ __o += `
 <script src="/js/app.js"></script>
 </body>
 </html>
-
 `;
 
   return __o;
@@ -7494,6 +9909,9 @@ __o += `
 
 templates['partials/flash'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var message = __data.message;
   var type = __data.type;
   var info = __data.info;
@@ -7528,6 +9946,9 @@ __o += `
 
 templates['partials/footer'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   var __o = "";
 __o += `<footer class="site-footer mt-5">
@@ -7601,6 +10022,9 @@ __o += `<footer class="site-footer mt-5">
 
 templates['partials/header'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var title = __data.title;
   var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   var __o = "";
@@ -7627,6 +10051,9 @@ __o += `PPAU CME-CPD Portal</title>
 
 templates['partials/navbar'] = (function(__data) {
   var flash = __data.flash;
+  var isAdmin = __data.isAdmin;
+  var notifications = __data.notifications;
+  var notifCount = __data.notifCount;
   var href = __data.href;
   var member = __data.member;
   var modules = __data.modules;
@@ -7658,8 +10085,6 @@ templates['partials/navbar'] = (function(__data) {
   var item = __data.item;
   var activeNav = __data.activeNav;
   var active = __data.active;
-  var notifCount = __data.notifCount;
-  var notifications = __data.notifications;
   var length = __data.length;
   var n = __data.n;
   var type = __data.type;
@@ -7781,7 +10206,31 @@ __o += `
             </div>
           </div>
         </li>
-        <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ if (typeof isAdmin !== 'undefined' && isAdmin) { 
+__o += `
+          <li class="nav-item dropdown ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3 dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shield-lock"></i> Admin</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+              <li><a class="dropdown-item" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item" href="/admin/attendance"><i class="bi bi-people me-2"></i>Attendance</a></li>
+              <li><a class="dropdown-item" href="/admin/events"><i class="bi bi-easel me-2"></i>Events</a></li>
+              <li><a class="dropdown-item" href="/admin/modules"><i class="bi bi-laptop me-2"></i>Modules</a></li>
+              <li><a class="dropdown-item" href="/admin/claims"><i class="bi bi-clipboard-check me-2"></i>Claims</a></li>
+              <li><a class="dropdown-item" href="/admin/submissions"><i class="bi bi-briefcase me-2"></i>Submissions</a></li>
+              <li><a class="dropdown-item" href="/admin/users"><i class="bi bi-person-badge me-2"></i>Users</a></li>
+              <li><a class="dropdown-item" href="/admin/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        `;
+ } else { 
+__o += `
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/login"><i class="bi bi-shield-lock"></i> Admin</a></li>
+        `;
+ } 
+__o += `
       </ul>
     </div>
   </div>

@@ -1,0 +1,48 @@
+<%- include('../partials/header', { title: 'Attendance' }) %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+<section class="page-header py-4">
+  <div class="container">
+    <h4 class="fw-bold mb-0"><i class="bi bi-people"></i> Attendance</h4>
+    <div class="text-white-50 small">Every attendee is recorded for each session. Open a session console to verify and approve claims, or download the attendance CSV.</div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="card">
+      <div class="card-header fw-semibold"><i class="bi bi-calendar-event"></i> Sessions</div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead><tr><th>Event</th><th>Date</th><th>Points</th><th>Attendees</th><th>Pending</th><th>Approved</th><th></th></tr></thead>
+            <tbody>
+              <% if (events.length) { %>
+                <% events.forEach(function(e) { %>
+                  <tr>
+                    <td class="small"><%= e.title %><br><% if (e.ended) { %><span class="badge text-bg-secondary mt-1">Past</span><% } else { %><span class="badge text-bg-warning mt-1">Upcoming</span><% } %></td>
+                    <td class="small text-nowrap"><%= e.event_date %> <%= e.event_time || '' %></td>
+                    <td class="small"><%= e.credit_points %></td>
+                    <td><span class="badge text-bg-primary"><%= e.attendanceCount %></span></td>
+                    <td><span class="badge text-bg-warning"><%= e.pendingClaims %></span></td>
+                    <td><span class="badge text-bg-success"><%= e.approvedClaims %></span></td>
+                    <td class="text-end text-nowrap">
+                      <a href="/admin/event/<%= e.id %>/attendance" class="btn btn-sm btn-outline-primary"><i class="bi bi-clipboard-check"></i> Verify</a>
+                      <a href="/admin/event/<%= e.id %>/attendance/export" class="btn btn-sm btn-outline-secondary"><i class="bi bi-download"></i> CSV</a>
+                    </td>
+                  </tr>
+                <% }); %>
+              <% } else { %>
+                <tr><td colspan="7" class="text-center text-secondary py-4">No events yet.</td></tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3 text-secondary small"><i class="bi bi-info-circle"></i> The one-click approve action uses the minimum duration filter of <%= minMinutes %> minutes of matched attendance.</div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

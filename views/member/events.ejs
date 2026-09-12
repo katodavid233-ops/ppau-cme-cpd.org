@@ -2,67 +2,186 @@
 <%- include('../partials/navbar') %>
 <%- include('../partials/flash') %>
 
-<section class="page-header py-4">
-  <div class="container">
-    <h4 class="fw-bold mb-0"><i class="bi bi-easel"></i> Conferences &amp; Seminars</h4>
-    <div class="text-white-50 small">Been to one of our accredited events? Claim your CPD points here &mdash; we verify your PPAU number before issuing points and your certificate.</div>
+<section class="hero py-5" style="min-height:220px;">
+  <div class="hero-bg-photo" aria-hidden="true">
+    <img src="/images/ppau-agm.jpg" alt="">
+  </div>
+  <div class="container py-4 position-relative" style="z-index:2;">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge badge-soft mb-3 px-3 py-2"><i class="bi bi-easel text-success"></i> PPAU accredited sessions</span>
+        <h2 class="fw-bold text-white mb-2">Conferences &amp; live learning sessions</h2>
+        <p class="text-white-50 mb-0" style="max-width:560px;">Join accredited sessions and learning events that keep your practice informed, relevant, and aligned with professional standards.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+        <% if (events && events.length) { %>
+          <span class="stat-counter me-2"><i class="bi bi-calendar-check"></i> <%= events.length %> session<%= events.length !== 1 ? 's' : '' %></span>
+        <% } %>
+        <% if (upcoming && upcoming.length) { %>
+          <span class="stat-counter"><i class="bi bi-lightning-charge"></i> <%= upcoming.length %> upcoming</span>
+        <% } %>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="py-4">
+<section class="py-5">
   <div class="container">
-    <div class="row g-4">
-      <% if (events && events.length) { %>
-        <% events.forEach(function(ev) { %>
-          <div class="col-md-6 col-lg-4">
-            <div class="card h-100">
-              <div class="card-body d-flex flex-column p-4">
-                <div class="d-flex justify-content-between align-items-start">
-                  <span class="style-icon-sm"><i class="bi bi-easel"></i></span>
-                </div>
-                <h6 class="fw-bold mt-2"><%= ev.title %></h6>
-                <p class="text-secondary small"><%= ev.description %></p>
-                <div class="small text-secondary mb-2">
-                  <div><i class="bi bi-geo-alt"></i> <%= ev.venue %></div>
-                  <div><i class="bi bi-calendar-event"></i> <%= ev.event_date %></div>
-                </div>
-                <div class="mt-auto">
-                  <span class="badge text-bg-primary mb-2"><%= ev.credit_points %> CPD points</span>
-                  <button class="btn btn-sm btn-outline-success w-100" type="button" data-bs-toggle="collapse" data-bs-target="#claim-<%= ev.id %>"><i class="bi bi-patch-check"></i> Claim Points for This Event</button>
-                  <div class="collapse mt-2" id="claim-<%= ev.id %>">
-                    <form method="post" action="/member/event/<%= ev.id %>/claim" class="border rounded p-3 bg-light">
-                      <div class="mb-2">
-                        <label class="form-label small fw-semibold">Full name *</label>
-                        <input type="text" name="full_name" class="form-control form-control-sm" placeholder="e.g. Jane Atim" required>
+
+    <% if (events && events.length) { %>
+
+      <% if (upcoming && upcoming.length) { %>
+        <div class="section-intro mb-4">
+          <h3><i class="bi bi-lightning-charge-fill text-warning"></i> Upcoming &amp; live sessions</h3>
+          <p>Attend a live session and record your participation as it happens. Points are claimed after attendance is verified.</p>
+        </div>
+        <div class="row g-4 mb-5">
+          <% upcoming.forEach(function(ev) { %>
+            <div class="col-md-6 col-lg-4">
+              <div class="card event-card-upcoming h-100">
+                <div class="card-body d-flex flex-column p-4">
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="style-icon-sm"><i class="bi bi-easel"></i></div>
+                    <span class="badge text-bg-warning"><i class="bi bi-lightning-charge-fill"></i> Upcoming</span>
+                  </div>
+                  <h6 class="fw-bold mb-2"><%= ev.title %></h6>
+                  <p class="text-secondary small flex-grow-1 mb-3"><%= ev.description %></p>
+                  <div class="mb-3">
+                    <div class="event-date-block mb-2">
+                      <i class="bi bi-calendar-event"></i>
+                      <span><%= ev.date_display || ev.event_date %></span>
+                    </div>
+                    <% if (ev.time_display || ev.event_time) { %>
+                      <span class="event-time-badge"><i class="bi bi-clock"></i> <%= ev.time_display || ev.event_time %> EAT</span>
+                    <% } %>
+                  </div>
+                  <div class="small text-secondary mb-3">
+                    <div><i class="bi bi-geo-alt text-success"></i> <%= ev.venue %></div>
+                  </div>
+                  <div class="mt-auto">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="badge text-bg-success fs-6"><%= ev.credit_points %> CPD points</span>
+                    </div>
+                    <% if (ev.meet_link) { %>
+                      <button class="btn btn-success w-100 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#join-<%= ev.id %>">
+                        <i class="bi bi-camera-video"></i> Join session on Google Meet
+                      </button>
+                      <div class="collapse mt-2" id="join-<%= ev.id %>">
+                        <div class="card border-0 shadow-sm">
+                          <div class="card-body p-3">
+                            <div class="d-flex align-items-center mb-3">
+                              <div class="style-icon-sm me-2"><i class="bi bi-person-plus"></i></div>
+                              <div><small class="fw-semibold">Record your attendance</small><br><small class="text-secondary">Use the same name and email as your Google Meet account.</small></div>
+                            </div>
+                            <form method="post" action="/member/event/<%= ev.id %>/join">
+                              <div class="mb-2">
+                                <label class="form-label small fw-semibold">Full name *</label>
+                                <input type="text" name="full_name" class="form-control form-control-sm" placeholder="e.g. Jane Atim" required>
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label small fw-semibold">Email (same as your Google Meet account) *</label>
+                                <input type="email" name="email" class="form-control form-control-sm" placeholder="you@example.com" required>
+                              </div>
+                              <button type="submit" class="btn btn-success btn-sm w-100"><i class="bi bi-camera-video"></i> Join &amp; record attendance</button>
+                            </form>
+                          </div>
+                        </div>
                       </div>
-                      <div class="mb-2">
-                        <label class="form-label small fw-semibold">PPAU Registration Number *</label>
-                        <input type="text" name="ppau_reg_no" class="form-control form-control-sm" placeholder="e.g. PPAU-PRO-2026-00001" pattern="PPAU-PRO-\d{4}-\d{5}" required>
-                        <div class="form-text small">Format: PPAU-PRO-YYYY-00000</div>
-                      </div>
-                      <div class="mb-2">
-                        <label class="form-label small fw-semibold">AHPC Registration Number *</label>
-                        <input type="text" name="ahpc_reg_no" class="form-control form-control-sm" placeholder="e.g. AHPC/DSP/12345" required>
-                      </div>
-                      <div class="mb-2">
-                        <label class="form-label small fw-semibold">Email <span class="text-secondary">(optional)</span></label>
-                        <input type="email" name="email" class="form-control form-control-sm" placeholder="you@example.com">
-                        <div class="form-text">Used to email your certificate once issued.</div>
-                      </div>
-                      <button type="submit" class="btn btn-success btn-sm w-100"><i class="bi bi-patch-check"></i> Submit &amp; Claim Points</button>
-                    </form>
+                    <% } else { %>
+                      <div class="alert alert-info small mb-0"><i class="bi bi-info-circle"></i> The Google Meet link will appear here once it is published.</div>
+                    <% } %>
+                    <button class="btn btn-sm btn-outline-secondary w-100 mt-2" disabled><i class="bi bi-clock"></i> Claim opens after session ends</button>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        <% }); %>
-      <% } else { %>
-        <div class="col-12 text-center py-5 text-secondary">
-          <i class="bi bi-calendar-x fs-1 d-block mb-2"></i>No events available yet.
+          <% }); %>
         </div>
       <% } %>
-    </div>
+
+      <% if (past && past.length) { %>
+        <div class="section-intro mb-4">
+          <h3><i class="bi bi-check-circle-fill text-success"></i> Completed sessions</h3>
+          <p>These sessions have ended. If you attended, you can still claim your points and certificate below.</p>
+        </div>
+        <div class="row g-4">
+          <% past.forEach(function(ev) { %>
+            <div class="col-md-6 col-lg-4">
+              <div class="card event-card-completed h-100">
+                <div class="card-body d-flex flex-column p-4">
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="style-icon-sm" style="background:rgba(148,163,184,.15);"><i class="bi bi-check-lg" style="color:#64748b;"></i></div>
+                    <span class="badge text-bg-secondary"><i class="bi bi-check2-all"></i> Completed</span>
+                  </div>
+                  <h6 class="fw-bold mb-2"><%= ev.title %></h6>
+                  <p class="text-secondary small flex-grow-1 mb-3"><%= ev.description %></p>
+                  <div class="mb-3">
+                    <div class="event-date-block mb-2">
+                      <i class="bi bi-calendar-event"></i>
+                      <span><%= ev.date_display || ev.event_date %></span>
+                    </div>
+                    <% if (ev.time_display || ev.event_time) { %>
+                      <span class="event-time-badge" style="background:#64748b;"><i class="bi bi-clock"></i> <%= ev.time_display || ev.event_time %> EAT</span>
+                    <% } %>
+                  </div>
+                  <div class="small text-secondary mb-3">
+                    <div><i class="bi bi-geo-alt text-secondary"></i> <%= ev.venue %></div>
+                  </div>
+                  <div class="mt-auto">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="badge text-bg-success fs-6"><%= ev.credit_points %> CPD points</span>
+                    </div>
+                    <button class="btn btn-outline-success w-100" type="button" data-bs-toggle="collapse" data-bs-target="#claim-<%= ev.id %>">
+                      <i class="bi bi-patch-check"></i> Claim points for this event
+                    </button>
+                    <div class="collapse mt-2" id="claim-<%= ev.id %>">
+                      <div class="card border-0 shadow-sm">
+                        <div class="card-body p-3">
+                          <div class="d-flex align-items-center mb-3">
+                            <div class="style-icon-sm me-2"><i class="bi bi-clipboard-check"></i></div>
+                            <div><small class="fw-semibold">Claim your CPD points</small><br><small class="text-secondary">We verify attendance before points and certificates are issued.</small></div>
+                          </div>
+                          <form method="post" action="/member/event/<%= ev.id %>/claim">
+                            <div class="mb-2">
+                              <label class="form-label small fw-semibold">Full name *</label>
+                              <input type="text" name="full_name" class="form-control form-control-sm" placeholder="e.g. Jane Atim" required>
+                            </div>
+                            <div class="mb-2">
+                              <label class="form-label small fw-semibold">PPAU Registration Number *</label>
+                              <input type="text" name="ppau_reg_no" class="form-control form-control-sm" placeholder="e.g. PPAU-PRO-2026-00001" pattern="PPAU-PRO-\d{4}-\d{5}" required>
+                              <div class="form-text small">Format: PPAU-PRO-YYYY-00000</div>
+                            </div>
+                            <div class="mb-2">
+                              <label class="form-label small fw-semibold">AHPC Registration Number *</label>
+                              <input type="text" name="ahpc_reg_no" class="form-control form-control-sm" placeholder="e.g. AHPC/DSP/12345" required>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label small fw-semibold">Email (same as your Google Meet account) *</label>
+                              <input type="email" name="email" class="form-control form-control-sm" placeholder="you@example.com" required>
+                              <div class="form-text small">We use this to verify attendance and send the certificate.</div>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-sm w-100"><i class="bi bi-patch-check"></i> Submit &amp; claim points</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      <% } %>
+
+    <% } else { %>
+      <div class="empty-state">
+        <div class="empty-state-icon"><i class="bi bi-calendar-x"></i></div>
+        <h5>No sessions scheduled yet</h5>
+        <p>PPAU hasn't published any sessions yet. Check back soon as new learning opportunities are added regularly.</p>
+        <a href="/member/start" class="btn btn-success mt-2"><i class="bi bi-arrow-left"></i> Back to activities</a>
+      </div>
+    <% } %>
+
   </div>
 </section>
 
