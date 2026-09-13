@@ -2559,8 +2559,13 @@ __o += `
                   <input type="date" name="event_date" class="form-control">
                 </div>
                 <div class="col-md-3">
-                  <label class="form-label">Event Time</label>
+                  <label class="form-label">Event Time (start)</label>
                   <input type="time" name="event_time" class="form-control">
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">End Time</label>
+                  <input type="time" name="event_end_time" class="form-control">
+                  <div class="form-text">Joining stays open and claims start after this time.</div>
                 </div>
                 <div class="col-md-6">
                   <label class="form-label">CPD Points</label>
@@ -7265,7 +7270,8 @@ __o += `/claim">
                             </div>
                             <div class="mb-2">
                               <label class="form-label small fw-semibold">AHPC Registration Number *</label>
-                              <input type="text" name="ahpc_reg_no" class="form-control form-control-sm" placeholder="e.g. AHPC/DSP/12345" required>
+                              <input type="text" name="ahpc_reg_no" class="form-control form-control-sm" placeholder="e.g. 43258" pattern="\\d{5}" maxlength="5" title="5-digit AHPC registration number" required>
+                              <div class="form-text small">Enter your 5-digit AHPC registration number (digits only).</div>
                             </div>
                             <div class="mb-3">
                               <label class="form-label small fw-semibold">Email (same as your Google Meet account) *</label>
@@ -7394,6 +7400,7 @@ templates['member/join'] = (function(__data) {
   var id = __data.id;
   var email = __data.email;
   var event_date = __data.event_date;
+  var time_display = __data.time_display;
   var event_time = __data.event_time;
   var credit_points = __data.credit_points;
   var footer = __data.footer;
@@ -7643,7 +7650,7 @@ __o += `</h5>
                 <div><i class="bi bi-calendar-event"></i> `;
 __o += event.event_date;
 __o += ` `;
-__o += event.event_time || '';
+__o += time_display || event.event_time || '';
 __o += `</div>
                 <div><i class="bi bi-star"></i> `;
 __o += event.credit_points;
@@ -8674,7 +8681,8 @@ __o += ` CPD points</div>
               </div>
               <div class="col-md-6">
                 <label class="form-label small fw-semibold">AHPC Registration Number *</label>
-                <input type="text" name="ahpc_reg_no" class="form-control" form="quizForm" placeholder="e.g. AHPC/DSP/12345" required>
+                <input type="text" name="ahpc_reg_no" class="form-control" form="quizForm" placeholder="e.g. 43258" pattern="\\d{5}" maxlength="5" title="5-digit AHPC registration number" required>
+                <div class="form-text">Enter your 5-digit AHPC registration number (digits only).</div>
               </div>
               <div class="col-md-6">
                 <label class="form-label small fw-semibold">Email <span class="text-secondary">(optional)</span></label>
@@ -9418,7 +9426,8 @@ __o += `
               </div>
               <div class="mb-3">
                 <label class="form-label fw-semibold">AHPC Registration Number *</label>
-                <input type="text" name="ahpc_reg_no" class="form-control" placeholder="e.g. AHPC/DSP/12345" required>
+                <input type="text" name="ahpc_reg_no" class="form-control" placeholder="e.g. 43258" pattern="\\d{5}" maxlength="5" title="5-digit AHPC registration number" required>
+                <div class="form-text small">Enter your 5-digit AHPC registration number (digits only).</div>
               </div>
               <div class="mb-3">
                 <label class="form-label fw-semibold">Email *</label>

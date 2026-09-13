@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS events (
   venue TEXT,
   event_date TEXT,
   event_time TEXT,
+  event_end_time TEXT,
   meet_link TEXT,
   credit_points REAL DEFAULT 0,
   is_published INTEGER DEFAULT 1,

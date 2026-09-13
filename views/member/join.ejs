@@ -46,7 +46,7 @@
               <span class="badge text-bg-warning mb-2">Upcoming</span>
               <h5 class="fw-bold"><%= event.title %></h5>
               <div class="small text-secondary mb-3">
-                <div><i class="bi bi-calendar-event"></i> <%= event.event_date %> <%= event.event_time || '' %></div>
+                <div><i class="bi bi-calendar-event"></i> <%= event.event_date %> <%= time_display || event.event_time || '' %></div>
                 <div><i class="bi bi-star"></i> <%= event.credit_points %> CPD points</div>
               </div>
               <p class="text-secondary small">Enter the details you used for this session. Your attendance is recorded automatically when you join.</p>

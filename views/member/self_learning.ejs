@@ -39,7 +39,8 @@
               </div>
               <div class="mb-3">
                 <label class="form-label fw-semibold">AHPC Registration Number *</label>
-                <input type="text" name="ahpc_reg_no" class="form-control" placeholder="e.g. AHPC/DSP/12345" required>
+                <input type="text" name="ahpc_reg_no" class="form-control" placeholder="e.g. 43258" pattern="\d{5}" maxlength="5" title="5-digit AHPC registration number" required>
+                <div class="form-text small">Enter your 5-digit AHPC registration number (digits only).</div>
               </div>
               <div class="mb-3">
                 <label class="form-label fw-semibold">Email *</label>

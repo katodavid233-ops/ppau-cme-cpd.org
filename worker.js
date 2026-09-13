@@ -1,5 +1,5 @@
 import { render } from './worker/views.bundle.cjs';
-import { isValidPpauRegNo, normalizePpauRegNo } from './utils/validate.js';
+import { isValidPpauRegNo, normalizePpauRegNo, isValidAhpcRegNo } from './utils/validate.js';
 
 const MIME = {
   '.html': 'text/html', '.css': 'text/css', '.js': 'application/javascript',
@@ -230,6 +230,9 @@ async function ensureSchema(DB) {
     if (!has('meet_link')) {
       await DB.prepare('ALTER TABLE events ADD COLUMN meet_link TEXT').run();
     }
+    if (!has('event_end_time')) {
+      await DB.prepare('ALTER TABLE events ADD COLUMN event_end_time TEXT').run();
+    }
     const subCols = await DB.prepare('PRAGMA table_info(submissions)').all();
     const hasSub = (c) => (subCols.results || []).some(x => x.name === c);
     if (!hasSub('admin_note')) {
@@ -279,7 +282,7 @@ function parseEventTime(timeStr) {
 
 function eventEndDate(e) {
   if (!e.event_date) return null;
-  const { h, m } = parseEventTime(e.event_time);
+  const { h, m } = parseEventTime(e.event_end_time || e.event_time);
   return new Date(`${e.event_date}T${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:59+03:00`);
 }
 
@@ -310,6 +313,13 @@ function formatEventDateTime(dateStr, timeStr) {
   if (date && time) return `${date} at ${time} EAT`;
   if (date) return date;
   return '';
+}
+
+function formatEventTimeRange(timeStr, endTimeStr) {
+  if (!timeStr) return '';
+  const start = formatEventTime(timeStr);
+  const end = endTimeStr ? formatEventTime(endTimeStr) : '';
+  return end ? `${start} – ${end} EAT` : `${start} EAT`;
 }
 
 function findAttendanceMatch(claim, attendees) {
@@ -546,6 +556,11 @@ export default {
         resp.headers.append('Set-Cookie', flashCookie('danger', 'Invalid PPAU registration number format. Use PPAU-PRO-YYYY-NNNNN.'));
         return resp;
       }
+      if (!isValidAhpcRegNo(ahpc_reg_no)) {
+        const resp = redirect(`/member/module/${moduleId}/quiz`);
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'AHPC Registration Number must be exactly 5 digits (e.g. 43258).'));
+        return resp;
+      }
 
       const questions = await DB.prepare('SELECT * FROM questions WHERE module_id = ?').bind(moduleId).all();
       let correctCount = 0;
@@ -593,7 +608,7 @@ export default {
           ...e,
           ended,
           date_display: formatEventDate(e.event_date),
-          time_display: formatEventTime(e.event_time),
+          time_display: formatEventTimeRange(e.event_time, e.event_end_time),
           datetime_display: formatEventDateTime(e.event_date, e.event_time)
         };
       });
@@ -613,7 +628,7 @@ export default {
         resp.headers.append('Set-Cookie', flashCookie('danger', 'This session has ended and can no longer be joined. You can still claim your CPD points.'));
         return resp;
       }
-      return htmlRes(renderView('member/join', { ...viewData, event }));
+      return htmlRes(renderView('member/join', { ...viewData, event, time_display: formatEventTimeRange(event.event_time, event.event_end_time) }));
     }
     if (eventJoinMatch && method === 'POST') {
       const eventId = parseInt(eventJoinMatch[1]);
@@ -643,7 +658,7 @@ export default {
       }
 
       const joinedAtDisplay = formatAttendanceTime(joinedAtIso);
-      return htmlRes(renderView('member/join', { ...viewData, event, joined: true, full_name, email, joined_at: joinedAtDisplay }));
+      return htmlRes(renderView('member/join', { ...viewData, event, time_display: formatEventTimeRange(event.event_time, event.event_end_time), joined: true, full_name, email, joined_at: joinedAtDisplay }));
     }
 
     // MEMBER EVENT LEAVE (best-effort beacon sent when the member closes the join tab)
@@ -690,6 +705,11 @@ export default {
       if (!isValidPpauRegNo(ppau_reg_no)) {
         const resp = redirect('/member/events');
         resp.headers.append('Set-Cookie', flashCookie('danger', 'Invalid PPAU registration number format. Use PPAU-PRO-YYYY-NNNNN.'));
+        return resp;
+      }
+      if (!isValidAhpcRegNo(ahpc_reg_no)) {
+        const resp = redirect('/member/events');
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'AHPC Registration Number must be exactly 5 digits (e.g. 43258).'));
         return resp;
       }
 
@@ -743,6 +763,11 @@ export default {
       if (!isValidPpauRegNo(ppau_reg_no)) {
         const resp = redirect('/member/self-learning');
         resp.headers.append('Set-Cookie', flashCookie('danger', 'Invalid PPAU registration number format. Use PPAU-PRO-YYYY-NNNNN.'));
+        return resp;
+      }
+      if (!isValidAhpcRegNo(ahpc_reg_no)) {
+        const resp = redirect('/member/self-learning');
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'AHPC Registration Number must be exactly 5 digits (e.g. 43258).'));
         return resp;
       }
       if (!email || !email.includes('@')) {
@@ -862,7 +887,7 @@ export default {
     if (path === '/admin/events/new' && method === 'POST') {
       if (!isAdmin) return redirect('/login');
       const body = await request.formData();
-      await DB.prepare('INSERT INTO events (title, description, venue, event_date, event_time, credit_points, meet_link, is_published) VALUES (?, ?, ?, ?, ?, ?, ?, 1)').bind(body.get('title'), body.get('description'), body.get('venue'), body.get('event_date'), body.get('event_time'), parseFloat(body.get('credit_points')) || 0, body.get('meet_link')).run();
+      await DB.prepare('INSERT INTO events (title, description, venue, event_date, event_time, event_end_time, credit_points, meet_link, is_published) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)').bind(body.get('title'), body.get('description'), body.get('venue'), body.get('event_date'), body.get('event_time'), body.get('event_end_time'), parseFloat(body.get('credit_points')) || 0, body.get('meet_link')).run();
       const resp = redirect('/admin/events');
       resp.headers.append('Set-Cookie', flashCookie('success', 'Event created.'));
       return resp;
