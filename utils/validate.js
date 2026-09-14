@@ -1,5 +1,5 @@
 const PPAU_REGEX = /^PPAU-PRO-(\d{4})-(\d{5})$/i;
-const AHPC_REGEX = /^\d{5}$/;
+const AHPC_REGEX = /^\d+$/;
 
 function isValidPpauRegNo(val) {
   return PPAU_REGEX.test(String(val || '').trim());

@@ -604,7 +604,7 @@ export default {
       }
       if (!isValidAhpcRegNo(ahpc_reg_no)) {
         const resp = redirect(`/member/module/${moduleId}/quiz`);
-        resp.headers.append('Set-Cookie', flashCookie('danger', 'AHPC Registration Number must be exactly 5 digits (e.g. 43258).'));
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'AHPC Registration Number must be digits only.'));
         return resp;
       }
 
@@ -755,7 +755,7 @@ export default {
       }
       if (!isValidAhpcRegNo(ahpc_reg_no)) {
         const resp = redirect('/member/events');
-        resp.headers.append('Set-Cookie', flashCookie('danger', 'AHPC Registration Number must be exactly 5 digits (e.g. 43258).'));
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'AHPC Registration Number must be digits only.'));
         return resp;
       }
 
@@ -813,7 +813,7 @@ export default {
       }
       if (!isValidAhpcRegNo(ahpc_reg_no)) {
         const resp = redirect('/member/self-learning');
-        resp.headers.append('Set-Cookie', flashCookie('danger', 'AHPC Registration Number must be exactly 5 digits (e.g. 43258).'));
+        resp.headers.append('Set-Cookie', flashCookie('danger', 'AHPC Registration Number must be digits only.'));
         return resp;
       }
       if (!email || !email.includes('@')) {

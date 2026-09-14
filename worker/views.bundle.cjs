@@ -7448,8 +7448,8 @@ __o += `/claim">
                             </div>
                             <div class="mb-2">
                               <label class="form-label small fw-semibold">AHPC Registration Number *</label>
-                              <input type="text" name="ahpc_reg_no" class="form-control form-control-sm" placeholder="e.g. 43258" pattern="\\d{5}" maxlength="5" title="5-digit AHPC registration number" required>
-                              <div class="form-text small">Enter your 5-digit AHPC registration number (digits only).</div>
+                              <input type="text" name="ahpc_reg_no" class="form-control form-control-sm" placeholder="e.g. 43258" pattern="\\d+" title="AHPC registration number (digits only)" required>
+                              <div class="form-text small">Enter your AHPC registration number (digits only).</div>
                             </div>
                             <div class="mb-3">
                               <label class="form-label small fw-semibold">Email (same as your Google Meet account) *</label>
@@ -8859,8 +8859,8 @@ __o += ` CPD points</div>
               </div>
               <div class="col-md-6">
                 <label class="form-label small fw-semibold">AHPC Registration Number *</label>
-                <input type="text" name="ahpc_reg_no" class="form-control" form="quizForm" placeholder="e.g. 43258" pattern="\\d{5}" maxlength="5" title="5-digit AHPC registration number" required>
-                <div class="form-text">Enter your 5-digit AHPC registration number (digits only).</div>
+                <input type="text" name="ahpc_reg_no" class="form-control" form="quizForm" placeholder="e.g. 43258" pattern="\\d+" title="AHPC registration number (digits only)" required>
+                <div class="form-text">Enter your AHPC registration number (digits only).</div>
               </div>
               <div class="col-md-6">
                 <label class="form-label small fw-semibold">Email <span class="text-secondary">(optional)</span></label>
@@ -9604,8 +9604,8 @@ __o += `
               </div>
               <div class="mb-3">
                 <label class="form-label fw-semibold">AHPC Registration Number *</label>
-                <input type="text" name="ahpc_reg_no" class="form-control" placeholder="e.g. 43258" pattern="\\d{5}" maxlength="5" title="5-digit AHPC registration number" required>
-                <div class="form-text small">Enter your 5-digit AHPC registration number (digits only).</div>
+                <input type="text" name="ahpc_reg_no" class="form-control" placeholder="e.g. 43258" pattern="\\d+" title="AHPC registration number (digits only)" required>
+                <div class="form-text small">Enter your AHPC registration number (digits only).</div>
               </div>
               <div class="mb-3">
                 <label class="form-label fw-semibold">Email *</label>
