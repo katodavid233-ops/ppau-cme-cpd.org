@@ -103,7 +103,7 @@
             <% if (claims.length) { %>
               <div class="table-responsive">
                 <table class="table table-sm table-hover mb-0">
-                  <thead><tr><th>Name</th><th>PPAU No</th><th>Email</th><th>Match</th><th>Status</th><th></th></tr></thead>
+                  <thead><tr><th>Name</th><th>PPAU No</th><th>Email</th><th>Attendance</th><th>Status</th><th></th></tr></thead>
                   <tbody>
                     <% claims.forEach(function(c) { %>
                       <tr>
@@ -111,13 +111,33 @@
                         <td class="small"><code><%= c.ppau_reg_no %></code></td>
                         <td class="small"><%= c.contact_email %></td>
                         <td>
-                          <% if (c.status === 'rejected') { %>
-                            <span class="badge text-bg-danger">Rejected</span>
-                          <% } else if (c.attendanceRecord) { %>
-                            <span class="badge text-bg-success">Matched</span>
-                            <div class="small text-secondary mt-1"><i class="bi bi-clock-history"></i> <%= c.attendanceRecord.joined_display %><% if (c.attendanceRecord.left_display || c.attendanceRecord.duration_display) { %> &rarr; <%= c.attendanceRecord.left_display || '' %> (<%= c.attendanceRecord.duration_display || 'in session' %>)<% } %></div>
+                          <% const attOpts = c.attendanceCandidates || []; %>
+                          <% if (c.attendanceRecord && attOpts.length) { %>
+                            <div>
+                              <span class="badge text-bg-success">Matched</span>
+                              <div class="small text-secondary mt-1">
+                                <div class="fw-semibold text-dark"><i class="bi bi-person"></i> <%= c.attendanceRecord.full_name %></div>
+                                <% if (c.attendanceRecord.email) { %><div><i class="bi bi-envelope"></i> <%= c.attendanceRecord.email %></div><% } %>
+                                <div><i class="bi bi-clock-history"></i> <%= c.attendanceRecord.joined_display %><% if (c.attendanceRecord.left_display) { %> &rarr; <%= c.attendanceRecord.left_display %><% } %> (<%= c.attendanceRecord.duration_display || 'in session' %>)</div>
+                              </div>
+                            </div>
+                          <% } else if (attOpts.length) { %>
+                            <div>
+                              <span class="badge text-bg-warning">No exact match</span>
+                              <div class="small text-secondary mt-1">Closest recorded attendance:</div>
+                              <% attOpts.forEach(function(m) { %>
+                                <div class="small text-secondary mt-1 border-start border-2 ps-2">
+                                  <div class="fw-semibold text-dark"><i class="bi bi-person"></i> <%= m.full_name %></div>
+                                  <% if (m.email) { %><div><i class="bi bi-envelope"></i> <%= m.email %></div><% } %>
+                                  <div><i class="bi bi-clock-history"></i> <%= m.joined_display %><% if (m.left_display) { %> &rarr; <%= m.left_display %><% } %> (<%= m.duration_display || 'in session' %>)</div>
+                                </div>
+                              <% }); %>
+                            </div>
                           <% } else { %>
-                            <span class="badge text-bg-danger">No match</span>
+                            <div>
+                              <span class="badge text-bg-danger">No recorded attendance</span>
+                              <div class="small text-secondary mt-1">This claim has no attendance record on file.</div>
+                            </div>
                           <% } %>
                         </td>
                         <td><span class="badge text-bg-<%= c.status === 'approved' ? 'success' : c.status === 'rejected' ? 'danger' : 'warning' %>"><%= c.status %></span></td>

@@ -322,16 +322,40 @@ function formatEventTimeRange(timeStr, endTimeStr) {
   return end ? `${start} – ${end} EAT` : `${start} EAT`;
 }
 
+function attendanceScore(claim, a) {
+  const cEmail = normalizeMatch(claim.contact_email || claim.email);
+  const cName = normalizeMatch(claim.full_name);
+  const aEmail = normalizeMatch(a.email);
+  const aName = normalizeMatch(a.full_name);
+  if (cEmail && aEmail && cEmail === aEmail) return 3;
+  if (cName && aName && cName === aName) return 2;
+  if (cName && aName) {
+    const cTokens = cName.split(' ').filter(t => t.length > 1);
+    const aTokens = aName.split(' ').filter(t => t.length > 1);
+    const overlap = cTokens.filter(t => aTokens.includes(t)).length;
+    const ratio = overlap / Math.max(cTokens.length, aTokens.length, 1);
+    if (overlap > 0 && ratio >= 0.5) return 1;
+  }
+  return 0;
+}
+
 function findAttendanceMatch(claim, attendees) {
-  const claimEmail = normalizeMatch(claim.contact_email || claim.email);
-  const claimName = normalizeMatch(claim.full_name);
-  return attendees.find(a => {
-    const aEmail = normalizeMatch(a.email);
-    const aName = normalizeMatch(a.full_name);
-    if (claimEmail && aEmail && claimEmail === aEmail) return true;
-    if (claimName && aName && claimName === aName) return true;
-    return false;
-  }) || null;
+  let best = null;
+  let bestScore = 0;
+  for (const a of (attendees || [])) {
+    const s = attendanceScore(claim, a);
+    if (s >= 2 && s > bestScore) { best = a; bestScore = s; }
+  }
+  return best;
+}
+
+function findAttendanceCandidates(claim, attendees, limit = 4) {
+  return (attendees || [])
+    .map(a => ({ a, s: attendanceScore(claim, a) }))
+    .filter(x => x.s > 0)
+    .sort((x, y) => y.s - x.s)
+    .slice(0, limit)
+    .map(x => x.a);
 }
 
 function matchesClaimToAttendance(claim, attendees) {
@@ -925,10 +949,12 @@ export default {
       }));
       const claimRows = (claims.results || []).map(c => {
         const attendanceRecord = findAttendanceMatch(c, attendees);
+        const attendanceCandidates = findAttendanceCandidates(c, attendees);
         return {
           ...c,
           matched: !!attendanceRecord,
-          attendanceRecord
+          attendanceRecord,
+          attendanceCandidates
         };
       });
       const minMinutes = parseInt(await getSetting(DB, 'attendance_min_minutes', '30')) || 30;

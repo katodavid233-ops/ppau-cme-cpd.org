@@ -1789,12 +1789,14 @@ templates['admin/event_attendance'] = (function(__data) {
   var c = __data.c;
   var ppau_reg_no = __data.ppau_reg_no;
   var contact_email = __data.contact_email;
-  var status = __data.status;
-  var rejected = __data.rejected;
+  var attendanceCandidates = __data.attendanceCandidates;
   var attendanceRecord = __data.attendanceRecord;
   var session = __data.session;
+  var m = __data.m;
+  var status = __data.status;
   var approved = __data.approved;
   var success = __data.success;
+  var rejected = __data.rejected;
   var danger = __data.danger;
   var warning = __data.warning;
   var footer = __data.footer;
@@ -2138,7 +2140,7 @@ __o += `)</div>
 __o += `
               <div class="table-responsive">
                 <table class="table table-sm table-hover mb-0">
-                  <thead><tr><th>Name</th><th>PPAU No</th><th>Email</th><th>Match</th><th>Status</th><th></th></tr></thead>
+                  <thead><tr><th>Name</th><th>PPAU No</th><th>Email</th><th>Attendance</th><th>Status</th><th></th></tr></thead>
                   <tbody>
                     `;
  claims.forEach(function(c) { 
@@ -2155,27 +2157,76 @@ __o += c.contact_email;
 __o += `</td>
                         <td>
                           `;
- if (c.status === 'rejected') { 
+ const attOpts = c.attendanceCandidates || []; 
 __o += `
-                            <span class="badge text-bg-danger">Rejected</span>
                           `;
- } else if (c.attendanceRecord) { 
+ if (c.attendanceRecord && attOpts.length) { 
 __o += `
-                            <span class="badge text-bg-success">Matched</span>
-                            <div class="small text-secondary mt-1"><i class="bi bi-clock-history"></i> `;
+                            <div>
+                              <span class="badge text-bg-success">Matched</span>
+                              <div class="small text-secondary mt-1">
+                                <div class="fw-semibold text-dark"><i class="bi bi-person"></i> `;
+__o += c.attendanceRecord.full_name;
+__o += `</div>
+                                `;
+ if (c.attendanceRecord.email) { 
+__o += `<div><i class="bi bi-envelope"></i> `;
+__o += c.attendanceRecord.email;
+__o += `</div>`;
+ } 
+__o += `
+                                <div><i class="bi bi-clock-history"></i> `;
 __o += c.attendanceRecord.joined_display;
- if (c.attendanceRecord.left_display || c.attendanceRecord.duration_display) { 
+ if (c.attendanceRecord.left_display) { 
 __o += ` &rarr; `;
-__o += c.attendanceRecord.left_display || '';
+__o += c.attendanceRecord.left_display;
+ } 
 __o += ` (`;
 __o += c.attendanceRecord.duration_display || 'in session';
-__o += `)`;
- } 
+__o += `)</div>
+                              </div>
+                            </div>
+                          `;
+ } else if (attOpts.length) { 
+__o += `
+                            <div>
+                              <span class="badge text-bg-warning">No exact match</span>
+                              <div class="small text-secondary mt-1">Closest recorded attendance:</div>
+                              `;
+ attOpts.forEach(function(m) { 
+__o += `
+                                <div class="small text-secondary mt-1 border-start border-2 ps-2">
+                                  <div class="fw-semibold text-dark"><i class="bi bi-person"></i> `;
+__o += m.full_name;
 __o += `</div>
+                                  `;
+ if (m.email) { 
+__o += `<div><i class="bi bi-envelope"></i> `;
+__o += m.email;
+__o += `</div>`;
+ } 
+__o += `
+                                  <div><i class="bi bi-clock-history"></i> `;
+__o += m.joined_display;
+ if (m.left_display) { 
+__o += ` &rarr; `;
+__o += m.left_display;
+ } 
+__o += ` (`;
+__o += m.duration_display || 'in session';
+__o += `)</div>
+                                </div>
+                              `;
+ }); 
+__o += `
+                            </div>
                           `;
  } else { 
 __o += `
-                            <span class="badge text-bg-danger">No match</span>
+                            <div>
+                              <span class="badge text-bg-danger">No recorded attendance</span>
+                              <div class="small text-secondary mt-1">This claim has no attendance record on file.</div>
+                            </div>
                           `;
  } 
 __o += `
