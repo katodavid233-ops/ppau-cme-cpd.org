@@ -16,9 +16,9 @@
 </section>
 
 <section class="py-4">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row g-4">
-      <div class="col-lg-5">
+      <div class="col-lg-4">
         <div class="card">
           <div class="card-header fw-semibold"><i class="bi bi-cloud-arrow-up"></i> 1. Import Google Meet Attendance</div>
           <div class="card-body">
@@ -42,8 +42,10 @@
             </form>
           </div>
         </div>
+      </div>
 
-        <div class="card mt-4">
+      <div class="col-lg-4">
+        <div class="card">
           <div class="card-header fw-semibold"><i class="bi bi-robot"></i> Auto-Approval</div>
           <div class="card-body">
             <p class="text-secondary small">Claims are <strong>never</strong> approved automatically — every claim awaits your decision here. All attendees are retained on the attendance list whether or not a claim is approved. You can <strong>Approve</strong>, <strong>Reject</strong>, or <strong>Revoke</strong> claims. For convenience, the batch button approves in one action every pending claim that matches attendance with a duration <strong>at or above</strong> the minimum below.</p>
@@ -53,8 +55,10 @@
             </form>
           </div>
         </div>
+      </div>
 
-        <div class="card mt-4">
+      <div class="col-lg-4">
+        <div class="card">
           <div class="card-header fw-semibold"><i class="bi bi-check2-circle"></i> 2. Verify &amp; Approve Claims</div>
           <div class="card-body">
             <p class="text-secondary small">Claims are matched against the attendance list by <strong>email</strong> (or name). Approve claims one by one, or use the batch option to approve every pending claim whose attendance duration meets the <strong><%= minMinutes %>-minute</strong> minimum. Unmatched or too-short claims stay pending.</p>
@@ -64,21 +68,44 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="col-lg-7">
+    <div class="row mt-4">
+      <div class="col-12">
         <div class="card">
-          <div class="card-header fw-semibold d-flex justify-content-between align-items-center"><span><i class="bi bi-clipboard-check"></i> Claims &amp; Attendance for this event</span><a href="/admin/event/<%= event.id %>/attendance/export" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i> Attendance CSV</a></div>
+          <div class="card-header fw-semibold d-flex justify-content-between align-items-center flex-wrap gap-2"><span><i class="bi bi-clipboard-check"></i> Claims &amp; Attendance for this event</span><a href="/admin/event/<%= event.id %>/attendance/export" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i> Attendance CSV</a></div>
           <div class="card-body p-0">
             <div class="p-3 border-bottom">
-              <h6 class="fw-semibold mb-2"><i class="bi bi-person-lines-fill"></i> Attendance List (<%= attendance.length %>)</h6>
+              <div class="d-flex align-items-end gap-2 flex-wrap">
+                <div style="min-width:240px;flex:1;max-width:480px">
+                  <label for="attendanceSearch" class="form-label small fw-semibold mb-1"><i class="bi bi-search"></i> Search</label>
+                  <div class="input-group input-group-sm">
+                    <input type="text" id="attendanceSearch" class="form-control" placeholder="Name or email...">
+                    <button type="button" id="attendanceSearchBtn" class="btn btn-primary" title="Search"><i class="bi bi-search"></i></button>
+                    <button type="button" id="attendanceSearchClear" class="btn btn-outline-secondary" title="Clear search"><i class="bi bi-x-lg"></i></button>
+                  </div>
+                </div>
+                <div style="min-width:180px">
+                  <label for="attendanceStatusFilter" class="form-label small fw-semibold mb-1">Status filter</label>
+                  <select id="attendanceStatusFilter" class="form-select form-select-sm">
+                    <option value="">All statuses</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="p-3 border-bottom">
+              <h6 class="fw-semibold mb-2"><i class="bi bi-person-lines-fill"></i> Attendance List <span class="text-secondary">(<span id="attCount"><%= attendance.length %></span>/<span id="attTotal"><%= attendance.length %></span>)</span></h6>
               <% if (attendance.length) { %>
                 <div class="table-responsive">
-                  <table class="table table-sm table-hover mb-0">
+                  <table class="table table-sm table-hover mb-0" id="attendanceTable">
                     <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Left</th><th>Duration</th><th>Status</th><th></th></tr></thead>
                     <tbody>
                       <% attendance.forEach(function(a) { %>
                         <% const aStatus = a.status || 'pending'; %>
-                        <tr>
+                        <tr data-status="<%= aStatus %>">
                           <td class="small"><%= a.full_name %></td>
                           <td class="small"><%= a.email %></td>
                           <td class="small"><%= a.joined_display %></td>
@@ -112,14 +139,14 @@
               <% } %>
             </div>
             <div class="p-3">
-              <h6 class="fw-semibold mb-2"><i class="bi bi-clipboard-check"></i> Claims (<%= claims.length %>)</h6>
+              <h6 class="fw-semibold mb-2"><i class="bi bi-clipboard-check"></i> Claims <span class="text-secondary">(<span id="claimCount"><%= claims.length %></span>/<span id="claimTotal"><%= claims.length %></span>)</span></h6>
             <% if (claims.length) { %>
               <div class="table-responsive">
-                <table class="table table-sm table-hover mb-0">
+                <table class="table table-sm table-hover mb-0" id="claimsTable">
                   <thead><tr><th>Name</th><th>PPAU No</th><th>Email</th><th>Attendance</th><th>Status</th><th></th></tr></thead>
                   <tbody>
                     <% claims.forEach(function(c) { %>
-                      <tr>
+                      <tr data-status="<%= c.status %>">
                         <td class="small"><%= c.full_name %></td>
                         <td class="small"><code><%= c.ppau_reg_no %></code></td>
                         <td class="small"><%= c.contact_email %></td>
@@ -196,5 +223,41 @@
     <div class="mt-3"><a href="/admin/events" class="text-decoration-none"><i class="bi bi-arrow-left"></i> Back to events</a></div>
   </div>
 </section>
+
+<script>
+(function () {
+  var q = document.getElementById('attendanceSearch');
+  var btn = document.getElementById('attendanceSearchBtn');
+  var clearBtn = document.getElementById('attendanceSearchClear');
+  var sel = document.getElementById('attendanceStatusFilter');
+  var attTotal = document.getElementById('attTotal');
+  if (!q || !attTotal) return;
+  var attRows = Array.prototype.slice.call(document.querySelectorAll('#attendanceTable tbody tr'));
+  var claimRows = Array.prototype.slice.call(document.querySelectorAll('#claimsTable tbody tr'));
+  var attCount = document.getElementById('attCount');
+  var claimCount = document.getElementById('claimCount');
+  function run() {
+    var term = (q.value || '').trim().toLowerCase();
+    var st = (sel && sel.value) || '';
+    var aVis = 0, cVis = 0;
+    attRows.forEach(function (r) {
+      var match = (!term || r.textContent.toLowerCase().indexOf(term) >= 0) && (!st || r.getAttribute('data-status') === st);
+      r.style.display = match ? '' : 'none';
+      if (match) aVis++;
+    });
+    claimRows.forEach(function (r) {
+      var match = (!term || r.textContent.toLowerCase().indexOf(term) >= 0) && (!st || r.getAttribute('data-status') === st);
+      r.style.display = match ? '' : 'none';
+      if (match) cVis++;
+    });
+    attCount.textContent = aVis;
+    claimCount.textContent = cVis;
+  }
+  btn.addEventListener('click', function (e) { e.preventDefault(); run(); });
+  clearBtn.addEventListener('click', function (e) { e.preventDefault(); q.value = ''; if (sel) sel.value = ''; run(); });
+  q.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); run(); } });
+  if (sel) sel.addEventListener('change', run);
+})();
+</script>
 
 <%- include('../partials/footer') %>
