@@ -370,6 +370,20 @@ function matchesClaimToAttendance(claim, attendees) {
   return !!findAttendanceMatch(claim, attendees);
 }
 
+async function findClaimForAttendance(DB, eventId, att) {
+  if (!att || (!att.email && !att.full_name)) return null;
+  if (att.email) {
+    const byEmail = await DB.prepare('SELECT * FROM claims WHERE event_id = ? AND contact_email = ? ORDER BY id DESC LIMIT 1').bind(eventId, att.email).first();
+    if (byEmail) return byEmail;
+  }
+  if (att.full_name) {
+    const all = await DB.prepare('SELECT * FROM claims WHERE event_id = ?').bind(eventId).all();
+    const name = normalizeMatch(att.full_name);
+    return (all.results || []).find(c => name && normalizeMatch(c.full_name) === name) || null;
+  }
+  return null;
+}
+
 function formatAttendanceTime(iso) {
   if (!iso) return '';
   if (/^\d{4}-\d{2}-\d{2}T/.test(iso)) {
@@ -1058,25 +1072,57 @@ export default {
       return resp;
     }
 
-    // Approve an attendance record
+    // Approve an attendance record -> awards the event's CPD points
     const attendanceApproveMatch = path.match(/^\/admin\/event\/(\d+)\/attendance\/record\/(\d+)\/approve$/);
     if (attendanceApproveMatch && method === 'POST') {
       if (!isAdmin) return redirect('/login');
       const eventId = parseInt(attendanceApproveMatch[1]);
-      await DB.prepare("UPDATE event_attendance SET status = 'approved' WHERE id = ? AND event_id = ?").bind(parseInt(attendanceApproveMatch[2]), eventId).run();
+      const attId = parseInt(attendanceApproveMatch[2]);
+      const event = await DB.prepare('SELECT * FROM events WHERE id = ?').bind(eventId).first();
+      const att = await DB.prepare('SELECT * FROM event_attendance WHERE id = ? AND event_id = ?').bind(attId, eventId).first();
+      if (!event || !att) return redirect(`/admin/event/${eventId}/attendance`);
+      await DB.prepare("UPDATE event_attendance SET status = 'approved' WHERE id = ?").bind(attId).run();
+
+      const certCode = makeCertCode('PPAU-EVT');
+      const claim = await findClaimForAttendance(DB, eventId, att);
+      if (claim) {
+        await DB.prepare("UPDATE claims SET status = ?, score = ?, passed = ?, points_awarded = ?, certificate_code = ?, full_name = ?, email = ?, contact_email = ? WHERE id = ?")
+          .bind('approved', 100, 1, event.credit_points, certCode, att.full_name || claim.full_name, att.email || claim.email, att.email || claim.contact_email, claim.id).run();
+      } else {
+        await DB.prepare("INSERT INTO claims (event_id, full_name, ppau_reg_no, ahpc_reg_no, email, contact_email, score, passed, points_awarded, certificate_code, status, source) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+          .bind(eventId, att.full_name || att.email || 'Attendee', '', '', att.email || null, att.email || null, 100, 1, event.credit_points, certCode, 'approved', 'event').run();
+      }
+
+      if (att.email) {
+        const certUrl = `${url.origin}/member/certificate/${certCode}`;
+        await sendResendEmail({
+          to: att.email,
+          subject: `Your CPD Certificate — ${event.title}`,
+          html: certEmailHtml({ name: att.full_name || att.email, moduleTitle: event.title, points: event.credit_points, certUrl })
+        }, DB, env);
+      }
+
       const resp = redirect(`/admin/event/${eventId}/attendance`);
-      resp.headers.append('Set-Cookie', flashCookie('success', 'Attendance approved.'));
+      resp.headers.append('Set-Cookie', flashCookie('success', `Attendance approved. ${event.credit_points} CPD points awarded to ${att.full_name}. Certificate sent by email.`));
       return resp;
     }
 
-    // Reject an attendance record
+    // Reject an attendance record (also rejects any matched claim)
     const attendanceRejectMatch = path.match(/^\/admin\/event\/(\d+)\/attendance\/record\/(\d+)\/reject$/);
     if (attendanceRejectMatch && method === 'POST') {
       if (!isAdmin) return redirect('/login');
       const eventId = parseInt(attendanceRejectMatch[1]);
-      await DB.prepare("UPDATE event_attendance SET status = 'rejected' WHERE id = ? AND event_id = ?").bind(parseInt(attendanceRejectMatch[2]), eventId).run();
+      const attId = parseInt(attendanceRejectMatch[2]);
+      await DB.prepare("UPDATE event_attendance SET status = 'rejected' WHERE id = ? AND event_id = ?").bind(attId, eventId).run();
+      const att = await DB.prepare('SELECT * FROM event_attendance WHERE id = ? AND event_id = ?').bind(attId, eventId).first();
+      const claim = att ? await findClaimForAttendance(DB, eventId, att) : null;
+      let rejectedClaim = false;
+      if (claim && claim.status !== 'rejected') {
+        await DB.prepare("UPDATE claims SET status = 'rejected', certificate_code = NULL, points_awarded = 0, passed = 0, score = NULL WHERE id = ?").bind(claim.id).run();
+        rejectedClaim = true;
+      }
       const resp = redirect(`/admin/event/${eventId}/attendance`);
-      resp.headers.append('Set-Cookie', flashCookie('warning', 'Attendance rejected. This record will no longer match any claim.'));
+      resp.headers.append('Set-Cookie', flashCookie('warning', `Attendance rejected.${rejectedClaim ? ' The matched claim was also rejected and its CPD points revoked.' : ' This record will no longer match any claim.'}`));
       return resp;
     }
 

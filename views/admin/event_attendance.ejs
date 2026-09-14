@@ -63,57 +63,56 @@
             </form>
           </div>
         </div>
-
-        <div class="card mt-4">
-          <div class="card-header fw-semibold d-flex justify-content-between align-items-center"><span><i class="bi bi-person-lines-fill"></i> Attendance List (<%= attendance.length %>)</span><a href="/admin/event/<%= event.id %>/attendance/export" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i> CSV</a></div>
-          <div class="card-body p-0">
-            <% if (attendance.length) { %>
-              <div class="table-responsive">
-                <table class="table table-sm table-hover mb-0">
-                  <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Left</th><th>Duration</th><th>Status</th><th></th></tr></thead>
-                  <tbody>
-                    <% attendance.forEach(function(a) { %>
-                      <% const aStatus = a.status || 'pending'; %>
-                      <tr>
-                        <td class="small"><%= a.full_name %></td>
-                        <td class="small"><%= a.email %></td>
-                        <td class="small"><%= a.joined_display %></td>
-                        <td class="small"><%= a.left_display %></td>
-                        <td class="small"><%= a.duration_display %></td>
-                        <td class="small"><span class="badge text-bg-<%= aStatus === 'approved' ? 'success' : aStatus === 'rejected' ? 'danger' : 'warning' %>"><%= aStatus %></span></td>
-                        <td class="text-end">
-                          <div class="d-flex gap-1 justify-content-end align-items-center">
-                            <% if (aStatus !== 'approved') { %>
-                              <form method="post" action="/admin/event/<%= event.id %>/attendance/record/<%= a.id %>/approve" onsubmit="return confirm('Approve this attendee\u2019s attendance?');">
-                                <button type="submit" class="btn btn-sm btn-outline-success">Approve</button>
-                              </form>
-                            <% } %>
-                            <% if (aStatus !== 'rejected') { %>
-                              <form method="post" action="/admin/event/<%= event.id %>/attendance/record/<%= a.id %>/reject" onsubmit="return confirm('Reject this attendee\u2019s attendance? Any matched claim will no longer be verifiable.');">
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Reject</button>
-                              </form>
-                            <% } %>
-                            <form method="post" action="/admin/event/<%= event.id %>/attendance/<%= a.id %>/delete" onsubmit="return confirm('Remove this attendee?');">
-                              <button type="submit" class="btn btn-sm btn-link text-danger p-0" title="Remove"><i class="bi bi-x-circle"></i></button>
-                            </form>
-                          </div>
-                        </td>
-                      </tr>
-                    <% }); %>
-                  </tbody>
-                </table>
-              </div>
-            <% } else { %>
-              <div class="text-center text-secondary py-4 small">No attendance records yet. Upload a report or add attendees above.</div>
-            <% } %>
-          </div>
-        </div>
       </div>
 
       <div class="col-lg-7">
         <div class="card">
-          <div class="card-header fw-semibold"><i class="bi bi-clipboard-check"></i> Claims for this event (<%= claims.length %>)</div>
+          <div class="card-header fw-semibold d-flex justify-content-between align-items-center"><span><i class="bi bi-clipboard-check"></i> Claims &amp; Attendance for this event</span><a href="/admin/event/<%= event.id %>/attendance/export" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i> Attendance CSV</a></div>
           <div class="card-body p-0">
+            <div class="p-3 border-bottom">
+              <h6 class="fw-semibold mb-2"><i class="bi bi-person-lines-fill"></i> Attendance List (<%= attendance.length %>)</h6>
+              <% if (attendance.length) { %>
+                <div class="table-responsive">
+                  <table class="table table-sm table-hover mb-0">
+                    <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Left</th><th>Duration</th><th>Status</th><th></th></tr></thead>
+                    <tbody>
+                      <% attendance.forEach(function(a) { %>
+                        <% const aStatus = a.status || 'pending'; %>
+                        <tr>
+                          <td class="small"><%= a.full_name %></td>
+                          <td class="small"><%= a.email %></td>
+                          <td class="small"><%= a.joined_display %></td>
+                          <td class="small"><%= a.left_display %></td>
+                          <td class="small"><%= a.duration_display %></td>
+                          <td class="small"><span class="badge text-bg-<%= aStatus === 'approved' ? 'success' : aStatus === 'rejected' ? 'danger' : 'warning' %>"><%= aStatus %></span></td>
+                          <td class="text-end">
+                            <div class="d-flex gap-1 justify-content-end align-items-center">
+                              <% if (aStatus !== 'approved') { %>
+                                <form method="post" action="/admin/event/<%= event.id %>/attendance/record/<%= a.id %>/approve" onsubmit="return confirm('Approve this attendee\u2019s attendance? <%= event.credit_points %> CPD points will be awarded.');">
+                                  <button type="submit" class="btn btn-sm btn-outline-success">Approve</button>
+                                </form>
+                              <% } %>
+                              <% if (aStatus !== 'rejected') { %>
+                                <form method="post" action="/admin/event/<%= event.id %>/attendance/record/<%= a.id %>/reject" onsubmit="return confirm('Reject this attendee\u2019s attendance? Any matched claim will no longer be verifiable and points will be revoked.');">
+                                  <button type="submit" class="btn btn-sm btn-outline-danger">Reject</button>
+                                </form>
+                              <% } %>
+                              <form method="post" action="/admin/event/<%= event.id %>/attendance/<%= a.id %>/delete" onsubmit="return confirm('Remove this attendee?');">
+                                <button type="submit" class="btn btn-sm btn-link text-danger p-0" title="Remove"><i class="bi bi-x-circle"></i></button>
+                              </form>
+                            </div>
+                          </td>
+                        </tr>
+                      <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+              <% } else { %>
+                <div class="text-center text-secondary py-4 small">No attendance records yet. Upload a report or add attendees above.</div>
+              <% } %>
+            </div>
+            <div class="p-3">
+              <h6 class="fw-semibold mb-2"><i class="bi bi-clipboard-check"></i> Claims (<%= claims.length %>)</h6>
             <% if (claims.length) { %>
               <div class="table-responsive">
                 <table class="table table-sm table-hover mb-0">
@@ -188,6 +187,7 @@
             <% } else { %>
               <div class="text-center text-secondary py-4">No claims submitted for this event yet.</div>
             <% } %>
+            </div>
           </div>
         </div>
       </div>

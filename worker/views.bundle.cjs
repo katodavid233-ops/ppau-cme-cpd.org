@@ -2081,109 +2081,110 @@ __o += ` min)</button>
             </form>
           </div>
         </div>
-
-        <div class="card mt-4">
-          <div class="card-header fw-semibold d-flex justify-content-between align-items-center"><span><i class="bi bi-person-lines-fill"></i> Attendance List (`;
-__o += attendance.length;
-__o += `)</span><a href="/admin/event/`;
-__o += event.id;
-__o += `/attendance/export" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i> CSV</a></div>
-          <div class="card-body p-0">
-            `;
- if (attendance.length) { 
-__o += `
-              <div class="table-responsive">
-                <table class="table table-sm table-hover mb-0">
-                  <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Left</th><th>Duration</th><th>Status</th><th></th></tr></thead>
-                  <tbody>
-                    `;
- attendance.forEach(function(a) { 
-__o += `
-                      `;
- const aStatus = a.status || 'pending'; 
-__o += `
-                      <tr>
-                        <td class="small">`;
-__o += a.full_name;
-__o += `</td>
-                        <td class="small">`;
-__o += a.email;
-__o += `</td>
-                        <td class="small">`;
-__o += a.joined_display;
-__o += `</td>
-                        <td class="small">`;
-__o += a.left_display;
-__o += `</td>
-                        <td class="small">`;
-__o += a.duration_display;
-__o += `</td>
-                        <td class="small"><span class="badge text-bg-`;
-__o += aStatus === 'approved' ? 'success' : aStatus === 'rejected' ? 'danger' : 'warning';
-__o += `">`;
-__o += aStatus;
-__o += `</span></td>
-                        <td class="text-end">
-                          <div class="d-flex gap-1 justify-content-end align-items-center">
-                            `;
- if (aStatus !== 'approved') { 
-__o += `
-                              <form method="post" action="/admin/event/`;
-__o += event.id;
-__o += `/attendance/record/`;
-__o += a.id;
-__o += `/approve" onsubmit="return confirm('Approve this attendee\\u2019s attendance?');">
-                                <button type="submit" class="btn btn-sm btn-outline-success">Approve</button>
-                              </form>
-                            `;
- } 
-__o += `
-                            `;
- if (aStatus !== 'rejected') { 
-__o += `
-                              <form method="post" action="/admin/event/`;
-__o += event.id;
-__o += `/attendance/record/`;
-__o += a.id;
-__o += `/reject" onsubmit="return confirm('Reject this attendee\\u2019s attendance? Any matched claim will no longer be verifiable.');">
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Reject</button>
-                              </form>
-                            `;
- } 
-__o += `
-                            <form method="post" action="/admin/event/`;
-__o += event.id;
-__o += `/attendance/`;
-__o += a.id;
-__o += `/delete" onsubmit="return confirm('Remove this attendee?');">
-                              <button type="submit" class="btn btn-sm btn-link text-danger p-0" title="Remove"><i class="bi bi-x-circle"></i></button>
-                            </form>
-                          </div>
-                        </td>
-                      </tr>
-                    `;
- }); 
-__o += `
-                  </tbody>
-                </table>
-              </div>
-            `;
- } else { 
-__o += `
-              <div class="text-center text-secondary py-4 small">No attendance records yet. Upload a report or add attendees above.</div>
-            `;
- } 
-__o += `
-          </div>
-        </div>
       </div>
 
       <div class="col-lg-7">
         <div class="card">
-          <div class="card-header fw-semibold"><i class="bi bi-clipboard-check"></i> Claims for this event (`;
-__o += claims.length;
-__o += `)</div>
+          <div class="card-header fw-semibold d-flex justify-content-between align-items-center"><span><i class="bi bi-clipboard-check"></i> Claims &amp; Attendance for this event</span><a href="/admin/event/`;
+__o += event.id;
+__o += `/attendance/export" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i> Attendance CSV</a></div>
           <div class="card-body p-0">
+            <div class="p-3 border-bottom">
+              <h6 class="fw-semibold mb-2"><i class="bi bi-person-lines-fill"></i> Attendance List (`;
+__o += attendance.length;
+__o += `)</h6>
+              `;
+ if (attendance.length) { 
+__o += `
+                <div class="table-responsive">
+                  <table class="table table-sm table-hover mb-0">
+                    <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Left</th><th>Duration</th><th>Status</th><th></th></tr></thead>
+                    <tbody>
+                      `;
+ attendance.forEach(function(a) { 
+__o += `
+                        `;
+ const aStatus = a.status || 'pending'; 
+__o += `
+                        <tr>
+                          <td class="small">`;
+__o += a.full_name;
+__o += `</td>
+                          <td class="small">`;
+__o += a.email;
+__o += `</td>
+                          <td class="small">`;
+__o += a.joined_display;
+__o += `</td>
+                          <td class="small">`;
+__o += a.left_display;
+__o += `</td>
+                          <td class="small">`;
+__o += a.duration_display;
+__o += `</td>
+                          <td class="small"><span class="badge text-bg-`;
+__o += aStatus === 'approved' ? 'success' : aStatus === 'rejected' ? 'danger' : 'warning';
+__o += `">`;
+__o += aStatus;
+__o += `</span></td>
+                          <td class="text-end">
+                            <div class="d-flex gap-1 justify-content-end align-items-center">
+                              `;
+ if (aStatus !== 'approved') { 
+__o += `
+                                <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/record/`;
+__o += a.id;
+__o += `/approve" onsubmit="return confirm('Approve this attendee\\u2019s attendance? `;
+__o += event.credit_points;
+__o += ` CPD points will be awarded.');">
+                                  <button type="submit" class="btn btn-sm btn-outline-success">Approve</button>
+                                </form>
+                              `;
+ } 
+__o += `
+                              `;
+ if (aStatus !== 'rejected') { 
+__o += `
+                                <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/record/`;
+__o += a.id;
+__o += `/reject" onsubmit="return confirm('Reject this attendee\\u2019s attendance? Any matched claim will no longer be verifiable and points will be revoked.');">
+                                  <button type="submit" class="btn btn-sm btn-outline-danger">Reject</button>
+                                </form>
+                              `;
+ } 
+__o += `
+                              <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/`;
+__o += a.id;
+__o += `/delete" onsubmit="return confirm('Remove this attendee?');">
+                                <button type="submit" class="btn btn-sm btn-link text-danger p-0" title="Remove"><i class="bi bi-x-circle"></i></button>
+                              </form>
+                            </div>
+                          </td>
+                        </tr>
+                      `;
+ }); 
+__o += `
+                    </tbody>
+                  </table>
+                </div>
+              `;
+ } else { 
+__o += `
+                <div class="text-center text-secondary py-4 small">No attendance records yet. Upload a report or add attendees above.</div>
+              `;
+ } 
+__o += `
+            </div>
+            <div class="p-3">
+              <h6 class="fw-semibold mb-2"><i class="bi bi-clipboard-check"></i> Claims (`;
+__o += claims.length;
+__o += `)</h6>
             `;
  if (claims.length) { 
 __o += `
@@ -2358,6 +2359,7 @@ __o += `
             `;
  } 
 __o += `
+            </div>
           </div>
         </div>
       </div>
