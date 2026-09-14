@@ -1780,25 +1780,38 @@ templates['admin/event_attendance'] = (function(__data) {
   var length = __data.length;
   var forEach = __data.forEach;
   var a = __data.a;
+  var status = __data.status;
+  var pending = __data.pending;
   var full_name = __data.full_name;
   var email = __data.email;
   var joined_display = __data.joined_display;
   var left_display = __data.left_display;
   var duration_display = __data.duration_display;
+  var approved = __data.approved;
+  var success = __data.success;
+  var rejected = __data.rejected;
+  var danger = __data.danger;
+  var warning = __data.warning;
   var claims = __data.claims;
   var c = __data.c;
   var ppau_reg_no = __data.ppau_reg_no;
   var contact_email = __data.contact_email;
   var attendanceCandidates = __data.attendanceCandidates;
   var attendanceRecord = __data.attendanceRecord;
+  var text = __data.text;
+  var bg = __data.bg;
   var session = __data.session;
   var m = __data.m;
-  var status = __data.status;
-  var approved = __data.approved;
-  var success = __data.success;
-  var rejected = __data.rejected;
-  var danger = __data.danger;
-  var warning = __data.warning;
+  var secondary = __data.secondary;
+  var confirmed = __data.confirmed;
+  var Approve = __data.Approve;
+  var claim = __data.claim;
+  var now = __data.now;
+  var WARNING = __data.WARNING;
+  var no = __data.no;
+  var record = __data.record;
+  var matches = __data.matches;
+  var anyway = __data.anyway;
   var footer = __data.footer;
   var __e = (v) => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   var __o = "";
@@ -2081,10 +2094,13 @@ __o += `/attendance/export" class="btn btn-sm btn-outline-primary"><i class="bi 
 __o += `
               <div class="table-responsive">
                 <table class="table table-sm table-hover mb-0">
-                  <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Left</th><th>Duration</th><th></th></tr></thead>
+                  <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Left</th><th>Duration</th><th>Status</th><th></th></tr></thead>
                   <tbody>
                     `;
  attendance.forEach(function(a) { 
+__o += `
+                      `;
+ const aStatus = a.status || 'pending'; 
 __o += `
                       <tr>
                         <td class="small">`;
@@ -2102,14 +2118,47 @@ __o += `</td>
                         <td class="small">`;
 __o += a.duration_display;
 __o += `</td>
+                        <td class="small"><span class="badge text-bg-`;
+__o += aStatus === 'approved' ? 'success' : aStatus === 'rejected' ? 'danger' : 'warning';
+__o += `">`;
+__o += aStatus;
+__o += `</span></td>
                         <td class="text-end">
-                          <form method="post" action="/admin/event/`;
+                          <div class="d-flex gap-1 justify-content-end align-items-center">
+                            `;
+ if (aStatus !== 'approved') { 
+__o += `
+                              <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/record/`;
+__o += a.id;
+__o += `/approve" onsubmit="return confirm('Approve this attendee\\u2019s attendance?');">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Approve</button>
+                              </form>
+                            `;
+ } 
+__o += `
+                            `;
+ if (aStatus !== 'rejected') { 
+__o += `
+                              <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/record/`;
+__o += a.id;
+__o += `/reject" onsubmit="return confirm('Reject this attendee\\u2019s attendance? Any matched claim will no longer be verifiable.');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Reject</button>
+                              </form>
+                            `;
+ } 
+__o += `
+                            <form method="post" action="/admin/event/`;
 __o += event.id;
 __o += `/attendance/`;
 __o += a.id;
 __o += `/delete" onsubmit="return confirm('Remove this attendee?');">
-                            <button type="submit" class="btn btn-sm btn-link text-danger p-0"><i class="bi bi-x-circle"></i></button>
-                          </form>
+                              <button type="submit" class="btn btn-sm btn-link text-danger p-0" title="Remove"><i class="bi bi-x-circle"></i></button>
+                            </form>
+                          </div>
                         </td>
                       </tr>
                     `;
@@ -2163,7 +2212,17 @@ __o += `
  if (c.attendanceRecord && attOpts.length) { 
 __o += `
                             <div>
-                              <span class="badge text-bg-success">Matched</span>
+                              <div class="d-flex align-items-center gap-2 flex-wrap">
+                                <span class="badge text-bg-success">Matched</span>
+                                `;
+ const attSt = c.attendanceRecord.status || 'pending'; 
+__o += `
+                                <span class="badge `;
+__o += attSt === 'approved' ? 'text-bg-success' : attSt === 'rejected' ? 'text-bg-danger' : 'text-bg-warning';
+__o += `">Attendance: `;
+__o += attSt;
+__o += `</span>
+                              </div>
                               <div class="small text-secondary mt-1">
                                 <div class="fw-semibold text-dark"><i class="bi bi-person"></i> `;
 __o += c.attendanceRecord.full_name;
@@ -2195,10 +2254,20 @@ __o += `
                               `;
  attOpts.forEach(function(m) { 
 __o += `
+                                `;
+ const mSt = m.status || 'pending'; 
+__o += `
                                 <div class="small text-secondary mt-1 border-start border-2 ps-2">
-                                  <div class="fw-semibold text-dark"><i class="bi bi-person"></i> `;
+                                  <div class="d-flex align-items-center gap-2 flex-wrap">
+                                    <span class="fw-semibold text-dark"><i class="bi bi-person"></i> `;
 __o += m.full_name;
-__o += `</div>
+__o += `</span>
+                                    <span class="badge `;
+__o += mSt === 'approved' ? 'text-bg-success' : mSt === 'rejected' ? 'text-bg-danger' : 'text-bg-secondary';
+__o += `" style="font-size:0.65em">`;
+__o += mSt;
+__o += `</span>
+                                  </div>
                                   `;
  if (m.email) { 
 __o += `<div><i class="bi bi-envelope"></i> `;
@@ -2230,6 +2299,30 @@ __o += `
                           `;
  } 
 __o += `
+                          `;
+ if (c.status !== 'approved') { 
+__o += `
+                            <div class="mt-1 d-flex gap-1 flex-wrap">
+                              <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/approve/`;
+__o += c.id;
+__o += `" onsubmit="return confirm('`;
+__o += c.attendanceRecord ? `Attendance confirmed (${c.attendanceRecord.duration_display || "in session"}). Approve this claim now?` : `WARNING: no attendance record matches this claim (${c.contact_email || c.full_name}). Approve anyway?`;
+__o += `');">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Approve</button>
+                              </form>
+                              <form method="post" action="/admin/event/`;
+__o += event.id;
+__o += `/attendance/reject/`;
+__o += c.id;
+__o += `" onsubmit="return confirm('Reject this claim? Points will not be awarded.');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Reject</button>
+                              </form>
+                            </div>
+                          `;
+ } 
+__o += `
                         </td>
                         <td><span class="badge text-bg-`;
 __o += c.status === 'approved' ? 'success' : c.status === 'rejected' ? 'danger' : 'warning';
@@ -2247,45 +2340,6 @@ __o += c.id;
 __o += `" onsubmit="return confirm('Revoke this approval? The certificate link will be invalidated and the claim returns to pending.');">
                               <button type="submit" class="btn btn-sm btn-link text-danger p-0">Revoke</button>
                             </form>
-                          `;
- } else { 
-__o += `
-                            <div class="d-flex gap-1">
-                              `;
- if (c.attendanceRecord) { 
-__o += `
-                                <form method="post" action="/admin/event/`;
-__o += event.id;
-__o += `/attendance/approve/`;
-__o += c.id;
-__o += `" onsubmit="return confirm('Attendance confirmed (`;
-__o += (c.attendanceRecord.duration_display || 'in session');
-__o += `). Approve this claim now?');">
-                                  <button type="submit" class="btn btn-sm btn-outline-success">Approve</button>
-                                </form>
-                              `;
- } else { 
-__o += `
-                                <form method="post" action="/admin/event/`;
-__o += event.id;
-__o += `/attendance/approve/`;
-__o += c.id;
-__o += `" onsubmit="return confirm('WARNING: no attendance record matches this claim (`;
-__o += c.contact_email || c.full_name;
-__o += `). Approve anyway?');">
-                                  <button type="submit" class="btn btn-sm btn-outline-warning">Approve</button>
-                                </form>
-                              `;
- } 
-__o += `
-                              <form method="post" action="/admin/event/`;
-__o += event.id;
-__o += `/attendance/reject/`;
-__o += c.id;
-__o += `" onsubmit="return confirm('Reject this claim? Points will not be awarded.');">
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Reject</button>
-                              </form>
-                            </div>
                           `;
  } 
 __o += `

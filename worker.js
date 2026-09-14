@@ -246,8 +246,14 @@ async function ensureSchema(DB) {
       joined_at TEXT,
       left_at TEXT,
       duration TEXT,
+      status TEXT DEFAULT 'pending',
       created_at TEXT DEFAULT (datetime('now'))
     )`).run();
+    const attCols = await DB.prepare('PRAGMA table_info(event_attendance)').all();
+    const hasAtt = (c) => (attCols.results || []).some(x => x.name === c);
+    if (!hasAtt('status')) {
+      await DB.prepare("ALTER TABLE event_attendance ADD COLUMN status TEXT DEFAULT 'pending'").run();
+    }
   } catch (e) { console.error('ensureSchema:', e); }
 }
 
@@ -343,6 +349,7 @@ function findAttendanceMatch(claim, attendees) {
   let best = null;
   let bestScore = 0;
   for (const a of (attendees || [])) {
+    if (a.status === 'rejected') continue;
     const s = attendanceScore(claim, a);
     if (s >= 2 && s > bestScore) { best = a; bestScore = s; }
   }
@@ -351,6 +358,7 @@ function findAttendanceMatch(claim, attendees) {
 
 function findAttendanceCandidates(claim, attendees, limit = 4) {
   return (attendees || [])
+    .filter(a => a.status !== 'rejected')
     .map(a => ({ a, s: attendanceScore(claim, a) }))
     .filter(x => x.s > 0)
     .sort((x, y) => y.s - x.s)
@@ -1047,6 +1055,28 @@ export default {
       await DB.prepare('DELETE FROM event_attendance WHERE id = ? AND event_id = ?').bind(parseInt(attendanceDeleteMatch[2]), eventId).run();
       const resp = redirect(`/admin/event/${eventId}/attendance`);
       resp.headers.append('Set-Cookie', flashCookie('success', 'Attendee removed.'));
+      return resp;
+    }
+
+    // Approve an attendance record
+    const attendanceApproveMatch = path.match(/^\/admin\/event\/(\d+)\/attendance\/record\/(\d+)\/approve$/);
+    if (attendanceApproveMatch && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      const eventId = parseInt(attendanceApproveMatch[1]);
+      await DB.prepare("UPDATE event_attendance SET status = 'approved' WHERE id = ? AND event_id = ?").bind(parseInt(attendanceApproveMatch[2]), eventId).run();
+      const resp = redirect(`/admin/event/${eventId}/attendance`);
+      resp.headers.append('Set-Cookie', flashCookie('success', 'Attendance approved.'));
+      return resp;
+    }
+
+    // Reject an attendance record
+    const attendanceRejectMatch = path.match(/^\/admin\/event\/(\d+)\/attendance\/record\/(\d+)\/reject$/);
+    if (attendanceRejectMatch && method === 'POST') {
+      if (!isAdmin) return redirect('/login');
+      const eventId = parseInt(attendanceRejectMatch[1]);
+      await DB.prepare("UPDATE event_attendance SET status = 'rejected' WHERE id = ? AND event_id = ?").bind(parseInt(attendanceRejectMatch[2]), eventId).run();
+      const resp = redirect(`/admin/event/${eventId}/attendance`);
+      resp.headers.append('Set-Cookie', flashCookie('warning', 'Attendance rejected. This record will no longer match any claim.'));
       return resp;
     }
 

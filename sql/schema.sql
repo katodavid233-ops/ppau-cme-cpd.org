@@ -98,6 +98,7 @@ CREATE TABLE IF NOT EXISTS event_attendance (
   joined_at TEXT,
   left_at TEXT,
   duration TEXT,
+  status TEXT DEFAULT 'pending',
   created_at TEXT DEFAULT (datetime('now')),
   FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
